@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../views/comunes/components/headers-component") -%>
+</head>
+
+<body class="cyan darken-1">
+    <%- include("../views/principaladmi-view.ejs") -%>
+        <main>
+
+
+            <form id="formStatus" class="col s12" action="/catalogo/empleado/update" method="post">
+
+
+                <br>
+
+                <div class="container grey lighten-2" style="width: 880px; padding: 18px; margin-left: 28%; ">
+
+                    <h3 style="text-align: center; font-family: 'Franklin Gothic Medium'">CREATIVE IDEAS </h3>
+                    <h5 style="text-align: center; font-style:italic">EDITAR EMPLEADOS</h5>
+
+                    <br>
+
+
+                    <div class="input-field">
+                        <!---Esto es la imagen: account circle (materialize)-->
+                        <i class="material-icons prefix">user</i>
+                        <!--Input tipo text -->
+                        <input type="text" name="nombre_E" id="nombre_E" maxlength=50 minlength=2
+                            placeholder="nombre Empleado">
+                        <label for="nombre_E">Nombre empleado</label>
+                        <!--Etiqueta de texto-->
+
+                    </div>
+                    <div class="input-field">
+                        <!---Esto es la imagen: account circle (materialize)-->
+                        <i class="material-icons prefix">local_offer</i>
+                        <!--Input tipo text -->
+                        <input type="text" name="email" id="email" maxlength=50 minlength=2 placeholder="Email">
+                        <label for="email">Email</label>
+                        <!--Etiqueta de texto-->
+
+                    </div>
+
+                    <div class="input-field">
+                        <!--Icóno-->
+                        <i class="material-icons prefix">phone</i>
+                        <!--Input de tipo texto-->
+                        <input type="text" name="nivelEstudio" id="nivelEstudio" maxlength=20
+                            placeholder="Nivel de estudio">
+                        <label for="nivelEstudio">Nivel de estudio</label>
+                    </div>
+
+                    <!--Este es el botón-->
+                    <div class="input-field">
+                        <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 330px;">
+                            <!--Este es el icono del boton (o sea, la flechita)-->
+                            <i class="material-icons right">send</i>GUARDAR CAMBIOS
+                        </button>
+
+                    </div>
+
+
+            </form>
+
+
+
+        </main>
+
+        <br><br>
+
+        <div class="container #a7ffeb teal accent-1" style="width: 880px; padding: 18px; margin-left: 28%;">
+            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">EMPLEADOS</h5>
+            <table class="striped">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>apellidoMaterno</th>
+                        <th>apellidoPaterno</th>
+                        <th>email</th>
+                        <th>nivel de estudios</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+            </table>
+        </div>
+
+        <!--<script src="/assets/js/form-proveedor.js"></script-->
+
+        <%- include("status/components/footer-component-empleado") -%>
+            <%- include("../views/comunes/components/footer-component") -%>
+
+</body>
+
+</html>

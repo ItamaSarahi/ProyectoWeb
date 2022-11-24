@@ -1,0 +1,134 @@
+<form id="formStatus" action="/api/v1/example/create" method="post">
+   
+
+<body class="cyan darken-1">
+    <br>
+
+    <div class="container grey lighten-2" style="width: 650px; padding: 18px">
+
+        <h3 style="text-align: center; font-family: 'Franklin Gothic Medium'">CREATIVE IDEAS </h3>
+        <h6 style="text-align: center; font-style:italic">Por favor, ingresa tus datos</h6>
+
+        <br>
+
+
+
+        <div class="row">
+            
+            <!--Division de materialize de columnas-->
+            <form class="col s12">
+
+
+                <div class="row">
+                    <div class="input-field col s4">
+                        <!---Esto es la imagen: account circle (materialize)-->
+                        <i class="material-icons prefix">account_circle</i>
+                        <!--Input tipo text -->
+                        <input type="text" name="nombre_C" id="nombre_C">
+                        <!--Etiqueta de texto-->
+                        <label for="nombre_C">Ingresa tu nombre</label>
+                    </div>
+                    
+
+                    
+                    <div class="input-field col s4">
+                        <input type="text" name="apellidoPC" id="apellidoPC">
+                        <label for="apellidoPC">Apellido paterno</label>
+                    </div>
+
+                    <div class="input-field col s4">
+                        <input type="text" name="apellidoMC" id="apellidoMC">
+                        <label for="apellidoMC">Apellido materno</label>
+                    </div>
+               
+                </div>
+
+
+
+
+
+                <!--División de materialize tipo input field-->
+                <div class="input-field">
+                    <!--Icóno-->
+                    <i class="material-icons prefix">date_range</i>
+                    <!--Input de tipo texto-->
+                    <input class="datepicker" type="text" name="fechaNacimiento" id="fechaNacimiento">
+                    <label for="fechaNacimiento">Fecha de nacimiento</label>
+                </div>
+
+
+                <!--División de materialize tipo input field-->
+                <div class="input-field">
+                    <!--Icóno-->
+                    <i class="material-icons prefix">email</i>
+                    <!--Input de tipo texto-->
+                    <input type="text" name="email" id="email">
+                    <label for="email">Email</label>
+                </div>
+                
+
+                <!--División de materialize tipo input field-->
+                <div class="input-field">
+                    <!--Icóno-->
+                    <i class="material-icons prefix">phone</i>
+                    <!--Input de tipo texto-->
+                    <input type="text" name="num_telefono" id="num_telefono">
+                    <label for="num_telefono">Numero telefonico</label>
+                </div>
+
+
+                <!--División de materialize tipo input field-->
+                <div class="input-field">
+                    <!--Icóno-->
+                    <i class="material-icons prefix">account_box</i>
+                    <!--Input de tipo texto-->
+                    <input type="text" name="usuario" id="usuario">
+                    <label for="usuario">Usuario</label>
+                </div>
+
+
+
+                <!--División de materialize tipo input field-->
+                <div class="input-field">
+                    <!--Icóno (password)-->
+                    <i class="material-icons prefix">lock</i>
+                    <!--Input de tipo contraseña-->
+                    <input type="password" name="password" id="password">
+                    <label for="password">Contraseña</label>
+                </div>
+
+
+                 <!--Este es el botón-->
+                 <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 218px">
+                    <!--Este es el icono del boton (o sea, la flechita)-->
+                    <i class="material-icons right">check</i> Registrarme
+        
+                </button>
+
+                
+
+                <!--Esto solo es una etiqueta de texto h6-->
+                <h6  style="margin-left:150px; font-style:oblique" >¿Ya tienes una cuenta? <A
+                    href="/"> Inicia sesion</A></h6>
+            </form>
+
+        </div>
+
+
+    </div> <!-- CONTAINER -->
+    <br>
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            
+    <% if(typeof alert!="undefined" ){%>
+        <script>
+            Swal.fire({
+                title: '<%= alertTitle %>',
+                text: '<%= alertMessage %>',
+                icon: '<%= alertIcon%>',
+            })
+        </script>
+        <%}%>
+</body>
+
+</form>

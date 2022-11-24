@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../views/comunes/components/headers-component") -%>
+</head>
+
+<body class="cyan darken-1">
+    <%- include("../views/principalcliente2-view.ejs") -%>
+        <main>
+
+            <form class="col s12" id="formStatus" action="/iniciosesion/client/update" method="post">
+
+
+                <br>
+
+                <div class="container" style="width: 850px; padding: 18px; margin-left: 30%; ">
+
+                    <h4 style="text-align: center; font-family: 'Franklin Gothic Medium';">MODIFICA TU INFORMACIÓN</h4>
+                    <h6 style="text-align: center; font-family: 'Franklin Gothic Medium';">En este apartado podrás
+                        modificar tu usuario y/o contraseña</h6>
+                    <br>
+
+
+
+
+                    <div class="input-field">
+                        <!--Icóno-->
+                        <i class="material-icons prefix">person</i>
+                        <!--Input de tipo texto-->
+                        <input type="text" name="usuario" id="usuario" maxlength=20 placeholder="USUARIO">
+                        <label for="usuario" style="color:white;">Usuario</label>
+                    </div>
+
+                    <div class="input-field">
+                        <!---Esto es la imagen: account circle (materialize)-->
+                        <i class="material-icons prefix">lock</i>
+                        <!--Input tipo text -->
+                        <input type="text" name="password" id="password" maxlength=50 minlength=2
+                            placeholder="CONTRASEÑA">
+                        <label for="password" style="color:white">Contraseña</label>
+                        <!--Etiqueta de texto-->
+
+                    </div>
+
+
+
+                    <!--Este es el botón-->
+                    <div class="input-field">
+                        <button type="submit" class="btn waves-effect cyan darken-2" style="margin-left: 300px;">
+                            <!--Este es el icono del boton (o sea, la flechita)-->
+                            <i class="material-icons right">send</i>GUARDAR CAMBIOS
+                        </button>
+
+                    </div>
+
+
+            </form>
+        </main>
+
+        <br>
+        <div class="container " style="width: 850px; padding: 18px; margin-left: 30%;">
+
+            <table class="">
+                <thead>
+                    <tr>
+                        <th>Numero cliente</th>
+                        <th>Nombre</th>
+                        <th>Telefóno</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+            </table>
+        </div>
+
+        <script src="/assets/js/validaciones/validacionregc.js"></script>
+
+        <%- include("status/components/footer-componente-cliente") -%>
+
+            <%- include("../views/comunes/components/footer-component") -%>
+</body>
+
+</html>

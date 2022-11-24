@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../views/comunes/components/headers-component") -%>
+</head>
+
+<body class="cyan darken-1">
+    <%- include("../views/principaladmi-view.ejs") -%>
+        <main>
+
+            <form id="formProveedor" class="col s12" action="/catalogo/proveedor/update" method="post">
+
+
+                <br>
+
+                <div class="container grey lighten-2" style="width: 650px; padding: 18px; margin-left: 35%; ">
+
+                    <h3 style="text-align: center; font-family: 'Franklin Gothic Medium'">CREATIVE IDEAS </h3>
+                    <h5 style="text-align: center; font-style:italic">EDITAR PROVEEDORES</h5>
+
+                    <br>
+
+
+                    <div class="input-field">
+                        <!---Esto es la imagen: account circle (materialize)-->
+                        <i class="material-icons prefix">local_offer</i>
+                        <!--Input tipo text -->
+                        <input type="text" name="empresa" id="empresa" maxlength=50 minlength=2 placeholder="Empresa">
+                        <label for="empresa">Nombre de la empresa</label>
+                        <!--Etiqueta de texto-->
+
+                    </div>
+
+                    <div class="input-field">
+                        <!--Icóno-->
+                        <i class="material-icons prefix">phone</i>
+                        <!--Input de tipo texto-->
+                        <input type="text" name="telefono" id="telefono" maxlength=20
+                            placeholder="Telefono de la empresa">
+                        <label for="telefono">Numero telefonico</label>
+                    </div>
+
+                    <!--Este es el botón-->
+                    <div class="input-field">
+                        <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 200px;">
+                            <!--Este es el icono del boton (o sea, la flechita)-->
+                            <i class="material-icons right">send</i>GUARDAR CAMBIOS
+                        </button>
+
+                    </div>
+
+
+            </form>
+        </main>
+
+        <br><br>
+
+        <div id="containerTable" class="container #a7ffeb teal accent-1"
+            style="width: 650px; padding: 18px; margin-left: 35%;">
+            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">PROVEEDORES</h5>
+            <table class="striped">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Empresa</th>
+                        <th>Telefono</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+            </table>
+        </div>
+
+        <script src="/assets/js/validaciones/validacionproveedor.js"></script>
+
+        <%- include("status/components/footer-componente-proveedor") -%>
+
+            <%- include("../views/comunes/components/footer-component") -%>
+</body>
+
+</html>

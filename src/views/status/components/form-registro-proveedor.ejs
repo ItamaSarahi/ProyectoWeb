@@ -1,0 +1,45 @@
+
+ <form class="col s12" id="formStatus" action="/catalogo/proveedor/view/create" method="post" >
+
+    <body class="cyan darken-1"> 
+        <br>
+    
+        <div class="container grey lighten-2"  style="width: 650px; padding: 18px; margin-left: 38%;">
+    
+            <h3 style="text-align: center; font-family: 'Franklin Gothic Medium'">CREATIVE IDEAS </h3>
+            <h5 style="text-align: center; font-style:italic">REGISTRO DE PROVEEDORES</h5>
+            <h6 style="text-align: center; font-style:italic">Por favor, ingresa los datos</h6>
+    
+            <br>
+
+
+    <div class="input-field">
+        <!---Esto es la imagen: account circle (materialize)-->
+        <i class="material-icons prefix">local_offer</i>
+        <!--Input tipo text -->
+        <input type="text" name="empresa" id="empresa" maxlength=30 minlength=2>
+        <!--Etiqueta de texto-->
+        <label for="empresa">Nombre de la empresa</label>
+    </div>
+    
+    <!--División de materialize tipo input field-->
+    <div class="input-field">
+        <!--Icóno-->
+        <i class="material-icons prefix">phone</i>
+        <!--Input de tipo texto-->
+        <input type="text" name="telefono" id="telefono">
+        <label for="telefono">Numero telefonico</label>
+    </div>
+
+   <!--Este es el botón-->
+    <div class="input-field">
+        <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 200px;">
+            <!--Este es el icono del boton (o sea, la flechita)-->
+            <i class="material-icons right">send</i>Registrar Proveedor
+        </button>
+
+    </div>
+
+
+</form>
+

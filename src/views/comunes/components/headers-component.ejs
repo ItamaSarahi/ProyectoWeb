@@ -1,0 +1,29 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="shortcut icon" href="#">
+<title>Document</title>
+
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+
+<!--Esto es para darle formato a la fecha. creo que esto iria en un documento js-->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('select').formSelect();
+        $('.datepicker').datepicker({
+            format: 'yyyy/mm/dd'
+        });
+    });
+
+</script>
+
+</head>

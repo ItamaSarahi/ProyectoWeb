@@ -1,0 +1,129 @@
+<form  id="formStatus" class="col s12" action="/catalogo/producto" method="post" enctype="multipart/form-data">
+
+    <body class="cyan darken-1">
+        <br>
+
+        <div class="container grey lighten-2" style="width: 850px; margin-left: 30%;  padding: 10px;">
+
+            <h3 style="text-align: center; font-family: 'Franklin Gothic Medium'">CREATIVE IDEAS </h3>
+            <h5 style="text-align: center; font-style:italic">REGISTRO DE PRODUCTOS</h5>
+            <br>
+
+            <div class="row" style=" padding: 30px;">
+
+                <div class="input-field">
+                    <!---Esto es la imagen: account circle (materialize)-->
+                    <i class="material-icons prefix">local_offer</i>
+                    <!--Input tipo text -->
+                    <input type="text" name="nombre" id="nombre" maxlength=30 minlength=2>
+                    <!--Etiqueta de texto-->
+                    <label for="nombre">Nombre del producto</label>
+                </div>
+
+                <!--División de materialize tipo input field-->
+                <div class="input-field">
+                    <!--Icóno-->
+                    <i class="material-icons prefix">account_box</i>
+                    <!--Input de tipo texto-->
+                    <select name="categoria" id="categoria" required>
+                        <option value="termos">TERMOS</option>
+                        <option value="tuppers">TUPPERS</option>
+                        <option value="cubiertos">CUBIERTOS</option>
+                        <option value="botellas agua">BOTELLAS AGUA</option>
+                        <option value="loncheras">LONCHERAS</option>
+                        <option value="extras">EXTRAS</option>
+                    </select>
+                    <label for="idProveedor">Selecciona la categoria:</label>
+
+                </div>
+
+
+                <!--División de materialize tipo input field-->
+                <div class="input-field">
+                    <!--Icóno-->
+                    <i class="material-icons prefix">account_box</i>
+                    <!--Input de tipo texto-->
+                    <select name="idProveedor" id="idProveedor" required>
+                        <option value="1">Tracto Partes</option>
+                        <option value="2">CAKE TOPPERS</option>
+                        <option value="3">ZONA CHEFF</option>
+                        <option value="4">TUPPER MAX</option>
+                        <option value="5">AGUIGLEZ</option>
+                        <option value="6">QUIMINET</option>
+                    </select>
+                    <label for="idProveedor">Selecciona el proveedor:</label>
+
+                </div>
+
+
+
+                <!--División de materialize tipo input field-->
+                <div class="row">
+
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">local_offer</i>
+                        <textarea id="descripcion" name="descripcion" class="materialize-textarea" data-length="80"
+                            minlength="6"></textarea>
+                        <label for="descripcion">Descripción del producto</label>
+                    </div>
+
+
+                    <!--División de materialize tipo input field-->
+                    <div class="input-field col s4">
+                        <!--Icóno-->
+                        <i class="material-icons prefix">add_shopping_cart</i>
+                        <!--Input de tipo texto-->
+                        <input type="number" max="1000" min="1" name="existencia" id="existencia">
+                        <label for="existencia">Existencia</label>
+                    </div>
+
+                    <div class="input-field col s4">
+                        <!--Icóno-->
+                        <i class="material-icons prefix">attach_money</i>
+                        <!--Input de tipo texto-->
+                        <input type="number" max="100000" min="1" name="precio_Compra" id="precio_Compra">
+                        <label for="precio_Compra">Precio de compra</label>
+                    </div>
+
+                    <div class="input-field col s4">
+                        <!--Icóno-->
+                        <i class="material-icons prefix">attach_money</i>
+                        <!--Input de tipo texto-->
+                        <input type="number" max="10000" min="1" name="precio_Venta" id="precio_Venta">
+                        <label for="precio_Venta">Precio de venta</label>
+                    </div>
+
+
+                    <div class="input-field col s12">
+                        <div class="file-field input-field">
+                            <div class="btn waves-effect cyan darken-1">
+                                <span>Subir imagen</span>
+                                <input id="imagen" name="imagen" type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" id="textoI" name="textoI">
+                                <label for="textoI">Imagen del producto</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+ 
+                <!--Este es el botón-->
+                <div class="input-field">
+                    <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 300px;">
+                        <!--Este es el icono del boton (o sea, la flechita)-->
+                        <i class="material-icons right">send</i>Registrar Producto
+                    </button>
+                </div>
+                
+</form>
+
+<button type="" class="btn waves-effect cyan darken-1" style="margin-left: 200px;">
+    <!--Este es el icono del boton (o sea, la flechita)-->
+    <i class="material-icons right">check</i>Ver Producto
+</button>
+<button type="" class="btn waves-effect cyan darken-1">
+    <!--Este es el icono del boton (o sea, la flechita)-->
+    <i class="material-icons right">check</i> Regresar al menú
+</button>

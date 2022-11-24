@@ -1,0 +1,9 @@
+import '../models/usuarios.model';
+import '../models/clientes.model';
+import '../models/empleados.model';
+import '../models/proveedores.model';
+import '../models/productos.model';
+import '../models/compra.model';
+import '../models/detalle_compra.model';
+import '../models/ventas.model';
+import '../models/detalle_venta.model';

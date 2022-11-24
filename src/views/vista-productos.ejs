@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../views/comunes/components/headers-component") -%>
+</head>
+
+<body class="cyan darken-1">
+    <%- include("../views/principaladmi-view.ejs") -%>
+        <main>
+
+            <form class="col s12" id="formStatus" action="/catalogo/producto/update" method="post">
+
+
+                <br>
+
+                <div class="container grey lighten-2" style="width: 850px; padding: 18px; margin-left: 30%; ">
+
+                    <h3 style="text-align: center; font-family: 'Franklin Gothic Medium'">CREATIVE IDEAS </h3>
+                    <h5 style="text-align: center; font-style:italic">EDITAR PRODUCTOS</h5>
+
+                    <br>
+
+
+                    <div class="input-field">
+                        <!---Esto es la imagen: account circle (materialize)-->
+                        <i class="material-icons prefix">local_offer</i>
+                        <!--Input tipo text -->
+                        <input type="text" name="nombre" id="nombre" maxlength=50 minlength=2 placeholder="Nombre">
+                        <label for="nombre">Nombre del producto</label>
+                        <!--Etiqueta de texto-->
+
+                    </div>
+
+                    <!--División de materialize tipo input field-->
+                    <div class="row">
+
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">local_offer</i>
+                            <textarea id="descripcion" name="descripcion" class="materialize-textarea" data-length="80"
+                                minlength="6" placeholder="Descripcion"></textarea>
+                            <label for="descripcion">Descripción del producto</label>
+                        </div>
+
+
+                        <!--División de materialize tipo input field-->
+                        <div class="input-field col s4">
+                            <!--Icóno-->
+                            <i class="material-icons prefix">add_shopping_cart</i>
+                            <!--Input de tipo texto-->
+                            <input type="number" max="1000" min="1" name="existencia" id="existencia"
+                                placeholder="Cantidad">
+                            <label for="existencia">Existencia</label>
+
+                        </div>
+
+                        <div class="input-field col s4">
+                            <!--Icóno-->
+                            <i class="material-icons prefix">attach_money</i>
+                            <!--Input de tipo texto-->
+                            <input type="number" max="100000" min="1" name="precio_Compra" id="precio_Compra"
+                                placeholder="Precio">
+                            <label for="precio_Compra">Precio de compra</label>
+
+                        </div>
+
+                        <div class="input-field col s4">
+                            <!--Icóno-->
+                            <i class="material-icons prefix">attach_money</i>
+                            <!--Input de tipo texto-->
+                            <input type="number" max="10000" min="1" name="precio_Venta" id="precio_Venta"
+                                placeholder="Precio">
+                            <label for="precio_Venta">Precio de venta</label>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+                    <!--Este es el botón-->
+                    <div class="input-field">
+                        <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 280px;">
+                            <!--Este es el icono del boton (o sea, la flechita)-->
+                            <i class="material-icons right">send</i>GUARDAR CAMBIOS
+                        </button>
+
+                    </div>
+
+
+            </form>
+
+
+
+        </main>
+
+
+
+        <div class="container #a7ffeb teal accent-1" style="width: 850px; padding: 18px; margin-left: 30%;">
+            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">PRODUCTOS</h5>
+            <table class="striped">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Existencia</th>
+                        <th>Precio_Compra</th>
+                        <th>Precio_Venta</th>
+                        <th>Proveedor</th>
+                        <th>Categoria</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+            </table>
+        </div>
+
+
+        <script src="/assets/js/validaciones/validacionproducto.js"></script>
+
+        <%- include("comunes/components/footer-components-product") -%>
+
+            <%- include("../views/comunes/components/footer-component") -%>
+</body>
+
+</html>
