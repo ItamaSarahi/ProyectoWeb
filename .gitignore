@@ -3,4 +3,5 @@
 *.pdf
 *.zip
 .env
+package.json
 package-lock.json
