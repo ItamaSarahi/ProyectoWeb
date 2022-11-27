@@ -28,7 +28,7 @@
                         <!--Icóno-->
                         <i class="material-icons prefix">person</i>
                         <!--Input de tipo texto-->
-                        <input type="text" name="usuario" id="usuario" maxlength=20 placeholder="USUARIO">
+                        <input type="text" name="usuario" id="usuario"  minlength=5 placeholder="USUARIO">
                         <label for="usuario" style="color:white;">Usuario</label>
                     </div>
 
@@ -36,8 +36,7 @@
                         <!---Esto es la imagen: account circle (materialize)-->
                         <i class="material-icons prefix">lock</i>
                         <!--Input tipo text -->
-                        <input type="text" name="password" id="password" maxlength=50 minlength=2
-                            placeholder="CONTRASEÑA">
+                        <input type="text" name="password" id="password"  minlength=5  placeholder="CONTRASEÑA">
                         <label for="password" style="color:white">Contraseña</label>
                         <!--Etiqueta de texto-->
 
@@ -76,11 +75,11 @@
             </table>
         </div>
 
-        <script src="/assets/js/validaciones/validacionregc.js"></script>
+        <script src="/assets/js/validaciones/validacionEditarDCliente.js"></script>
 
         <%- include("status/components/footer-componente-cliente") -%>
 
             <%- include("../views/comunes/components/footer-component") -%>
 </body>
 
-</html>
+</html> 
