@@ -1,6 +1,6 @@
 const mainProduct = (() => {
   const $bodyTable = document.getElementById("data");
-  const BASE_URL = "http://localhost:4000/iniciosesion/client";
+  const BASE_URL = "http://localhost:4000/iniciosesion/datosCliente";
 
   const _getData = async () => {
     //debugger;

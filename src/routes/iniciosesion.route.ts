@@ -1,14 +1,13 @@
 import {Router} from "express";
-import {findIniciarSesion,updateCliente,indexViewCliente,getExampleById,getExampleCliente,indexViewClientes} from "../controllers/iniciosesion.controller"
+import {findIniciarSesion,updateCliente,getDatosClienteEditar,getTablaCliente,indexViewEditarCliente} from "../controllers/iniciosesion.controller"
 const iniciosesionRouter: Router = Router();
 
 //checar rutas
-iniciosesionRouter.post("/registro",findIniciarSesion);
-iniciosesionRouter.post("/client/update",updateCliente)
-iniciosesionRouter.get("/view", indexViewCliente);
-iniciosesionRouter.get("/client",getExampleCliente);
-iniciosesionRouter.get("/client/:idCliente",getExampleById);
-iniciosesionRouter.get("/clientd",indexViewClientes);
+iniciosesionRouter.post("/cliente",findIniciarSesion);
+iniciosesionRouter.put("/update/cliente",updateCliente)
+iniciosesionRouter.get("/datosCliente",getTablaCliente);
+iniciosesionRouter.get("/datosCliente/:idCliente",getDatosClienteEditar);
+iniciosesionRouter.get("/vista/editarCliente",indexViewEditarCliente);
 
 export default iniciosesionRouter;
  
