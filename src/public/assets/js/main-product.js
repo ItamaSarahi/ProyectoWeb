@@ -1,6 +1,7 @@
 const mainProduct = (() => {
     const $bodyTable = document.getElementById("data");
-    const BASE_URL = "http://localhost:4000/catalogo/producto/product";
+    const $boton=document.getElementById("botonGuardar");
+    const BASE_URL = "http://localhost:4000/modulo/producto/getProducto";
   
     const _getData = async () => {
       //debugger;
@@ -13,28 +14,58 @@ const mainProduct = (() => {
   
     const _actionButtonEditar = async (event) => {
         const $btn = event.target;
-        const $formStatus = document.getElementById("formStatus");
-      $formStatus.setAttribute("method","POST");
+        const $formStatus = document.getElementById("formProducto");
+        
+      
       
       const idProducto = $btn.getAttribute("item-id");
+      //const response = await http.get(`${BASE_URL}/${idProducto}`);
       const response = await http.get(`${BASE_URL}/${idProducto}`);
+      $formStatus.setAttribute("_method","PUT");
       _setData(response[0]);
+      
+      
+     $formStatus.setData('PUT');
+      
+      
+      
     };
-  
+
+    
+    const _createBtnAction1 = (_actionFuntion = () => { }) => {
+      const $btn = document.getElementById("botonGuardar");
+      $btn.addEventListener("click", _actionFuntion);
+      return $btn;
+    };
+
     const _createRow = (item = {}, itemId = "") => {
-      //debugger;
       const $row = document.createElement("tr");
       for (const key in item) {
         const value = item[key];
         const $td = document.createElement("td");
-        $td.innerText = value;
+        if(key !== "url_imagen"){
+          $td.innerText = value;
+          
+        }else{
+          
+         if(value==null){
+            $td.innerText = "SIN IMAGEN";
+          }else{
+            const $img = document.createElement("img");
+            $img.setAttribute("src",`/api/imagen/file?filePath=${value}`);
+            $img.classList.add("img-icon");
+            $td.appendChild($img);}
+        }
+  
         $row.appendChild($td);
+  
       }
       $row.appendChild(_createBtnAction(item[itemId], "Editar", _actionButtonEditar));
-      
+     
       return $row;
     };
-  
+    
+ 
     const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => {}) => {
       //debugger;
       const $btn = document.createElement("button");

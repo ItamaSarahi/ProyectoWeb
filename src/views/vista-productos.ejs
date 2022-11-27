@@ -9,12 +9,12 @@
     <%- include("../views/principaladmi-view.ejs") -%>
         <main>
 
-            <form class="col s12" id="formStatus" action="/catalogo/producto/update" method="post">
-
-
+            <form class="col s12" id="formProducto" action="/modulo/producto/update?_method=PUT" method="post" enctype="multipart/form-data" >
+                
+                
                 <br>
 
-                <div class="container grey lighten-2" style="width: 850px; padding: 18px; margin-left: 30%; ">
+                <div class="container grey lighten-2" style="width: 1000px; padding: 18px; margin-left: 25%; ">
 
                     <h3 style="text-align: center; font-family: 'Franklin Gothic Medium'">CREATIVE IDEAS </h3>
                     <h5 style="text-align: center; font-style:italic">EDITAR PRODUCTOS</h5>
@@ -26,7 +26,7 @@
                         <!---Esto es la imagen: account circle (materialize)-->
                         <i class="material-icons prefix">local_offer</i>
                         <!--Input tipo text -->
-                        <input type="text" name="nombre" id="nombre" maxlength=50 minlength=2 placeholder="Nombre">
+                        <input type="text" name="nombre" id="nombre" maxlength=50 minlength=2 placeholder="Nombre" style="text-transform:uppercase;">
                         <label for="nombre">Nombre del producto</label>
                         <!--Etiqueta de texto-->
 
@@ -38,7 +38,7 @@
                         <div class="input-field col s12">
                             <i class="material-icons prefix">local_offer</i>
                             <textarea id="descripcion" name="descripcion" class="materialize-textarea" data-length="80"
-                                minlength="6" placeholder="Descripcion"></textarea>
+                                minlength="6" placeholder="Descripcion" style="text-transform:uppercase;"></textarea>
                             <label for="descripcion">Descripción del producto</label>
                         </div>
 
@@ -78,11 +78,24 @@
 
                     </div>
 
+                    <div class="input-field col s12">
+                        <div class="file-field input-field">
+                            <div class="btn waves-effect cyan darken-1">
+                                <span>Subir imagen</span>
+                                <input id="imagen" name="imagen" type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text" id="textoI" name="textoI" readonly>
+                                <label for="textoI">Imagen del producto</label>
+                            </div>
+                        </div>
+                    </div>
+
 
 
                     <!--Este es el botón-->
                     <div class="input-field">
-                        <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 280px;">
+                        <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 280px;" id="botonGuardar" name="botonGuardar" formmethod="post" name="_method" value="put">
                             <!--Este es el icono del boton (o sea, la flechita)-->
                             <i class="material-icons right">send</i>GUARDAR 
                         </button>
@@ -97,8 +110,8 @@
         </main>
 
 
-
-        <div class="container #a7ffeb teal accent-1" style="width: 850px; padding: 18px; margin-left: 30%;">
+<br>
+        <div class="container #a7ffeb teal accent-1" style="width: 1000px; padding: 18px; margin-left: 25%;">
             <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">PRODUCTOS</h5>
             <table class="striped">
 
@@ -112,6 +125,7 @@
                         <th>Precio_Venta</th>
                         <th>Proveedor</th>
                         <th>Categoria</th>
+                        <th>Imagen</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -123,7 +137,7 @@
 
         <script src="/assets/js/validaciones/validacionproducto.js"></script>
 
-        <%- include("comunes/components/footer-components-product") -%>
+            <%- include("comunes/components/footer-components-product") -%>
 
             <%- include("../views/comunes/components/footer-component") -%>
 </body>
