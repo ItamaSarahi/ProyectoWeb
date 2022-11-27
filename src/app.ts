@@ -4,6 +4,9 @@ import path from "path"
 import dotenv from "dotenv";
 dotenv.config();
 
+const app: Application = express();
+var methodOverride = require('method-override');
+
 import indexRouter from "./routes/vistas.route";
 import exampleRouter from "./routes/cliente.route";
 import iniciosesionRouter from "./routes/iniciosesion.route";
