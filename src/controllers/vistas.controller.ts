@@ -24,3 +24,23 @@ export function vistaRegistroProducto(req: Request, res: Response) {
   return res.render("registroproductos-view");
 }
 
+export function vistaConfirmarVentas(req: Request, res: Response) {
+  return res.render("confirmarVentas-view");
+}
+
+export function vistaVentas(req: Request, res: Response) {
+  return res.render("vista-ventas");
+}
+
+export function vistaDetalleVentas(req: Request, res: Response) {
+  return res.render("vista-detalleventas");
+}
+
+export function vistaRegistroCompras(req: Request, res: Response) {
+  return res.render("registrocompras");
+}
+
+export function vistaCompras(req: Request, res: Response) {
+  return res.render("vista-compras");
+}
+

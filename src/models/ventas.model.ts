@@ -14,18 +14,19 @@ VentasModel.init(
       allowNull: false,
     },
    fecha_Inicial: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false,
         defaultValue: Sequelize.literal('CURRENT_DATE')
     },
     fecha_Vencimiento: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: true,
         //defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
     },
     status: {
         type: DataTypes.STRING(20),
         allowNull: false,
+        defaultValue:"NO PAGADO"
       },
   },
   {

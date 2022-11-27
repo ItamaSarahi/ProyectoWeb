@@ -47,9 +47,6 @@ EmpleadosModel.init(
 
   
 );
-UsuariosModel.hasOne(EmpleadosModel,{foreignKey:"idUsuario"});
-EmpleadosModel .belongsTo(UsuariosModel,{foreignKey:"idUsuario"});
-
 
 EmpleadosModel.hasMany(VentasModel,{
   foreignKey:"idEmpleado",
