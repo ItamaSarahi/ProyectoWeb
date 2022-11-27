@@ -12,9 +12,6 @@ import productoRouter from "./routes/producto.route";
 import proveedorRouter from "./routes/proveedor.route";
 import fileRoute from "./routes/file.route";
 
-var methodOverride = require('method-override');
-const app: Application = express();
-
 
 //settings
 app.set("port", process.env.PORT || 4000);
@@ -34,9 +31,10 @@ app.use("/", indexRouter);
 app.use("/api/v1/example", exampleRouter);
 app.use("/modulo/producto",methodOverride('_method'),productoRouter);
 app.use("/iniciosesion", iniciosesionRouter);
-app.use("/catalogo/empleado", empleadoRouter);
+app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
 app.use("/catalogo/proveedor", proveedorRouter);
 app.use("/api/imagen/file",fileRoute);
+
 
 export default app;
 
