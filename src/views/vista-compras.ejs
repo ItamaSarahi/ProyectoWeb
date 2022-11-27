@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("comunes/components/headers-component") -%>
+</head>
+<body class="cyan darken-1">
+    <%- include("status/components/form-principal-admi")  -%>
+    
+
+<br><br>
+
+<div class="container #a7ffeb teal accent-1"  style="width: 650px; padding: 18px; margin-left: 37%;">
+    <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
+    <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">COMPRAS</h5>
+    <table class="striped" >
+  
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>PRODUCTO</th>
+                <th>CANTIDAD</th>
+                <th>STATUS</th>
+            </tr>
+        </thead>
+        <tbody id="data" ></tbody>
+    
+    </table>
+</div>
+
+
+<%- include("status/components/footer-components-compras.ejs") -%>
+<%- include("../views/comunes/components/footer-component") -%>
+</body>
+</html>

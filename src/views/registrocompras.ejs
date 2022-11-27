@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+<head>
+    
+    <%- include("comunes/components/headers-component") -%>
+</head>
+<body class="cyan darken-1">
+    <%- include("status/components/form-principal-admi")  -%>
+
+
+    
+ <form class="col s12" id="formRegistroCompra" action="/modulo/compras/" method="post" >
+
+    <body class="cyan darken-1">
+        <br>
+    
+        <div class="container grey lighten-2"  style="width: 650px; padding: 18px; margin-left: 38%;">
+    
+            <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
+            <h5 style="text-align: center; font-style:italic">REGISTRO DE COMPRAS</h5>
+            <h6 style="text-align: center; font-style:italic">Por favor, ingresa los datos</h6>
+    
+            <br>
+
+
+    <div class="input-field">
+        <!---Esto es la imagen: account circle (materialize)-->
+        <i class="material-icons prefix">local_offer</i>
+        <!--Input tipo text -->
+        <input type="text" name="producto" id="producto" maxlength=30 minlength=2 style="text-transform:uppercase;">
+        <!--Etiqueta de texto-->
+        <label for="producto">Nombre del producto</label>
+    </div>
+
+    <div class="input-field">
+        <!--Icóno-->
+        <i class="material-icons prefix">add_shopping_cart</i>
+        <!--Input de tipo texto-->
+        <input type="number" max="1000" min="1" name="cantidad" id="cantidad" >
+        <label for="cantidad">Cantidad</label>
+    </div>
+
+    <div class="input-field">
+        <!---Esto es la imagen: account circle (materialize)-->
+        <i class="material-icons prefix">local_offer</i>
+        <!--Input tipo text -->
+        <input type="text" name="proveedor" id="proveedor" maxlength=30 minlength=2 style="text-transform:uppercase;">
+        <!--Etiqueta de texto-->
+        <label for="proveedor">Nombre del proveedor</label>
+    </div>
+
+
+    
+
+<!--Este es el botón-->
+    <div class="input-field">
+        <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 200px;">
+            <!--Este es el icono del boton (o sea, la flechita)-->
+            <i class="material-icons right">send</i>Registrar Compra
+        </button>
+
+    </div>
+
+ </div>
+</form>
+
+
+  
+
+    <script src="/assets/js/validaciones/validacioncompra.js"></script>
+    <%- include("../views/comunes/components/footer-component") -%>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        
+        <% if(typeof alert!="undefined" ){%>
+            <script>
+                Swal.fire({
+                    title: '<%= alertTitle %>',
+                    text: '<%= alertMessage %>',
+                    icon: '<%= alertIcon%>',
+                }).then((result) => {
+                    window.location='<%= ruta%>';
+                })
+        </script>
+        <%}%>
+    
+</body>
+
+</html>

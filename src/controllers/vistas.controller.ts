@@ -39,4 +39,10 @@ export function vistaApartados(req: Request, res: Response) {
 export function vistaVentas(req: Request, res: Response) {
   return res.render("vista-detalleventas");
 }
+export function vistaRegistroCompras(req: Request, res: Response) {
+  return res.render("registrocompras");
+}
+export function vistaCompras(req: Request, res: Response) {
+  return res.render("vista-compras");
+}
 
