@@ -1,6 +1,5 @@
-<form class="col s12" form id="formStatus" action="/catalogo/empleado/registrar" method="post">
+<form class="col s12" form id="formStatus" action="/catalogo/empleado/registrarEmpleados" method="post">
    
-
     <body class="cyan darken-1">
         <br>
      
@@ -11,8 +10,7 @@
     
             <br>
     
-    
-    
+  
             <div class="row" style=" padding: 30px; ">
                 
                 <!--Division de materialize de columnas-->
@@ -28,9 +26,7 @@
                             <!--Etiqueta de texto-->
                             <label for="nombre_E">Nombre</label>
                         </div>
-                        
-    
-                        
+                                          
                         <div class="input-field col s4">
                             <input type="text" name="apellidoPE" id="apellidoPE">
                             <label for="apellidoPaterno">Apellido paterno</label>
@@ -44,9 +40,7 @@
                     </div>
     
     
-    
-                    
-    
+
                     <!--División de materialize tipo input field-->
                     <div class="input-field">
                         <!--Icóno-->
@@ -106,21 +100,7 @@
     
         </div> <!-- CONTAINER -->
         <br>
-
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-            
-        <% if(typeof alert!="undefined" ){%>
-            <script>
-                Swal.fire({
-                    title: '<%= alertTitle %>',
-                    text: '<%= alertMessage %>',
-                    icon: '<%= alertIcon%>',
-                })
-            </script>
-            <%}%>
-    
-        
-       
+        <%- include("status/components/footer-component-empleado") -%> 
     </body>
     
     </form>

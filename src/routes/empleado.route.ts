@@ -1,14 +1,14 @@
 import {Router} from "express";
-import {createEmpleado,getExampleEmpleado,indexViewEmpleado,indexViewEmpleados,updateEmpleado,getExampleById,deleteId} from "../controllers/empleado.controller"
+import {createEmpleado,getTablaEmpleado,indexViewRegistroEmpleado,indexViewVerEmpleados,updateEmpleado,getEmpleadoEditar,deleteEmpleado} from "../controllers/empleado.controller"
 const empleadoRouter: Router = Router();
   
-empleadoRouter.get("/view", indexViewEmpleado);
-empleadoRouter.post("/registrar",createEmpleado);
-empleadoRouter.get("/empleados",getExampleEmpleado);
-empleadoRouter.get("/ver",indexViewEmpleados);
+empleadoRouter.get("/viewRegistroEmpleado", indexViewRegistroEmpleado);
+empleadoRouter.post("/registrarEmpleados",createEmpleado);
+empleadoRouter.get("/tablaEmpleados",getTablaEmpleado);
+empleadoRouter.get("/verEmpleados",indexViewVerEmpleados);
 empleadoRouter.put("/update",updateEmpleado); 
-empleadoRouter.get("/empleados/:idEmpleado",getExampleById);
-empleadoRouter.delete("/empleados/delete/:idEmpleado",deleteId);
+empleadoRouter.get("/tablaEmpleados/:idEmpleado",getEmpleadoEditar);
+empleadoRouter.delete("/tablaEmpleados/delete/:idEmpleado",deleteEmpleado);
 
 
 export default empleadoRouter;

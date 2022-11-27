@@ -3,7 +3,7 @@ import {createCliente} from "../controllers/cliente.controller"
 const exampleRouter: Router = Router();
 
 
-exampleRouter.post("/create",createCliente);
+exampleRouter.post("/createCliente",createCliente);
 
 export default exampleRouter;
    
