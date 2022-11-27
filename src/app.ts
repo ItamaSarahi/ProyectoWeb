@@ -11,6 +11,7 @@ import empleadoRouter from "./routes/empleado.route";
 import productoRouter from "./routes/producto.route";
 import proveedorRouter from "./routes/proveedor.route";
 
+var methodOverride = require('method-override')
 
 const app: Application = express();
 
@@ -33,8 +34,9 @@ app.use("/", indexRouter);
 app.use("/api/v1/example", exampleRouter);
 app.use("/catalogo/producto", productoRouter);
 app.use("/iniciosesion", iniciosesionRouter);
-app.use("/catalogo/empleado", empleadoRouter);
+app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
 app.use("/catalogo/proveedor", proveedorRouter);
+
 
 export default app;
 
