@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("comunes/components/headers-component") -%>
+</head>
+<body class="cyan darken-1">
+    <%- include("status/components/form-principal-admi")  -%>
+   <main>
+    
+    <form class="col s12" id="formConfirmarVentas" action="/modulo/ventas/update?_method=PUT" method="post" >
+    
+        
+            <br>
+        
+            <div class="container grey lighten-2"  style="width: 650px; padding: 18px; margin-left: 35%; ">
+                <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
+                
+                
+                <h5 style="text-align: center; font-style:italic">REGISTRAR VENTAS</h5>
+        
+                <br>
+    
+    
+        <div class="input-field">
+            <!---Esto es la imagen: account circle (materialize)-->
+            <i class="material-icons prefix">local_offer</i>
+            <!--Input tipo text -->
+            <input type="text" name="venta" id="venta" maxlength=50 minlength=2 placeholder="VENTA" readonly>
+            <label for="venta">Venta</label>
+            <!--Etiqueta de texto-->
+            
+        </div>
+
+        <div class="input-field">
+            <!---Esto es la imagen: account circle (materialize)-->
+            <i class="material-icons prefix">date_range</i>
+            <!--Input tipo text -->
+            <input type="text" name="fechaI" id="fechaI" maxlength=50 minlength=2 placeholder="FECHA INICIAL" readonly>
+            <label for="fechaI">Fecha de registro</label>
+            <!--Etiqueta de texto-->
+            
+        </div>
+
+        <div class="input-field">
+            <!---Esto es la imagen: account circle (materialize)-->
+            <i class="material-icons prefix">date_range</i>
+            <!--Input tipo text -->
+            <input type="text" name="fechaV" id="fechaV" maxlength=50 minlength=2 placeholder="FECHA INICIAL" readonly>
+            <label for="fechaV">Fecha de vencimiento</label>
+            <!--Etiqueta de texto-->
+            
+        </div>
+
+        <div class="input-field">
+            <!--Icóno-->
+            <i class="material-icons prefix">account_circle</i>
+            <!--Input de tipo texto-->
+            <input type="text" name="status" id="status"maxlength=20 placeholder="ESTATUS" readonly>
+            <label for="status">Estatus de la venta</label>
+        </div>
+
+        <div class="input-field">
+            <!--Icóno-->
+            <i class="material-icons prefix">account_circle</i>
+            <!--Input de tipo texto-->
+            <input type="text" name="empleado" id="empleado"maxlength=20 placeholder="EMPLEADO" readonly>
+            <label for="empleado">Empleado</label>
+        </div>
+
+        <div class="input-field">
+            <!--Icóno-->
+            <i class="material-icons prefix">account_circle</i>
+            <!--Input de tipo texto-->
+            <input type="text" name="cliente" id="cliente"maxlength=20 placeholder="CLIENTE" readonly>
+            <label for="cliente">Cliente</label>
+        </div>
+    
+        <!--Este es el botón-->
+        <div class="input-field">
+            <button type="submit" class="btn waves-effect cyan darken-1" style="margin-left: 200px;" readonly>
+                <!--Este es el icono del boton (o sea, la flechita)-->
+                <i class="material-icons right">send</i>CONFIRMAR VENTA
+            </button>
+    
+        </div>
+    
+        
+    </form>
+
+
+
+</main>  
+
+<br><br>
+
+<div class="container #a7ffeb teal accent-1"  style="width: 650px; padding: 18px; margin-left: 35%;">
+    <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">APARTADOS</h5>
+    <table class="striped">
+  
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>FECHA INICIAL</th>
+                <th>FECHA VENCIMIENTO</th>
+                <th>STATUS</th>
+                <th>CLIENTE</th>
+                <th>EMPLEADO</th>
+                <th>ACTIONS</th>
+            </tr>
+        </thead>
+        <tbody id="data" ></tbody>
+    
+    </table>
+</div>
+
+
+<script src="/assets/js/validaciones/validacionventa.js"></script>
+<%- include("status/components/footer-componente-ConfirmarVentas.ejs") -%>
+<%- include("../views/comunes/components/footer-component") -%>
+</body>
+</html>
