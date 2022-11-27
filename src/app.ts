@@ -33,12 +33,11 @@ app.use(express.static(path.join(__dirname, './public')))
 app.use("/", indexRouter);
 app.use("/api/v1/example", exampleRouter);
 app.use("/modulo/producto",methodOverride('_method'),productoRouter);
-app.use("/iniciosesion", iniciosesionRouter);
+app.use("/iniciosesion",methodOverride('_method'), iniciosesionRouter);
 app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
 app.use("/catalogo/proveedor", proveedorRouter);
 app.use("/api/imagen/file",fileRoute);
 
 
 export default app;
-
 

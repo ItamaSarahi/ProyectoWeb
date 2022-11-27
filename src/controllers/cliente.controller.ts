@@ -28,32 +28,17 @@ export async function createCliente(req: Request, res: Response) {
 
       await ClienteModel.create({ nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, idUsuario });
       //alerta usuario creado con exito:
-      res.status(201).render("registroclientes-view", {
-        alert: true,
-        alertTitle: 'Usuario creado con exito',
-        alertMessage: "",
-        alertIcon: 'success',
-      });
+      res.status(201).render("registroclientes-view", { alert: true, alertTitle: 'Usuario creado con exito', alertMessage: "", alertIcon: 'success', });
     }
     //alterta numero ya registrado:
     else {
-      res.render("registroclientes-view", {
-        alert: true,
-        alertTitle: 'Error',
-        alertMessage: "Numero telefónico ya registrado",
-        alertIcon: 'error',
-      })
+      res.render("registroclientes-view", { alert: true, alertTitle: 'Error', alertMessage: "Numero telefónico ya registrado", alertIcon: 'error', })
     };
   }
 
   else {
     //alerta nombre de usuario ya registrado:
-    res.render("registroclientes-view", {
-      alert: true,
-      alertTitle: 'Error',
-      alertMessage: "Nombre de usuario ya registrado",
-      alertIcon: 'error',
-    })
+    res.render("registroclientes-view", { alert: true, alertTitle: 'Error', alertMessage: "Nombre de usuario ya registrado", alertIcon: 'error', });
   }
 }
 
