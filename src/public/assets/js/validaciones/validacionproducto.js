@@ -1,15 +1,16 @@
 const form = (() => {
-    const $formStatus = document.getElementById("formProveedor");
+    const $formProducto = document.getElementById("formProducto");
     const $InputNombre = document.getElementById("nombre");
     const $InputDescripcion = document.getElementById("descripcion");
     const $InputExistencia = document.getElementById("existencia");
+    const $InputProveedor = document.getElementById("proveedor");
     const $InputPrecio_Compra = document.getElementById("precio_Compra");
     const $InputPrecio_Venta= document.getElementById("precio_Venta");
     const _sendActionForm = (event = {}) => {
   
       if ($InputNombre.value === "" || $InputDescripcion.value === ""
         || $InputExistencia.value === "" || $InputPrecio_Compra.value === ""
-        || $InputPrecio_Venta.value === "") {
+        || $InputPrecio_Venta.value === "" || $InputProveedor.value === "") {
         event.preventDefault();
         M.toast({ html: 'Se requieren rellenar todos los campos' , classes: 'rounded'})
       }
@@ -31,7 +32,7 @@ const form = (() => {
     };
   
     const _addActionForm = () => {
-      $formStatus.addEventListener("submit", _sendActionForm);
+      $formProducto.addEventListener("submit", _sendActionForm);
     };
   
     return {

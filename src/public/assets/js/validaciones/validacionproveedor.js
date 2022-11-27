@@ -12,10 +12,7 @@ const form = (() => {
       event.preventDefault();
       M.toast({ html: 'Se requieren rellenar todos los campos', classes: 'rounded' })
     }
-    else if (!pattern.test($InputNombre.value)){
-      event.preventDefault();
-      M.toast({ html: 'El nombre debe de estar compuesto solo por letras', classes: 'rounded' })
-    }
+    
     else if (isNaN($Inputnum_telefono.value)) {
       event.preventDefault();
       M.toast({ html: 'El numero telefónico debe ser númerico', classes: 'rounded' })

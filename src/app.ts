@@ -10,8 +10,9 @@ import iniciosesionRouter from "./routes/iniciosesion.route";
 import empleadoRouter from "./routes/empleado.route";
 import productoRouter from "./routes/producto.route";
 import proveedorRouter from "./routes/proveedor.route";
+import fileRoute from "./routes/file.route";
 
-
+var methodOverride = require('method-override');
 const app: Application = express();
 
 
@@ -31,10 +32,11 @@ app.use(express.static(path.join(__dirname, './public')))
 //routes
 app.use("/", indexRouter);
 app.use("/api/v1/example", exampleRouter);
-app.use("/catalogo/producto", productoRouter);
+app.use("/modulo/producto",methodOverride('_method'),productoRouter);
 app.use("/iniciosesion", iniciosesionRouter);
 app.use("/catalogo/empleado", empleadoRouter);
 app.use("/catalogo/proveedor", proveedorRouter);
+app.use("/api/imagen/file",fileRoute);
 
 export default app;
 

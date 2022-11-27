@@ -11,10 +11,27 @@
         <main>
             <%- include("../views/status/components/form-registro-productos.ejs") -%>
         </main>
-        <script src="../public/assets/js/form-product.js"></script>
-        <script src="../public/assets/js/validaciones/validacionproducto.js"></script>
+        
+        <script src="/assets/js/validaciones/validacionproducto.js"></script>
+
+        
 
         <%- include("comunes/components/footer-component") -%>
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+            
+            <% if(typeof alert!="undefined" ){%>
+                <script>
+                    Swal.fire({
+                        title: '<%= alertTitle %>',
+                        text: '<%= alertMessage %>',
+                        icon: '<%= alertIcon%>',
+                    }).then((result) => {
+                        window.location='<%= ruta%>';
+                    })
+                </script>
+                <%}%>
+
+        
 
 </body>
 

@@ -1,4 +1,4 @@
-<form  id="formStatus" class="col s12" action="/catalogo/producto" method="post" enctype="multipart/form-data">
+<form  id="formProducto" class="col s12" action="/modulo/producto" method="post" enctype="multipart/form-data">
 
     <body class="cyan darken-1">
         <br>
@@ -15,7 +15,7 @@
                     <!---Esto es la imagen: account circle (materialize)-->
                     <i class="material-icons prefix">local_offer</i>
                     <!--Input tipo text -->
-                    <input type="text" name="nombre" id="nombre" maxlength=30 minlength=2>
+                    <input type="text" name="nombre" id="nombre" maxlength=30 minlength=2 style="text-transform:uppercase;">
                     <!--Etiqueta de texto-->
                     <label for="nombre">Nombre del producto</label>
                 </div>
@@ -33,28 +33,18 @@
                         <option value="loncheras">LONCHERAS</option>
                         <option value="extras">EXTRAS</option>
                     </select>
-                    <label for="idProveedor">Selecciona la categoria:</label>
+                    <label for="categoria">Selecciona la categoria:</label>
 
                 </div>
 
-
-                <!--División de materialize tipo input field-->
                 <div class="input-field">
-                    <!--Icóno-->
+                    <!---Esto es la imagen: account circle (materialize)-->
                     <i class="material-icons prefix">account_box</i>
-                    <!--Input de tipo texto-->
-                    <select name="idProveedor" id="idProveedor" required>
-                        <option value="1">Tracto Partes</option>
-                        <option value="2">CAKE TOPPERS</option>
-                        <option value="3">ZONA CHEFF</option>
-                        <option value="4">TUPPER MAX</option>
-                        <option value="5">AGUIGLEZ</option>
-                        <option value="6">QUIMINET</option>
-                    </select>
-                    <label for="idProveedor">Selecciona el proveedor:</label>
-
+                    <!--Input tipo text -->
+                    <input type="text" name="proveedor" id="proveedor" style="text-transform:uppercase;">
+                    <!--Etiqueta de texto-->
+                    <label for="proveedor">Proveedor</label>
                 </div>
-
 
 
                 <!--División de materialize tipo input field-->
@@ -62,8 +52,9 @@
 
                     <div class="input-field col s12">
                         <i class="material-icons prefix">local_offer</i>
+
                         <textarea id="descripcion" name="descripcion" class="materialize-textarea" data-length="80"
-                            minlength="6"></textarea>
+                            minlength="6" style="text-transform:uppercase;"></textarea >
                         <label for="descripcion">Descripción del producto</label>
                     </div>
 
