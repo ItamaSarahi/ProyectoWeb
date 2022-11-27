@@ -24,3 +24,7 @@ export function vistaRegistroProducto(req: Request, res: Response) {
   return res.render("registroproductos-view");
 }
 
+export function vistaPrincipal(req: Request, res: Response) {
+  return res.render("iniciosesion-view");
+}
+

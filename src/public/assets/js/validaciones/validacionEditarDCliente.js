@@ -9,7 +9,7 @@ const form = (() => {
 
     if ($Inputpassword.value === "" || $Inputusuario.value === "") {
       event.preventDefault();
-      M.toast({ html: 'Se requieren rellenar todos los campos para poder iniciar' , classes: 'rounded'})
+      M.toast({ html: '¡Se requieren rellenar todos los campos!' , classes: 'rounded'})
     }
 
   };

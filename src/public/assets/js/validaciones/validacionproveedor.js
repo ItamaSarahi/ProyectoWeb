@@ -4,9 +4,6 @@ const form = (() => {
   const $Inputnum_telefono = document.getElementById("telefono");
 
 
-  const pattern = new RegExp('^[A-Z]+$', 'i');
-
-
   const _sendActionForm = (event = {}) => {
     if ($InputNombre.value === "" || $Inputnum_telefono.value === "") {
       event.preventDefault();

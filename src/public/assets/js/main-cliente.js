@@ -2,8 +2,8 @@ const mainProduct = (() => {
   const $bodyTable = document.getElementById("data");
   const BASE_URL = "http://localhost:4000/iniciosesion/datosCliente";
 
+  //Obtener los datos de la tabla clientes:
   const _getData = async () => {
-    //debugger;
     const response = await http.get(BASE_URL);
     for (let index = 0; index < response.length; index++) {
       const $row = _createRow(response[index], "idCliente");
@@ -11,10 +11,9 @@ const mainProduct = (() => {
     }
   };
 
+  //Accion boton editar:
   const _actionButtonEditar = async (event) => {
     const $btn = event.target;
-    
-    $btn.className += "waves-effect waves-light btn red";
     const $formStatus = document.getElementById("formStatus");
     $formStatus.setAttribute("method", "POST");
     const idCliente = $btn.getAttribute("item-id");
@@ -23,23 +22,23 @@ const mainProduct = (() => {
   };
 
 
+  //Crear columnas
   const _createRow = (item = {}, itemId = "") => {
-    //debugger;
+
     const $row = document.createElement("tr");
     for (const key in item) {
       const value = item[key];
       const $td = document.createElement("td");
-
       $td.innerText = value;
       $row.appendChild($td);
     }
     $row.appendChild(_createBtnAction(item[itemId], "Editar", _actionButtonEditar));
-
     return $row;
   };
 
+
+  //Crear acción del botón:
   const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => { }) => {
-    //debugger;
     const $btn = document.createElement("button");
     $btn.innerText = labelBtn;
     $btn.className += "btn waves-effect cyan darken-2";
@@ -48,14 +47,14 @@ const mainProduct = (() => {
     return $btn;
   };
 
+  //Cambiar datos del cliente
   const _setData = (item = {}) => {
     const $inputUsuario = document.getElementById("usuario");
     const $inputPassword = document.getElementById("password");
 
-    const { usuario, password } = item;
-
+    const { usuario} = item;
     $inputUsuario.value = usuario;
-    $inputPassword.value = "********";
+    $inputPassword.value = "";
   };
 
   const _initElements = () => {
