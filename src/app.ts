@@ -13,6 +13,9 @@ import proveedorRouter from "./routes/proveedor.route";
 import fileRoute from "./routes/file.route";
 
 
+var methodOverride = require('method-override');
+const app: Application = express(); 
+
 //settings
 app.set("port", process.env.PORT || 4000);
 app.set("view engine", "ejs");
@@ -35,7 +38,6 @@ app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
 app.use("/catalogo/proveedor", proveedorRouter);
 app.use("/api/imagen/file",fileRoute);
 
-
-export default app;
+export default app ;
 
 
