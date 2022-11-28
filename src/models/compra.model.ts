@@ -16,9 +16,10 @@ ComprasModel.init(
     },
 
     fechaCompra: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: Sequelize.literal('CURRENT_DATE')
+      type: DataTypes.DATEONLY,
+      allowNull: false,
+      defaultValue: Sequelize.literal('CURRENT_DATE')
+        
     },
 
     empleado: {

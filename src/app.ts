@@ -14,7 +14,6 @@ import empleadoRouter from "./routes/empleado.route";
 import productoRouter from "./routes/producto.route";
 import proveedorRouter from "./routes/proveedor.route";
 import fileRoute from "./routes/file.route";
-import productosClientes from "./routes/productos_clientes";
 
 
 //settings
@@ -38,7 +37,7 @@ app.use("/iniciosesion",methodOverride('_method'), iniciosesionRouter);
 app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
 app.use("/catalogo/proveedor", proveedorRouter);
 app.use("/api/imagen/file",fileRoute);
-app.use("/productos",productosClientes)
+
 
 
 export default app;

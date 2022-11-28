@@ -1,7 +1,8 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/database.config";
 import UsuariosType from "../types/usuarios.type";
-
+import { ClienteModel } from "./clientes.model";
+import { EmpleadosModel } from "./empleados.model";
 
 export class UsuariosModel extends Model<UsuariosType> {
   //[x: string]: any;
@@ -41,3 +42,13 @@ UsuariosModel.init(
 
 
 );
+
+UsuariosModel.hasOne(ClienteModel,{
+  foreignKey:"idUsuario",
+  sourceKey:"idUsuario"
+});
+
+UsuariosModel.hasOne(EmpleadosModel,{
+  foreignKey:"idUsuario",
+  sourceKey:"idUsuario"
+});

@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/database.config";
 import ClientesType from "../types/clientes.type";
-import { UsuariosModel } from "./usuarios.model";
+import { VentasModel } from "./ventas.model";
 export class ClienteModel extends Model<ClientesType> { }
 
 
@@ -49,8 +49,9 @@ ClienteModel.init(
   },
 );
 
-
-UsuariosModel.hasOne(ClienteModel,{foreignKey:"idUsuario"});
-ClienteModel .belongsTo(UsuariosModel,{foreignKey:"idUsuario"});
+ClienteModel.hasMany(VentasModel,{
+  foreignKey:"idCliente",
+  sourceKey:"idCliente"
+});
 
 
