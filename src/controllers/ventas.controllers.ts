@@ -1,9 +1,5 @@
 import { Request, response, Response } from "express";
 import { VentasModel } from "../models/ventas.model";
-import { Detalle_VentaModel } from "../models/detalle_venta.model";
-import { ProductosModel } from "../models/productos.model";
-import { ProveedoresModel } from "../models/proveedores.model";
-
 
 export async function getVentas(req: Request, res: Response) {
     const records = await VentasModel.findAll({ raw: true, where: { status: "PAGADO" }, attributes: ["idVenta", "fecha_Inicial", "fecha_Vencimiento", "status", "idCliente", "idEmpleado"] });

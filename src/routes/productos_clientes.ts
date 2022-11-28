@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {getTermos,vistaTermo,vistaTupper,getTuppers, vistaBotellas, vistaCubiertos, vistaExtras, vistaLoncheras, getBotellasAgua, getCubiertos, getExtras, getLoncheras } from "../controllers/productos_clientes";
+import {getTermos,vistaTermo,vistaTupper,getTuppers, vistaBotellas, vistaCubiertos, vistaExtras, vistaLoncheras, getBotellasAgua, getCubiertos, getExtras, getLoncheras,getProductoById} from "../controllers/productos_clientes";
 
 const productoRouter: Router = Router();
 
@@ -19,5 +19,14 @@ productoRouter.get("/mostrarBotellas",getBotellasAgua);
 productoRouter.get("/mostrarCubiertos",getCubiertos);
 productoRouter.get("/mostrarExtras",getExtras);
 productoRouter.get("/mostrarLoncheras",getLoncheras);
+
+
+productoRouter.get("/mostrarTermos/:idProducto",getProductoById);
+productoRouter.get("/mostrarTuppers/:idProducto",getProductoById);
+productoRouter.get("/mostrarBotellas/:idProducto",getProductoById);
+productoRouter.get("/mostrarCubiertos/:idProducto",getProductoById);
+productoRouter.get("/mostrarExtras/:idProducto",getProductoById);
+productoRouter.get("/mostrarLoncheras/:idProducto",getProductoById);
+
 export default productoRouter;
 
