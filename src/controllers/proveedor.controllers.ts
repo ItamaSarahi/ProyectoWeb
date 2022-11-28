@@ -21,14 +21,10 @@ export async function createProveedor(req: Request, res: Response) {
     await ProveedoresModel.create({ empresa, telefono });
     const records = await ProveedoresModel.findAll({ raw: true });
 
-    const data = {
-      httpCode: 201,
-      message: "Registrado correctamente",
-      records: records
-    };
-    res.status(201).render("registroProveedor-view", data);
+    
+    res.status(201).render("registroProveedor-view", {alert: true,alertTitle: 'PROVEEDOR REGISTRADO',alertMessage: "",alertIcon: 'success',ruta: '/vistaRegistroProveedor'});
   } else {
-    res.send("Ya existe el producto");
+    res.render("registroProveedor-view", {alert: true,alertTitle: 'Error',alertMessage: "PROVEEDOR YA EXISTE",alertIcon: 'error',ruta: '/vistaRegistroProveedor'});
   }
 
 

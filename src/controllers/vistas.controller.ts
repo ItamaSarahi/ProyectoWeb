@@ -46,3 +46,10 @@ export function vistaCompras(req: Request, res: Response) {
   return res.render("vista-compras");
 }
 
+export function vistaRegistroProveedor(req: Request, res: Response) {
+  return res.render("registroProveedor-view");
+}
+export function vistaProveedor(req: Request, res: Response) {
+  return res.render("view-proveedor");
+}
+
