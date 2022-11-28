@@ -21,16 +21,16 @@ export async function createProducto(req: Request, res: Response) {
       await ProductosModel.create({ idProveedor, nombre, categoria, descripcion, existencia, precio_Compra, precio_Venta, url_imagen });
       const records = await ProductosModel.findAll({ raw: true });
 
-      res.status(201).render("registroproductos-view", {alert: true,alertTitle: 'PRODUCTO REGISTRADO',alertMessage: "",alertIcon: 'success',ruta: '/view'});
+      res.status(201).render("registroproductos-view", {alert: true,alertTitle: 'PRODUCTO REGISTRADO',alertMessage: "",alertIcon: 'success',ruta: '/vistaRegistroProducto'});
 
     } else {
-      res.render("registroproductos-view", {alert: true,alertTitle: 'Error',alertMessage: "PROOVEEDOR NO EXISTE",alertIcon: 'error',ruta: '/view'});
+      res.render("registroproductos-view", {alert: true,alertTitle: 'Error',alertMessage: "PROOVEEDOR NO EXISTE",alertIcon: 'error',ruta: '/vistaRegistroProducto'});
     }
 
 
   } else {
 
-    res.render("registroproductos-view", {alert: true,alertTitle: 'Error',alertMessage: "PRODUCTO YA EXISTE",alertIcon: 'error',ruta: '/view'});
+    res.render("registroproductos-view", {alert: true,alertTitle: 'Error',alertMessage: "PRODUCTO YA EXISTE",alertIcon: 'error',ruta: '/vistaRegistroProducto'});
 
   }
 

@@ -14,9 +14,7 @@ import empleadoRouter from "./routes/empleado.route";
 import productoRouter from "./routes/producto.route";
 import proveedorRouter from "./routes/proveedor.route";
 import fileRoute from "./routes/file.route";
-import ventasRouter from "./routes/ventas.route";
-import detalleVentasRouter from "./routes/detalleVentas.route";
-import comprasRouter from "./routes/compras.route";
+
 
 //settings
 app.set("port", process.env.PORT || 4000);
@@ -39,9 +37,6 @@ app.use("/iniciosesion",methodOverride('_method'), iniciosesionRouter);
 app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
 app.use("/catalogo/proveedor", proveedorRouter);
 app.use("/api/imagen/file",fileRoute);
-app.use("/modulo/ventas",methodOverride('_method'),ventasRouter);
-app.use("/modulo/detalleVentas",detalleVentasRouter);
-app.use("/modulo/compras",comprasRouter);
 
 
 
