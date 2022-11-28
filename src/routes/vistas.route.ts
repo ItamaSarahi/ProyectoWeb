@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { vistaSesion,vistaRegistroClientes,vistaAdministrador,vistaRegistroEmpleado, vistaRegistroProducto,vistaCliente,vistaPrincipal,vistaConfirmarVentas,vistaApartados,vistaVentas, vistaRegistroCompras, vistaCompras} from "../controllers/vistas.controller";
+import { vistaSesion,vistaRegistroClientes,vistaAdministrador,vistaRegistroEmpleado, vistaRegistroProducto,vistaCliente,vistaPrincipal,vistaConfirmarVentas,vistaApartados,vistaVentas, vistaRegistroCompras, vistaCompras,vistaRegistroProveedor,vistaProveedor} from "../controllers/vistas.controller";
 
 const indexRouter: Router = Router();
 
@@ -15,6 +15,10 @@ indexRouter.get("/viewVentas",vistaApartados);
 indexRouter.get("/confirmarVentas",vistaConfirmarVentas);
 indexRouter.get("/viewDetalleVentas",vistaVentas);
 indexRouter.get("/registroCompras", vistaRegistroCompras);
+indexRouter.get("/vistaRegistroProveedor", vistaRegistroProveedor);
+indexRouter.get("/viewProveedor", vistaProveedor);
 
 indexRouter.get("/viewCompras", vistaCompras);
 export default indexRouter;
+
+
