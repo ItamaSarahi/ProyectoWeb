@@ -42,4 +42,13 @@ export async function createCliente(req: Request, res: Response) {
   }
 }
 
+export async function getClientes(req: Request, res: Response) {
+ const records = await UsuariosModel.findAll({where: { rol:"cliente" },raw:true,include:[{model:ClienteModel,attributes:["idCliente", "nombre_C","apellidoPC","apellidoMC","fechaNacimiento","email", "num_telefono"]}],attributes:["usuario"]});
+  res.status(200).json(records);
+}
+
+
+
+
+
 

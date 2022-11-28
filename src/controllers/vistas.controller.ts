@@ -53,3 +53,8 @@ export function vistaProveedor(req: Request, res: Response) {
   return res.render("view-proveedor");
 }
 
+
+export function vistaListaClientes(req: Request, res: Response) {
+  return res.render("vista-lista-clientes");
+}
+
