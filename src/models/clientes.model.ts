@@ -27,8 +27,8 @@ ClienteModel.init(
     },
 
     fechaNacimiento: {
-      type: DataTypes.DATE(20),
-      allowNull: false,
+      type: DataTypes.DATEONLY,
+      allowNull: true,
     },
 
     email : {
