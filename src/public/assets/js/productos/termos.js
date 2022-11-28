@@ -23,7 +23,6 @@ const mainProduct = (() => {
 
 
     if (contador > 2) {
-
       const $row = document.createElement("tr");
       contador = 0;
       index--;
@@ -71,7 +70,6 @@ const mainProduct = (() => {
 
 
   const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => { }) => {
-    //debugger;
     const $btn = document.createElement("button");
     $btn.innerText = labelBtn;
     $btn.className += "waves-effect waves-light btn blue";
@@ -83,16 +81,11 @@ const mainProduct = (() => {
 
   const _createBtnCantidad = (itemId = 0, _actionFuntion = () => { }) => {
     const $btn = document.createElement("input");
-    
-    $btn.setAttribute("size", "20px")
     $btn.setAttribute("type", "number");
     $btn.setAttribute("item-id", itemId);
     $btn.addEventListener("click", _actionFuntion);
     return $btn;
   };
-
-
-  
 
   const _initElements = () => {
     _getData();
