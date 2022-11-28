@@ -50,11 +50,9 @@ export function indexViewEditarCliente(req: Request, res: Response) {
 }
 
 export async function getTablaCliente(req: Request, res: Response) {
-  const records = await ClienteModel.findAll({
-    where: { idUsuario: idUsuario }, raw: true,
-    include: [{ model: UsuariosModel, attributes: ["usuario"] }], attributes: ["idCliente", "nombre_C", "num_telefono"]
-  });
+  const records= await UsuariosModel.findAll({ where: { idUsuario: idUsuario },raw:true,include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "num_telefono"] }],attributes:["usuario"] });
   res.status(200).json(records);
+  
 }
 
 export async function getDatosClienteEditar(req: Request, res: Response) {
