@@ -14,29 +14,15 @@ const mainProduct = (() => {
 
   const _actionButtonEditar = async (event) => {
     const $btn = event.target;
-    const $formStatus = document.getElementById("formProducto");
-
-
-
     const idProducto = $btn.getAttribute("item-id");
-    //const response = await http.get(`${BASE_URL}/${idProducto}`);
     const response = await http.get(`${BASE_URL}/${idProducto}`);
-    $formStatus.setAttribute("_method", "PUT");
-    _setData(response[0]);
-
-
-    $formStatus.setData('PUT');
-
-
-
   };
 
 
   const _createRow = (item = {}, itemId = "") => {
 
 
-    if (contador > 3) {
-
+    if (contador > 2) {
       const $row = document.createElement("tr");
       contador = 0;
       index--;
@@ -53,6 +39,9 @@ const mainProduct = (() => {
         if (key !== "url_imagen") {
           if (key === "precio_Venta") {
             $tr.innerText = "$ " + value;
+          }
+          else if(key=="idProducto"){       
+            $tr.innerText = "";
           }
           else {
             $tr.innerText = value;
@@ -73,15 +62,14 @@ const mainProduct = (() => {
       }
 
       contador++;
+      $row.appendChild(_createBtnCantidad(item[itemId], _actionButtonEditar));
       $row.appendChild(_createBtnAction(item[itemId], "Agregar al carrito", _actionButtonEditar));
-
       return $row;
     }
   };
 
 
   const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => { }) => {
-    //debugger;
     const $btn = document.createElement("button");
     $btn.innerText = labelBtn;
     $btn.className += "waves-effect waves-light btn blue";
@@ -90,6 +78,14 @@ const mainProduct = (() => {
     return $btn;
   };
 
+
+  const _createBtnCantidad = (itemId = 0, _actionFuntion = () => { }) => {
+    const $btn = document.createElement("input");
+    $btn.setAttribute("type", "number");
+    $btn.setAttribute("item-id", itemId);
+    $btn.addEventListener("click", _actionFuntion);
+    return $btn;
+  };
 
   const _initElements = () => {
     _getData();

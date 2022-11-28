@@ -5,8 +5,9 @@
     <%- include("../views/comunes/components/headers-component") -%>
 </head>
 
-<body class="cyan darken-1">
-    <%- include("../views/principaladmi-view.ejs") -%>
+<body class="cyan darken-1"> 
+    <%- include("status/components/form-principal-admi")  -%>
+    
         <main>
 
 
@@ -22,6 +23,7 @@
 
                     <br>
 
+                    <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
 
                     <div class="input-field">
                         <!---Esto es la imagen: account circle (materialize)-->
@@ -47,8 +49,7 @@
                         <!--Icóno-->
                         <i class="material-icons prefix">phone</i>
                         <!--Input de tipo texto-->
-                        <input type="text" name="nivelEstudio" id="nivelEstudio" maxlength=20
-                            placeholder="Nivel de estudio">
+                        <input type="text" name="nivelEstudio" id="nivelEstudio" minlength=2 maxlength=20 placeholder="Nivel de estudio">
                         <label for="nivelEstudio">Nivel de estudio</label>
                     </div>
 

@@ -8,7 +8,7 @@ proveedorRouter.post("/view/create",createProveedor);
 proveedorRouter.get("/prove",getExampleProveedor);
 proveedorRouter.get("/prove/:idProveedor",getExampleById);
 proveedorRouter.get("/proved",indexViewProveedores);
-proveedorRouter.post("/update",updateProveedor);
+proveedorRouter.put("/update",updateProveedor);
 proveedorRouter.delete("/prove/delete/:idProveedor",deleteId);
 export default proveedorRouter; 
 

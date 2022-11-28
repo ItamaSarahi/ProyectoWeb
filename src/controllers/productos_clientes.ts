@@ -6,38 +6,38 @@ import { ProductosModel } from "../models/productos.model";
 //Obtener datos dependiendo la categoria:
 
 export async function getTermos(req: Request, res: Response) {
-  let categoriabusqueda="TERMOS"
-  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "nombre", "descripcion","precio_Venta", "url_imagen"] });
+  let categoriabusqueda="termos"
+  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: ["idProducto", "nombre", "descripcion","precio_Venta", "url_imagen"] });
   res.status(200).json(records);
 }
 
 export async function getTuppers(req: Request, res: Response) {
   let categoriabusqueda="tuppers"
-  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "nombre", "descripcion","precio_Venta", "url_imagen"] });
+  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: ["idProducto", "nombre", "descripcion","precio_Venta", "url_imagen"] });
   res.status(200).json(records);
 }
 
 export async function getCubiertos(req: Request, res: Response) {
   let categoriabusqueda="cubiertos"
-  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "nombre", "descripcion","precio_Venta", "url_imagen"] });
+  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "idProducto","nombre", "descripcion","precio_Venta", "url_imagen"] });
   res.status(200).json(records);
 }
 
 export async function getBotellasAgua(req: Request, res: Response) {
   let categoriabusqueda="botellas agua"
-  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "nombre", "descripcion","precio_Venta", "url_imagen"] });
+  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "idProducto","nombre", "descripcion","precio_Venta", "url_imagen"] });
   res.status(200).json(records);
 }
 
 export async function getLoncheras(req: Request, res: Response) {
   let categoriabusqueda="loncheras"
-  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "nombre", "descripcion","precio_Venta", "url_imagen"] });
+  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "idProducto","nombre", "descripcion","precio_Venta", "url_imagen"] });
   res.status(200).json(records);
 }
 
 export async function getExtras(req: Request, res: Response) {
   let categoriabusqueda="extras"
-  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: [ "nombre", "descripcion","precio_Venta", "url_imagen"] });
+  const records = await ProductosModel.findAll({ raw: true,where: {categoria:categoriabusqueda}, attributes: ["idProducto", "nombre", "descripcion","precio_Venta", "url_imagen"] });
   res.status(200).json(records);
 }
 
@@ -72,4 +72,11 @@ export function vistaExtras(req: Request, res: Response) {
   return res.render("productoCliente/vistaExtras");
 }
 
+
+
+export async function getProductoById(req: Request, res: Response) {
+  const { idProducto } = req.params;
+  const records = await ProductosModel.findAll({ raw: true, where: { idProducto } });
+  res.status(200).json(records);
+}
 
