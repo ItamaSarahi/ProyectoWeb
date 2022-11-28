@@ -40,7 +40,7 @@ app.use("/api/v1/example", exampleRouter);
 app.use("/modulo/producto",methodOverride('_method'),productoRouter);
 app.use("/iniciosesion",methodOverride('_method'), iniciosesionRouter);
 app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
-app.use("/catalogo/proveedor", proveedorRouter);
+app.use("/catalogo/proveedor",methodOverride('_method'), proveedorRouter);
 app.use("/api/imagen/file",fileRoute);
 app.use("/modulo/ventas",methodOverride('_method'),ventasRouter);
 app.use("/modulo/detalleVentas",detalleVentasRouter);
