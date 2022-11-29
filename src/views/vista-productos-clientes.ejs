@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../views/comunes/components/headers-component") -%>
+</head>
+
+<body class="cyan darken-1">
+    
+    <%- include("status/components/form-principal-vendedor.ejs")  -%>
+        
+        <div class="container " style="width: 1000px; padding: 18px; margin-left: 25%;">
+            
+            <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
+            <h5 style="text-align: center; font-style:italic; font-family:Helvetica Neue;" style="margin-left: 38%;">INVENTARIO</h5>
+            <table class="striped">
+
+                    <tr>
+                        <th>#</th>
+                        <th><center>Nombre</center></th>
+                        <th><center>Descripcion</center></th>
+                        <th><center>Existencia</center></th>
+                        <th><center>Precio_compra</center></th>
+                        <th><center>Precio_venta</center></th>
+                        <th><center>Proveedor</center></th>
+                        <th><center>Categoria</center></th>
+                        <th> <center>Imagen</center> </th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+            </table>
+        </div>
+
+            
+            <%- include("status/components/footer-components-producto-cliente.ejs") -%>
+            
+
+            <%- include("../views/comunes/components/footer-component") -%>
+</body>
+
+</html>

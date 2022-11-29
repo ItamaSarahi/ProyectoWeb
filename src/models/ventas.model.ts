@@ -38,8 +38,8 @@ VentasModel.init(
   
 );
 
-
 VentasModel.hasMany(Detalle_VentaModel,{
-    foreignKey:"idVenta",
-    sourceKey:"idVenta"
-  });
+  foreignKey:"idVenta",
+  sourceKey:"idVenta",
+  onDelete:'cascade',hooks:true,
+  });

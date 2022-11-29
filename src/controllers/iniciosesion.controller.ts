@@ -3,6 +3,9 @@ import { UsuariosModel } from "../models/usuarios.model";
 import comparar from "../middlewares/comparar.contrasenas";
 import { ClienteModel } from "../models/clientes.model";
 import encriptar from "../middlewares/encriptar.contrasenas";
+import { VentasModel } from "../models/ventas.model";
+import { EmpleadosModel } from "../models/empleados.model";
+import { Detalle_VentaModel } from "../models/detalle_venta.model";
 
 let contrasena: any, rol: any, idUsuario: any;
 
@@ -26,7 +29,7 @@ export async function findIniciarSesion(req: Request, res: Response) {
     const comp = await comparar(password, contrasena);
 
     if (comp && rol === "empleado") {
-      res.status(201).render("principaladmi-view");
+      res.status(201).render("principalempleado-view");
     }
 
     else if (comp && rol === "cliente") {
@@ -55,6 +58,15 @@ export async function getTablaCliente(req: Request, res: Response) {
   
 }
 
+
+export async function getTablaEmpleado(req: Request, res: Response) {
+  const records= await UsuariosModel.findAll({ where: { idUsuario: idUsuario },raw:true,attributes:["usuario"],include: [{ model: EmpleadosModel, attributes: ["idEmpleado"],include:[{model:VentasModel,attributes:["fecha_Inicial"],include:[{model:Detalle_VentaModel,attributes:["cantidad","precio_Total","idProducto",]}]}]}]})
+  console.log(records)
+  res.status(200).json(records);
+  
+}
+ 
+ 
 export async function getDatosClienteEditar(req: Request, res: Response) {
   const records = await UsuariosModel.findAll({ raw: true, where: { idUsuario } });
   res.status(200).json(records);
