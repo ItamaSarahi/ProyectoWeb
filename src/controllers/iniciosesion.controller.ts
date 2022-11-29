@@ -2,10 +2,10 @@ import { Request, Response } from "express";
 import { UsuariosModel } from "../models/usuarios.model";
 import comparar from "../middlewares/comparar.contrasenas";
 import { ClienteModel } from "../models/clientes.model";
-import encriptar from "../middlewares/encriptar.contrasenas";
 import { VentasModel } from "../models/ventas.model";
 import { EmpleadosModel } from "../models/empleados.model";
 import { Detalle_VentaModel } from "../models/detalle_venta.model";
+import encriptar from "../middlewares/encriptar.contrasenas";
 
 let contrasena: any, rol: any, idUsuario: any;
 
@@ -15,13 +15,13 @@ export async function findIniciarSesion(req: Request, res: Response) {
 
 
   await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
-  contrasena = result?.getDataValue('password'));
+    contrasena = result?.getDataValue('password'));
 
   await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
-  rol = result?.getDataValue('rol'));
+    rol = result?.getDataValue('rol'));
 
   await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
-  idUsuario = result?.getDataValue('idUsuario'));
+    idUsuario = result?.getDataValue('idUsuario'));
 
 
   if (contrasena != undefined) {
@@ -38,10 +38,11 @@ export async function findIniciarSesion(req: Request, res: Response) {
 
     //Alerta inicio de sesión incorrecto:contraseña incorrecta
     else {
-      res.render("iniciosesion-view", {alert: true,alertTitle: 'Inicio de sesión incorrecto',alertMessage: "contraseña incorrecta",alertIcon: 'error',ruta: ''});
+      res.render("iniciosesion-view", { alert: true, alertTitle: 'Inicio de sesión incorrecto', alertMessage: "contraseña incorrecta", alertIcon: 'error', ruta: '' });
     }
   }
-  else {res.render("iniciosesion-view", {alert: true,alertTitle: 'Error',alertMessage: "Usuario no registrado",alertIcon: 'error',ruta: ''})
+  else {
+    res.render("iniciosesion-view", { alert: true, alertTitle: 'Error', alertMessage: "Usuario no registrado", alertIcon: 'error', ruta: '' })
   }
 
 }
@@ -53,42 +54,44 @@ export function indexViewEditarCliente(req: Request, res: Response) {
 }
 
 export async function getTablaCliente(req: Request, res: Response) {
-  const records= await UsuariosModel.findAll({ where: { idUsuario: idUsuario },raw:true,include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "num_telefono"] }],attributes:["usuario"] });
+  const records = await UsuariosModel.findAll({ where: { idUsuario: idUsuario }, raw: true, include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "num_telefono"] }], attributes: ["usuario"] });
   res.status(200).json(records);
-  
+
 }
 
 
 export async function getTablaEmpleado(req: Request, res: Response) {
-  const records= await UsuariosModel.findAll({ where: { idUsuario: idUsuario },raw:true,attributes:["usuario"],include: [{ model: EmpleadosModel, attributes: ["idEmpleado"],include:[{model:VentasModel,attributes:["fecha_Inicial"],include:[{model:Detalle_VentaModel,attributes:["cantidad","precio_Total","idProducto",]}]}]}]})
+  const records = await UsuariosModel.findAll({ where: { idUsuario: idUsuario }, raw: true, attributes: ["usuario"], include: [{ model: EmpleadosModel, attributes: ["idEmpleado"], include: [{ model: VentasModel, attributes: ["fecha_Inicial"], include: [{ model: Detalle_VentaModel, attributes: ["cantidad", "precio_Total", "idProducto",] }] }] }] })
   console.log(records)
   res.status(200).json(records);
-  
+
 }
- 
- 
+
+
 export async function getDatosClienteEditar(req: Request, res: Response) {
   const records = await UsuariosModel.findAll({ raw: true, where: { idUsuario } });
   res.status(200).json(records);
 }
 
 export async function updateCliente(req: Request, res: Response) {
-  let comprobarUsuario;
-  const { usuario, password } = req.body;
+  const { usuario, password, password_new, password_new_c } = req.body;
 
-  const passwordHash = await encriptar(password);
+  const contraseñaA = await comparar(password, contrasena);
 
-  await UsuariosModel.findOne({ where: { usuario: usuario, password: passwordHash } }).then(result =>
-    comprobarUsuario = result?.getDataValue('usuario'));
-
-  if (comprobarUsuario == null) {
-    const response = await UsuariosModel.update({ usuario: usuario, password: passwordHash }, { where: { idUsuario } })
+  if (contraseñaA) {
+    if (password_new != password_new_c) {
+      res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseñas ingresadas no coinciden", alertIcon: 'error', ruta: '' })
+  }
+    else {
+      const passwordHash = await encriptar(password_new);
+      const response = await UsuariosModel.update({ usuario: usuario, password: passwordHash }, { where: { idUsuario } })
+       res.render("view-cliente", { alert: true, alertTitle: "Nueva contraseña guardada", alertMessage: "", alertIcon: 'success', ruta: '' })
+  
+    }
   }
   else {
-
+    res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseña antigua ingresada es incorrecta", alertIcon: 'error', ruta: '' })
   }
-  res.redirect("/iniciosesion/vista/editarCliente");
-
 }
 
 

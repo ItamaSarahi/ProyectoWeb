@@ -47,12 +47,8 @@ const mainProduct = (() => {
 
     if(labelBtn=="Editar"){
       $btn.innerHTML += ("<i class='material-icons'>create</i>");
+    }
    
-    }
-    if(labelBtn=="Eliminar"){
-      $btn.innerHTML += ("<i class='material-icons'>delete</i>");
-    }
-    
     $btn.setAttribute("item-id", itemId);
     $btn.addEventListener("click", _actionFuntion);
 
@@ -62,12 +58,8 @@ const mainProduct = (() => {
 
   //Cambiar datos del cliente
   const _setData = (item = {}) => {
-    const $inputUsuario = document.getElementById("usuario");
-    const $inputPassword = document.getElementById("password");
-
-    const { usuario} = item;
-    $inputUsuario.value = usuario;
-    $inputPassword.value = "";
+   const $inputPassword = document.getElementById("password");
+    $inputPassword.value = " ";
   };
 
   const _initElements = () => {
