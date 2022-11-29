@@ -80,17 +80,17 @@ export async function updateCliente(req: Request, res: Response) {
 
   if (contraseñaA) {
     if (password_new != password_new_c) {
-      res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseñas ingresadas no coinciden", alertIcon: 'error', ruta: '' })
+      res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseñas ingresadas no coinciden", alertIcon: 'error', ruta: '/iniciosesion/vista/editarCliente' })
   }
     else {
       const passwordHash = await encriptar(password_new);
       const response = await UsuariosModel.update({ usuario: usuario, password: passwordHash }, { where: { idUsuario } })
-       res.render("view-cliente", { alert: true, alertTitle: "Nueva contraseña guardada", alertMessage: "", alertIcon: 'success', ruta: '' })
+       res.render("view-cliente", { alert: true, alertTitle: "Nueva contraseña guardada", alertMessage: "", alertIcon: 'success', ruta: '/iniciosesion/vista/editarCliente' })
   
     }
   }
   else {
-    res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseña antigua ingresada es incorrecta", alertIcon: 'error', ruta: '' })
+    res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseña antigua ingresada es incorrecta", alertIcon: 'error' ,ruta:'/iniciosesion/vista/editarCliente'})
   }
 }
 
