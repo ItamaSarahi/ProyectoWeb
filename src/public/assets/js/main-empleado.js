@@ -41,16 +41,26 @@ const mainProduct = (() => {
     return $row;
   };
 
+
+  
   const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => { }) => {
-    //debugger;
     const $btn = document.createElement("button");
     $btn.innerText = labelBtn;
-    $btn.className += "waves-effect waves-light btn blue";
+    $btn.className += "btn btn btn-outline-light";
+
+    if(labelBtn=="Editar"){
+      $btn.innerHTML += ("<i class='material-icons'>create</i>");
+   
+    }
+    if(labelBtn=="Eliminar"){
+      $btn.innerHTML += ("<i class='material-icons'>delete</i>");
+    }
+    
     $btn.setAttribute("item-id", itemId);
     $btn.addEventListener("click", _actionFuntion);
+
     return $btn;
   };
-
 
 
   const _setVisible = (visible = true) => {

@@ -35,17 +35,30 @@ const mainProduct = (() => {
     $row.appendChild(_createBtnAction(item[itemId], "Editar", _actionButtonEditar));
     return $row;
   };
-
+ 
 
   //Crear acción del botón:
+
+  
   const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => { }) => {
     const $btn = document.createElement("button");
     $btn.innerText = labelBtn;
-    $btn.className += "btn waves-effect cyan darken-2";
+    $btn.className += "btn btn btn-outline-light";
+
+    if(labelBtn=="Editar"){
+      $btn.innerHTML += ("<i class='material-icons'>create</i>");
+   
+    }
+    if(labelBtn=="Eliminar"){
+      $btn.innerHTML += ("<i class='material-icons'>delete</i>");
+    }
+    
     $btn.setAttribute("item-id", itemId);
     $btn.addEventListener("click", _actionFuntion);
+
     return $btn;
   };
+
 
   //Cambiar datos del cliente
   const _setData = (item = {}) => {

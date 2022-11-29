@@ -58,3 +58,24 @@ export function vistaListaClientes(req: Request, res: Response) {
   return res.render("vista-lista-clientes");
 }
 
+export function vista_Eliminar_Apartados_Administrador(req: Request, res: Response) {
+  return res.render("vista-eliminarApartados-administrador");
+}
+
+
+//Vistas del vendedor
+export function vista_Lista_productos_Vendedor(req: Request, res: Response) {
+  return res.render("vista-productos-clientes");
+}
+
+export function vista_Confirmar_Ventas_Vendedor(req: Request, res: Response) {
+  return res.render("confirmarVentas-vendedor");
+}
+
+export function vista_Eliminar_Apartados_Vendedor(req: Request, res: Response) {
+  return res.render("vista-eliminarApartados-vendedor");
+}
+
+export function vista_Ver_Ventas(req: Request, res: Response) {
+  return res.render("vista-ver-ventas");
+}

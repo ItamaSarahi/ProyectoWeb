@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../views/comunes/components/headers-component") -%>
+</head>
+
+<body class="cyan darken-1">
+
+    <%- include("status/components/form-principal-admi")  -%>
+<br><br>
+        <div class="container #a7ffeb teal accent-1" style="width: 1000px; padding: 18px; margin-left: 25%;">
+
+            <center><img src="/assets/img/Logo.png" width="100" height="auto"></center>
+            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">APARTADOS VENCIDOS</h5>
+            <table class="striped">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>FECHA INICIAL</th>
+                        <th>FECHA VENCIMIENTO</th>
+                        <th>STATUS</th>
+                        <th>CLIENTE</th>
+                        <th>EMPLEADO</th>
+                        <th>ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+            </table>
+        </div>
+
+
+        <%- include("status/components/footer-components-apartadosVencidos-vendedor.ejs") -%>
+
+
+            <%- include("../views/comunes/components/footer-component") -%>
+</body>
+
+</html>
