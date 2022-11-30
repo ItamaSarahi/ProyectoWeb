@@ -2,8 +2,13 @@ import { Request, Response } from "express";
 import { EmpleadosModel } from "../models/empleados.model";
 import { UsuariosModel } from "../models/usuarios.model";
 import encriptar from "../middlewares/encriptar.contrasenas";
+import PDF from 'pdfkit-construct';
 
-//Creación de empleado:
+
+
+
+
+//Creación de empleado: 
 export async function createEmpleado(req: Request, res: Response) {
   const { nombre_E, apellidoPE, apellidoME, email, nivelEstudio, usuario, password } = req.body;
 
@@ -19,6 +24,19 @@ export async function createEmpleado(req: Request, res: Response) {
 
   //comprobar si el usuario ya existe:
   if (comprobarUsuario == null) {
+
+      
+  const doc = new PDF({bufferPages: true});
+
+  const fileName= `Factura${Date.now()}.pdf`;
+  const stream= res.writeHead(200,{'Content-Type': 'application/pdf', 'Content-disposition': `attachment;filename=${fileName}`});
+
+  doc.on('data',(data=>{stream.write(data)}))
+  doc.on('end',()=>{stream.end()});
+  doc.text('Hola mundo con PDF kit',30,30);
+  doc.addTable([
+  ])
+  doc.end();
 
     //crear empleado
     await UsuariosModel.create({ usuario: usuario, password: passwordHash, rol: rol }).then(result =>
