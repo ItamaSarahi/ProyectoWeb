@@ -32,7 +32,7 @@ export function vistaConfirmarVentas(req: Request, res: Response) {
   return res.render("confirmarVentas-view");
 }
 
-export function vistaApartados(req: Request, res: Response) {
+export function vistaApartados(req: Request, res: Response) { 
   return res.render("vista-ventas");
 }
 

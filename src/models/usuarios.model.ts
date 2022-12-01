@@ -5,7 +5,7 @@ import { ClienteModel } from "./clientes.model";
 import { EmpleadosModel } from "./empleados.model";
 
 export class UsuariosModel extends Model<UsuariosType> {
-  //[x: string]: any;
+
 }
 
 UsuariosModel.init(

@@ -4,11 +4,7 @@ import { ProductosModel } from "../models/productos.model";
 
 
 export async function getDetalleVentas(req: Request, res: Response) {
-    console.log("entre");
     const records= await ProductosModel.findAll({raw: true ,include:[{model:Detalle_VentaModel,attributes:["id_DV", "idVenta","cantidad","precio_Total"]}],attributes:["nombre"]});
-    console.log(records);
-    
-    
-    
+    console.log(records);    
     res.status(200).json(records);
 }

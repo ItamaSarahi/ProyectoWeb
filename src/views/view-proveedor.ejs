@@ -57,21 +57,34 @@
 
         <br><br>
 
-        <div id="containerTable" class="container #a7ffeb teal accent-1"
-            style="width: 650px; padding: 18px; margin-left: 35%;">
-            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">PROVEEDORES</h5>
+        <div id="containerTable" class="container"
+            style="width: 680px; padding: 18px; margin-left: 35%;">
+            <h5 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" style="margin-left: 38%;">PROVEEDORES</h5>
             <table class="striped">
 
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Empresa</th>
-                        <th>Telefono</th>
+                        <th>EMPRESA</th>
+                        <th>TELEFÓNO</th>
+                         <th>   </th>
                     </tr>
                 </thead>
                 <tbody id="data"></tbody>
 
             </table>
+
+
+            
+            <form id="formStatus" action="/catalogo/proveedor/getPdf" method="post">
+                <div class="input-field">
+                    <center><button type="submit" class="btn-large waves-effect waves-light red">
+                            <i class="material-icons right">picture_as_pdf</i>GENERAR PDF
+                        </button></center>
+
+                </div>
+            </form>
+
         </div>
 
         <script src="/assets/js/validaciones/validacionproveedor.js"></script>
