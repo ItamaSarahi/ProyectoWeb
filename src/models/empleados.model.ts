@@ -1,10 +1,16 @@
 import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/database.config";
 import EmpleadosType from "../types/empleados.type";
-import { UsuariosModel } from "./usuarios.model";
 import { VentasModel } from "./ventas.model";
 
-export class EmpleadosModel extends Model<EmpleadosType> {}
+export class EmpleadosModel extends Model<EmpleadosType> {
+  idEmpleado: any;
+  nombre_E: any;
+  apellidoME: any;
+  nivelEstudio: any;
+  email: any;
+  apellidoPE: any;
+}
 
 EmpleadosModel.init(
   {

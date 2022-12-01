@@ -2,7 +2,15 @@ import { DataTypes, Model } from "sequelize";
 import { sequelize } from "../database/database.config";
 import ClientesType from "../types/clientes.type";
 import { VentasModel } from "./ventas.model";
-export class ClienteModel extends Model<ClientesType> { }
+export class ClienteModel extends Model<ClientesType> {
+  idCliente: any;
+  nombre_C: any;
+  apellidoPC: any;
+  fechaNacimiento: any;
+  email: any;
+  num_telefono: any;
+  idUsuario: any;
+}
 
 
 ClienteModel.init(

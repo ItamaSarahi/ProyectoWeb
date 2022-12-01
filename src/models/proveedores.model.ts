@@ -4,7 +4,11 @@ import ProveedoresType from "../types/proveedores.type";
 import { ProductosModel } from "./productos.model";
 import { ComprasModel } from "./compra.model";
 
-export class ProveedoresModel extends Model<ProveedoresType> {}
+export class ProveedoresModel extends Model<ProveedoresType> {
+  idProveedor: any;
+  empresa: any;
+  telefono: any;
+}
 
 ProveedoresModel.init(
   {

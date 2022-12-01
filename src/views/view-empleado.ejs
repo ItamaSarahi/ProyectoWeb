@@ -5,13 +5,13 @@
     <%- include("../views/comunes/components/headers-component") -%>
 </head>
 
-<body class="cyan darken-1"> 
-    <%- include("status/components/form-principal-admi")  -%>
-    
+<body class="cyan darken-1">
+    <%- include("status/components/form-principal-admi") -%>
+
         <main>
+ 
 
-
-            <form id="formStatus" class="col s12" action="/catalogo/empleado/update?_method=PUT"  method="post">
+            <form id="formStatus" class="col s12" action="/catalogo/empleado/update?_method=PUT" method="post">
 
                 <input type="hidden" name="_method" value="PUT">
                 <br>
@@ -23,7 +23,7 @@
 
                     <br>
 
-                    <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
+                    <center><img src="/assets/img/Logo.png" width="100" height="auto"></center>
 
                     <div class="input-field">
                         <!---Esto es la imagen: account circle (materialize)-->
@@ -49,7 +49,8 @@
                         <!--Icóno-->
                         <i class="material-icons prefix">phone</i>
                         <!--Input de tipo texto-->
-                        <input type="text" name="nivelEstudio" id="nivelEstudio" minlength=2 maxlength=20 placeholder="Nivel de estudio">
+                        <input type="text" name="nivelEstudio" id="nivelEstudio" minlength=2 maxlength=20
+                            placeholder="Nivel de estudio">
                         <label for="nivelEstudio">Nivel de estudio</label>
                     </div>
 
@@ -71,24 +72,41 @@
 
         <br><br>
 
-        <div class="container #a7ffeb teal accent-1" style="width: 880px; padding: 18px; margin-left: 28%;">
-            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">EMPLEADOS</h5>
+        <div class="container" style="width: 880px; padding: 18px; margin-left: 28%;">
             <table class="striped">
 
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Nombre</th>
-                        <th>apellidoMaterno</th>
-                        <th>apellidoPaterno</th>
-                        <th>email</th>
-                        <th>nivel de estudios</th>
+                        <th>NOMBRE</th>
+                        <th>APELLIDO M</th>
+                        <th>APELLIDO P</th>
+                        <th>EMAIL</th>
+                        <th>ESTUDIOS</th>
+
                     </tr>
+
                 </thead>
+
                 <tbody id="data"></tbody>
 
+
             </table>
+
+
+
+            <form id="formStatus" action="/catalogo/empleado/factura" method="post">
+                <div class="input-field">
+                    <center><button type="submit" class="btn-large waves-effect waves-light red">
+                            <i class="material-icons right">picture_as_pdf</i>GENERAR PDF
+                        </button></center>
+
+                </div>
+            </form>
+
+
         </div>
+
 
         <!--<script src="/assets/js/form-proveedor.js"></script-->
 

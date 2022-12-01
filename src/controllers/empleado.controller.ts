@@ -3,7 +3,10 @@ import { EmpleadosModel } from "../models/empleados.model";
 import { UsuariosModel } from "../models/usuarios.model";
 import encriptar from "../middlewares/encriptar.contrasenas";
 
-//Creación de empleado:
+const PDF = require('pdfkit-construct');
+
+
+//Creación de empleado: 
 export async function createEmpleado(req: Request, res: Response) {
   const { nombre_E, apellidoPE, apellidoME, email, nivelEstudio, usuario, password } = req.body;
 
@@ -20,9 +23,10 @@ export async function createEmpleado(req: Request, res: Response) {
   //comprobar si el usuario ya existe:
   if (comprobarUsuario == null) {
 
+
     //crear empleado
     await UsuariosModel.create({ usuario: usuario, password: passwordHash, rol: rol }).then(result =>
-    idUsuario = result.getDataValue('idUsuario'));
+      idUsuario = result.getDataValue('idUsuario'));
     //crear usuario
     await EmpleadosModel.create({ nombre_E, apellidoPE, apellidoME, email, nivelEstudio, idUsuario });
     res.status(201).render("registroempleado-view");
@@ -99,3 +103,71 @@ export async function deleteEmpleado(req: Request, res: Response) {
 }
 
 
+export async function getFactura(req: Request, res: Response) {
+
+  const doc = new PDF({ bufferPages: true });
+
+  const fileName = `Reporte-empleados${Date.now()}.pdf`;
+  const stream = res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-disposition': `attachment;filename=${fileName}` });
+
+  doc.on('data', (data: any) => { stream.write(data) })
+  doc.on('end', () => { stream.end() });
+
+
+  const empleados = await EmpleadosModel.findAll({ raw: true, attributes: ["idEmpleado", "nombre_E", "apellidoPE", "apellidoME", "email", "nivelEstudio"] });
+  const registros = empleados.map((empleado) => {
+    const registro = {
+      id: empleado.idEmpleado,
+      nombre: empleado.nombre_E,
+      apellidoM: empleado.apellidoPE,
+      apellidoP: empleado.apellidoME,
+      email: empleado.email,
+      estudio: empleado.nivelEstudio,
+    }
+    return registro;
+  });
+
+  doc.setDocumentHeader({}, () => {
+
+    doc.image("src/public/assets/img/Logo.png", 50, 15, { width: 60, heigth: 60 });
+
+
+    doc.fill("#115dc8")
+      .fontSize(28)
+      .text("CREATIVE IDEAS", doc.header.x + 180, doc.header.y + 20);
+
+    doc.fontSize(12).fill('#110000').text('Reporte de empleados', {
+      width: 250,
+      align: 'center',
+    });
+  });
+
+
+
+  doc.addTable([
+    { key: 'id', label: '#', align: 'center' },
+    { key: 'nombre', label: 'Nombre', align: 'center' },
+    { key: 'apellidoM', label: 'Apellido materno', align: 'center' },
+    { key: 'apellidoP', label: 'Apellido paterno', align: 'center' },
+    { key: 'email', label: 'Email', align: 'center' },
+    { key: 'estudio', label: 'Estudios', align: 'center' }],
+
+    registros, {
+    border: null,
+    width: "fill_body",
+    striped: true,
+    stripedColors: ["#719CC8", "#FFFFFF"],
+    cellsPadding: 7,
+    marginLeft: 30,
+    marginRight: 30,
+    headAlign: 'center',
+    headFont: "Helvetica-Bold",
+  });
+
+  doc.setDocumentFooter({ height: '10%' }, () => { });
+
+  doc.render();
+
+  doc.end();
+
+}

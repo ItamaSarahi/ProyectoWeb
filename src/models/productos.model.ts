@@ -4,7 +4,19 @@ import ProductosType from "../types/productos.type";
 import { Detalle_VentaModel } from "./detalle_venta.model";
 import { Detalle_CompraModel } from "./detalle_compra.model";
 
-export class ProductosModel extends Model<ProductosType> {}
+export class ProductosModel extends Model<ProductosType> {
+  precio_Venta: any;
+  url_imagen(url_imagen: any, arg1: number, arg2: number, arg3: { width: number; heigth: number; }) {
+    throw new Error("Method not implemented.");
+  }
+  idProducto: any;
+  nombre: any;
+  categoria: any;
+  descripcion: any;
+  existencia: any;
+  precio_Compra: any;
+  idProveedor: any;
+}
 
 ProductosModel.init(
   {
