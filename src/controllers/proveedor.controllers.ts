@@ -114,7 +114,7 @@ export async function getPDFProveedor(req: Request, res: Response) {
       .fontSize(28)
       .text("CREATIVE IDEAS", doc.header.x + 180, doc.header.y + 20);
 
-    doc.fontSize(12).fill('#110000').text('Reporte de proveedores', {
+    doc.fontSize(12).fill('#110000').text('Reporte de proveedores registrados en el sistema', {
       width: 250,
       align: 'center',
     });

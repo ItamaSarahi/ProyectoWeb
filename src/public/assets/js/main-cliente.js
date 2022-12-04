@@ -11,15 +11,6 @@ const mainProduct = (() => {
     }
   };
 
-  //Accion boton editar:
-  const _actionButtonEditar = async (event) => {
-    const $btn = event.target;
-    const $formStatus = document.getElementById("formStatus");
-    $formStatus.setAttribute("method", "POST");
-    const idCliente = $btn.getAttribute("item-id");
-    const response = await http.get(`${BASE_URL}/${idCliente}`);
-    _setData(response[0]);
-  };
 
 
   //Crear columnas
@@ -32,7 +23,6 @@ const mainProduct = (() => {
       $td.innerText = value;
       $row.appendChild($td);
     }
-    $row.appendChild(_createBtnAction(item[itemId], "Editar", _actionButtonEditar));
     return $row;
   };
  
@@ -56,11 +46,6 @@ const mainProduct = (() => {
   };
 
 
-  //Cambiar datos del cliente
-  const _setData = (item = {}) => {
-   const $inputPassword = document.getElementById("password");
-    $inputPassword.value = " ";
-  };
 
   const _initElements = () => {
     _getData();

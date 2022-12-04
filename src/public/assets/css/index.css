@@ -1,0 +1,75 @@
+body{
+    background: url(../img/logoRemasterizado.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
+#principal{
+    margin:0 auto;
+    margin-top:10%;
+    padding: 0;
+}
+
+#registrate{
+    margin-top:5%;
+
+}
+
+#fondo{
+    background-color: #a8ccd1;
+    opacity: .85;
+    padding: 0 20px;
+    box-shadow: 0px 0px 3px #848484;
+}
+
+#imagen_icono{
+    margin-top: -0px;
+    margin-bottom: 35px;
+}
+
+.user-img img{
+    width: 150px;
+    height: 150px;
+    box-shadow: 0px 0px 3px #848484;
+    border-radius: 50%;
+}
+
+
+.form-group::before{
+    font-family: "Font Awesome\ 5 Free";
+    position: absolute;
+    left: 16px;
+    font-size: 20px;
+    padding-top:1px;
+}
+
+.form-group#user-group::before{
+    content: "\f007";
+}
+
+.form-group#contrasena-group::before{
+    content: "\f023";
+}
+
+
+
+#inputs{
+    height: 30px;
+    font-size: 16px;
+    border:0;
+    padding-left: 30px;
+    border-radius: 5px;
+}
+
+
+#password{
+    height: 30px;
+    font-size: 16px;
+    border:0;
+    padding-left: 30px;
+    border-radius: 5px;
+}
+
+#botonIniciar{
+    width: 60%;
+    margin: 40px 0 0px;
+}

@@ -3,15 +3,15 @@
 
 <head>
     <%- include("../views/comunes/components/headers-component") -%>
-    
 
-   
+
+
 </head>
 
 <body class="cyan darken-1">
-    <%- include("status/components/form-principal-admi")  -%>
+    <%- include("status/components/form-principal-admi") -%>
         <main>
-            
+
 
             <form id="formProveedor" class="col s12" action="/catalogo/proveedor/update?_method=PUT" method="post">
 
@@ -20,7 +20,7 @@
 
                 <div class="container grey lighten-2" style="width: 650px; padding: 18px; margin-left: 35%; ">
 
-                    <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
+                    <center><img src="/assets/img/Logo.png" width="100" height="auto"></center>
                     <h5 style="text-align: center; font-style:italic">EDITAR PROVEEDORES</h5>
 
                     <br>
@@ -48,10 +48,11 @@
                     <!--Este es el botón-->
                     <div class="input-field">
                         <center>
-                        <button type="submit" class="btn waves-effect cyan darken-1" >
-                            <!--Este es el icono del boton (o sea, la flechita)-->
-                            <i class="material-icons right">send</i>GUARDAR CAMBIOS
-                        </button></center>
+                            <button type="submit" class="btn waves-effect cyan darken-1">
+                                <!--Este es el icono del boton (o sea, la flechita)-->
+                                <i class="material-icons right">send</i>GUARDAR CAMBIOS
+                            </button>
+                        </center>
 
                     </div>
 
@@ -66,14 +67,14 @@
             <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">PROVEEDORES</h5>
             <div class="input-field">
                 <!--Icóno-->
-                
-                
+
+
                 <!--Input de tipo texto-->
                 <i class="material-icons prefix">search</i>
                 <input type="text" name="buscar" id="buscar" maxlength=20 class="form-control pull-right">
                 <label for="buscar">BUSCAR PROVEEDOR</label>
             </div>
-            
+
             <table class="striped" id="datatable">
 
                 <thead>
@@ -87,27 +88,40 @@
                 <tbody id="data"></tbody>
 
             </table>
-        </div>
-        <%- include("status/components/footer-componente-proveedor") -%>
-        <%- include("../views/comunes/components/footer-component") -%>
-        
 
-        <script src="/assets/js/validaciones/validacionproveedor.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-        
-        <script>
-            // Write on keyup event of keyword input element
-            $(document).ready(function(){
-            $("#buscar").keyup(function(){
-            _this = this;
-            // Show only matching TR, hide rest of them
-            $.each($("#datatable tbody tr"), function() {
-            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
-            $(this).hide();
-            else
-            $(this).show();
-            });
-            });
-           });
-           </script>
+
+        </div>
+
+
+
+        <form id="formStatus" action="/catalogo/proveedor/getPdf" method="post">
+            <div class="input-field">
+                <center><button type="submit" class="btn-large waves-effect waves-light red">
+                        <i class="material-icons right">picture_as_pdf</i>GENERAR PDF
+                    </button></center>
+
+            </div>
+        </form>
+        <%- include("status/components/footer-componente-proveedor") -%>
+            <%- include("../views/comunes/components/footer-component") -%>
+
+
+                <script src="/assets/js/validaciones/validacionproveedor.js"></script>
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+                <script>
+                    // Write on keyup event of keyword input element
+                    $(document).ready(function () {
+                        $("#buscar").keyup(function () {
+                            _this = this;
+                            // Show only matching TR, hide rest of them
+                            $.each($("#datatable tbody tr"), function () {
+                                if ($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                                    $(this).hide();
+                                else
+                                    $(this).show();
+                            });
+                        });
+                    });
+                </script>
 </body>
