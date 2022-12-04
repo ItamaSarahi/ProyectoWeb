@@ -10,16 +10,18 @@ import encriptar from "../middlewares/encriptar.contrasenas";
 import 'localstorage-polyfill';
 
 
-let contrasena: any, rol: any, idUsuario: any,nombreCliente:any,nombreEmpleado:any, email:any;
-    let date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    let actual: any;
-    if (month < 10) {
-        actual = `${year}-0${month}-${day}`;}
-    else {
-        actual = `${year}-${month}-${day}`;}
+let contrasena: any, rol: any, idUsuario: any, nombreCliente: any, nombreEmpleado: any, email: any;
+let date = new Date();
+let day = date.getDate();
+let month = date.getMonth() + 1;
+let year = date.getFullYear();
+let actual: any;
+if (month < 10) {
+  actual = `${year}-0${month}-${day}`;
+}
+else {
+  actual = `${year}-${month}-${day}`;
+}
 
 //Inicio de sesión:
 export async function findIniciarSesion(req: Request, res: Response) {
@@ -35,51 +37,51 @@ export async function findIniciarSesion(req: Request, res: Response) {
 
   await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
     idUsuario = result?.getDataValue('idUsuario'));
-    
 
 
-    if(idUsuario!==undefined){
-  await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
+
+  if (idUsuario !== undefined) {
+    await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
       nombreCliente = result?.getDataValue('nombre_C'));
-  let idCliente;
-  await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
-        idCliente = result?.getDataValue('idCliente'));
+    let idCliente;
+    await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
+      idCliente = result?.getDataValue('idCliente'));
 
-  localStorage.setItem('cliente', JSON.stringify(idCliente));
+    localStorage.setItem('cliente', JSON.stringify(idCliente));
 
-  await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
-        nombreEmpleado = result?.getDataValue('nombre_E'));
+    await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
+      nombreEmpleado = result?.getDataValue('nombre_E'));
   }
 
 
-  const records = await VentasModel.findAll({ raw: true, where: { fecha_Vencimiento: actual, status: "NO PAGADO" }});
+  const records = await VentasModel.findAll({ raw: true, where: { fecha_Vencimiento: actual, status: "NO PAGADO" } });
   console.log(records);
   console.log(records.length);
   if (contrasena != undefined || idUsuario != undefined) {
 
     const comp = await comparar(password, contrasena);
-    
 
-    if (contrasena == password  && rol === "administrador") {
-      if(records.length!==0){
-        res.render("principaladmi-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA ADMINISTRADOR "+nombreEmpleado+", tienes apartados vencidos. BORRALOS.", alertIcon: 'info', ruta: '/administrador' });
-      }else{
-        res.render("principaladmi-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA ADMINISTRADOR "+nombreEmpleado+"", alertIcon: 'info', ruta: '/administrador' });
+
+    if (contrasena == password && rol === "administrador") {
+      if (records.length !== 0) {
+        res.render("principaladmi-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA ADMINISTRADOR " + nombreEmpleado + ", tienes apartados vencidos. BORRALOS.", alertIcon: 'info', ruta: '/administrador' });
+      } else {
+        res.render("principaladmi-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA ADMINISTRADOR " + nombreEmpleado + "", alertIcon: 'info', ruta: '/administrador' });
       }
-      
+
     }
 
     else if (comp && rol === "cliente") {
-      res.render("principalcliente-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA "+nombreCliente +"", alertIcon: 'info', ruta: '/cliente' });
+      res.render("principalcliente-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA " + nombreCliente + "", alertIcon: 'info', ruta: '/cliente' });
     }
 
-    else if(comp && rol === "vendedor"){
-      if(records.length!==0){
-        res.render("principalempleado-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA VENDEDOR "+nombreEmpleado+", tienes apartados vencidos. BORRALOS.", alertIcon: 'info', ruta: '/vendedor' }); 
-      }else{
-        res.render("principalempleado-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA VENDEDOR "+nombreEmpleado+"", alertIcon: 'info', ruta: '/vendedor' });
+    else if (comp && rol === "vendedor") {
+      if (records.length !== 0) {
+        res.render("principalempleado-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA VENDEDOR " + nombreEmpleado + ", tienes apartados vencidos. BORRALOS.", alertIcon: 'info', ruta: '/vendedor' });
+      } else {
+        res.render("principalempleado-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA VENDEDOR " + nombreEmpleado + "", alertIcon: 'info', ruta: '/vendedor' });
       }
-      
+
 
     }
 
@@ -125,7 +127,7 @@ export async function getDatosClienteEditar(req: Request, res: Response) {
  *
  */
 export async function updateCliente(req: Request, res: Response) {
-  
+
   const { usuario, password, password_new, password_new_c } = req.body;
 
   const contraseñaA = await comparar(password, contrasena);
@@ -133,16 +135,16 @@ export async function updateCliente(req: Request, res: Response) {
   if (contraseñaA) {
     if (password_new != password_new_c) {
       res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseñas ingresadas no coinciden", alertIcon: 'error', ruta: '/iniciosesion/vista/editarCliente' })
-  }
+    }
     else {
       const passwordHash = await encriptar(password_new);
       const response = await UsuariosModel.update({ usuario: usuario, password: passwordHash }, { where: { idUsuario } })
-       res.render("view-cliente", { alert: true, alertTitle: "Nueva contraseña guardada", alertMessage: "", alertIcon: 'success', ruta: '/iniciosesion/vista/editarCliente' })
-  
+      res.render("view-cliente", { alert: true, alertTitle: "Nueva contraseña guardada", alertMessage: "", alertIcon: 'success', ruta: '/iniciosesion/vista/editarCliente' })
+
     }
   }
   else {
-    res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseña antigua ingresada es incorrecta", alertIcon: 'error' ,ruta:'/iniciosesion/vista/editarCliente'})
+    res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseña antigua ingresada es incorrecta", alertIcon: 'error', ruta: '/iniciosesion/vista/editarCliente' })
   }
 }
 
