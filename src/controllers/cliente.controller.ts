@@ -4,9 +4,17 @@ import { UsuariosModel } from "../models/usuarios.model";
 import encriptar from "../middlewares/encriptar.contrasenas";
 const PDF = require('pdfkit-construct');
 
+import * as authService from "../services/auth.service";
+import { StatusCodes } from "http-status-codes";
+
 
 //Creación del cliente:
 export async function createCliente(req: Request, res: Response) {
+  
+  const { body } = req;
+  
+  const contraseniaUnhash = body["password"];
+
   const { nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, usuario, password } = req.body;
   //encriptación de contraseña:
   const passwordHash = await encriptar(password);
@@ -23,14 +31,33 @@ export async function createCliente(req: Request, res: Response) {
 
   //comprobar si el usuario y el telefono ya estan registrados
   if (comprobarUsuario == null) {
+
     if (comprobarTelefono == null) {
       await UsuariosModel.create({ usuario: usuario, password: passwordHash, rol: rol }).then(result =>
         idUsuario = result.getDataValue('idUsuario'));
 
-      await ClienteModel.create({ nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, idUsuario });
+     // await ClienteModel.create({ nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, idUsuario });
       //alerta usuario creado con exito:
+ 
+    const usuarioResponse = await ClienteModel.create(body, { raw: true });
+    
+    const emai = usuarioResponse.getDataValue("email");
+
+    try {
+      await authService.sendUserCredentials({
+        emai,
+        data: { correo: emai, contrasenia: contraseniaUnhash },
+      });
       res.status(201).render("registroclientes-view", { alert: true, alertTitle: 'Usuario creado con exito', alertMessage: "", alertIcon: 'success', ruta:'/registro'});
+    
+    } catch (e) {
+      const error = e as Error;
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ nameError: error.name, detail: error.message });
     }
+
+    }
+
+
     //alterta numero ya registrado:
     else {
       res.render("registroclientes-view", { alert: true, alertTitle: 'Error', alertMessage: "Numero telefónico ya registrado", alertIcon: 'error',ruta:'/registro' })

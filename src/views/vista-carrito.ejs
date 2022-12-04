@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("../views/comunes/components/headers-component") -%>
+</head>
+
+<body class="cyan darken-1">
+
+    <%- include("status/components/form-principal-cliente.ejs") -%>
+
+
+
+        <br>
+        <div class="container #a7ffeb teal accent-1" style="width: 1000px; padding: 18px; margin-left: 25%;">
+            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">TU CARRITO</h5>
+            <table class="striped" id="datatable">
+
+                <thead>
+                    <tr>
+                        <th>IMAGEN</th>
+                        <th>PRODUCTO</th>
+                        <th>PRECIO UNITARIO</th>
+                        <th>CANTIDAD</th>
+                        <th>SUBTOTAL</th>
+
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+
+
+            </table>
+        </div>
+
+        <div class="container #a7ffeb teal accent-1" style="width: 1000px; padding: 18px; margin-left: 25%;">
+            <form action="/productos/vaciarCarrito" method="get">
+                <center> <button type="submit" class="btn waves-effect cyan darken-1">
+                        <!--Este es el icono del boton (o sea, la flechita)-->
+                        <i class="material-icons right">delete</i>VACIAR CARRITO
+                    </button></center>
+
+            </form>
+        </div>
+
+        <div class="container #a7ffeb teal accent-1" style="width: 1000px; padding: 18px; margin-left: 25%;">
+            <form action="/productos/generarTicket" method="post">
+                <center> <button type="submit" class="btn waves-effect cyan darken-1">
+                        <!--Este es el icono del boton (o sea, la flechita)-->
+                        <i class="material-icons right">delete</i>GENERAR TICKET
+                    </button></center>
+
+            </form>
+        </div>
+
+
+
+
+        <%- include("status/components/footer-component-guardarProductos.ejs") -%>
+
+        <%- include("../views/comunes/components/footer-component") -%>
+</body>
+
+</html>

@@ -74,6 +74,7 @@ export async function updateProducto(req: Request, res: Response) {
 
       id = result?.getDataValue('idProducto'));
     let url_imagen = req.file?.filename;
+ 
     if (url_imagen == null) {
       const response = await ProductosModel.update({ descripcion: descripcion, existencia: existencia, precio_Compra: precio_Compra, precio_Venta: precio_Venta }, { where: { idProducto: id } }).then(function (data) {
         const res = { success: true, data: data, message: "updated successful" }
@@ -82,6 +83,8 @@ export async function updateProducto(req: Request, res: Response) {
         const res = { success: false, error: error }
         return res;
       });
+
+      
     } else {
       const response = await ProductosModel.update({ descripcion: descripcion, existencia: existencia, precio_Compra: precio_Compra, precio_Venta: precio_Venta, url_imagen: url_imagen }, { where: { idProducto: id } }).then(function (data) {
         const res = { success: true, data: data, message: "updated successful" }

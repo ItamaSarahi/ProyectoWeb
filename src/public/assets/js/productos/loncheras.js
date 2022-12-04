@@ -6,22 +6,29 @@ const mainProduct = (() => {
 
   const _getData = async () => {
     const response = await http.get(BASE_URL);
+    console.log(response,"esto es responde")
     for (index; index < response.length; index++) {
       const $row = _createRow(response[index], "idProducto");
       $bodyTable.appendChild($row);
     }
   };
 
-  const _actionButtonEditar = async (event) => {
+  const _actionButtonAgregar = async (event) => {
     const $btn = event.target;
+    
     const idProducto = $btn.getAttribute("item-id");
-    const response = await http.get(`${BASE_URL}/${idProducto}`);
+    const cant= document.getElementById(idProducto);
+    if(cant.value==""){
+      cantidad=0;
+    }else{
+    cantidad=cant.value;}
+    
+    window.location=`http://localhost:4000/productos/guardarDatosLoncheras/${idProducto}/${cantidad}`;
+  
   };
 
 
   const _createRow = (item = {}, itemId = "") => {
-
-
     if (contador > 2) {
 
       const $row = document.createElement("tr");
@@ -63,8 +70,8 @@ const mainProduct = (() => {
       }
 
       contador++;
-      $row.appendChild(_createBtnCantidad(item[itemId], _actionButtonEditar));
-      $row.appendChild(_createBtnAction(item[itemId], "Agregar al carrito", _actionButtonEditar));
+      $row.appendChild(_createBtnCantidad(item[itemId]));
+      $row.appendChild(_createBtnAction(item[itemId], "Agregar al carrito", _actionButtonAgregar));
       return $row;
     }
   };
@@ -82,12 +89,16 @@ const mainProduct = (() => {
 
   const _createBtnCantidad = (itemId = 0, _actionFuntion = () => { }) => {
     const $btn = document.createElement("input");
+
     $btn.setAttribute("type", "number");
+    $btn.setAttribute("max", 100);
+    $btn.setAttribute("min", 1);
+    $btn.setAttribute("value", 0);
+    $btn.setAttribute("id", itemId);
     $btn.setAttribute("item-id", itemId);
-    $btn.addEventListener("click", _actionFuntion);
     return $btn;
   };
-  
+
   const _initElements = () => {
     _getData();
   };

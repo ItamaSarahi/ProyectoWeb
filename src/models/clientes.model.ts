@@ -40,8 +40,17 @@ ClienteModel.init(
     },
 
     email : {
-      type: DataTypes.STRING(30),
-      allowNull:false,
+      
+
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      unique: { name: "uCorreoUsuario", msg: "Correo Anteriormente Registrado" },
+      validate: {
+        isEmail: {
+          msg: "no es un correo",
+        },
+        }
+  
     },
     
     num_telefono: {

@@ -4,4 +4,6 @@ export default interface UsuariosType {
     password?: string;
     hash?:Promise<string>
     rol?: string;
+    correo?: string;
+    token_restauracion?: string;
   }

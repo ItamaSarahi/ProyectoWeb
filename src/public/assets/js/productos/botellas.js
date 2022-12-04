@@ -12,22 +12,36 @@ const mainProduct = (() => {
     }
   };
 
-  const _actionButtonEditar = async (event) => {
+
+  const _actionButtonEditar = (event) => {
     const $btn = event.target;
+    
     const idProducto = $btn.getAttribute("item-id");
-    const response = await http.get(`${BASE_URL}/${idProducto}`);
+    const cant= document.getElementById(idProducto);
+    if(cant.value==""){
+      cantidad=0;
+    }else{
+    cantidad=cant.value;}
+    
+    window.location=`http://localhost:4000/productos/guardarDatosBotellas/${idProducto}/${cantidad}`;
+    
   };
 
 
   const _createRow = (item = {}, itemId = "") => {
+
+
     if (contador > 2) {
+
       const $row = document.createElement("tr");
       contador = 0;
       index--;
       return $row;
+
     }
     else {
       const $row = document.createElement("td");
+
       for (const key in item) {
         const value = item[key];
         const $tr = document.createElement("tr");
@@ -43,7 +57,7 @@ const mainProduct = (() => {
             $tr.innerText = value;
           }
 
-          } else {
+        } else {
           if (value == null) {
             $tr.innerText = "SIN IMAGEN";
           } else {
@@ -58,7 +72,7 @@ const mainProduct = (() => {
       }
 
       contador++;
-      $row.appendChild(_createBtnCantidad(item[itemId], _actionButtonEditar));
+      $row.appendChild(_createBtnCantidad(item[itemId]));
       $row.appendChild(_createBtnAction(item[itemId], "Agregar al carrito", _actionButtonEditar));
       return $row;
     }
@@ -66,6 +80,7 @@ const mainProduct = (() => {
 
 
   const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => { }) => {
+    //debugger;
     const $btn = document.createElement("button");
     $btn.innerText = labelBtn;
     $btn.className += "waves-effect waves-light btn blue";
@@ -75,13 +90,20 @@ const mainProduct = (() => {
   };
 
 
-  const _createBtnCantidad = (itemId = 0, _actionFuntion = () => { }) => {
+  const _createBtnCantidad = (itemId = 0) => {
     const $btn = document.createElement("input");
+
     $btn.setAttribute("type", "number");
+    $btn.setAttribute("max", 100);
+    $btn.setAttribute("min", 1);
+    $btn.setAttribute("value", 0);
+    $btn.setAttribute("id", itemId);
     $btn.setAttribute("item-id", itemId);
-    $btn.addEventListener("click", _actionFuntion);
     return $btn;
   };
+
+
+  
 
   const _initElements = () => {
     _getData();
