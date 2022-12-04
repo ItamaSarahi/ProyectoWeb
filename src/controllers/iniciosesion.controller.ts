@@ -7,7 +7,23 @@ import { EmpleadosModel } from "../models/empleados.model";
 import { Detalle_VentaModel } from "../models/detalle_venta.model";
 import encriptar from "../middlewares/encriptar.contrasenas";
 
-let contrasena: any, rol: any, idUsuario: any;
+import 'localstorage-polyfill';
+
+
+let contrasena: any, rol: any, idUsuario: any,nombreCliente:any,nombreEmpleado:any;
+
+
+
+    let date = new Date();
+    let busqueda=false;
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let actual: any;
+    if (month < 10) {
+        actual = `${year}-0${month}-${day}`;}
+    else {
+        actual = `${year}-${month}-${day}`;}
 
 //Inicio de sesión:
 export async function findIniciarSesion(req: Request, res: Response) {
@@ -23,17 +39,48 @@ export async function findIniciarSesion(req: Request, res: Response) {
   await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
     idUsuario = result?.getDataValue('idUsuario'));
 
+    if(idUsuario!==undefined){
+  await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
+      nombreCliente = result?.getDataValue('nombre_C'));
+  let idCliente;
+  await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
+        idCliente = result?.getDataValue('idCliente'));
 
-  if (contrasena != undefined) {
+  localStorage.setItem('cliente', JSON.stringify(idCliente));
+
+  await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
+        nombreEmpleado = result?.getDataValue('nombre_E'));
+  }
+
+  const records = await VentasModel.findAll({ raw: true, where: { fecha_Vencimiento: actual, status: "NO PAGADO" }});
+  console.log(records);
+  console.log(records.length);
+  if (contrasena != undefined || idUsuario != undefined) {
 
     const comp = await comparar(password, contrasena);
+    
 
-    if (comp && rol === "empleado") {
-      res.status(201).render("principalempleado-view");
+    if (contrasena == password  && rol === "administrador") {
+      if(records.length!==0){
+        res.render("principaladmi-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA ADMINISTRADOR "+nombreEmpleado+", tienes apartados vencidos. BORRALOS.", alertIcon: 'info', ruta: '/administrador' });
+      }else{
+        res.render("principaladmi-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA ADMINISTRADOR "+nombreEmpleado+"", alertIcon: 'info', ruta: '/administrador' });
+      }
+      
     }
 
     else if (comp && rol === "cliente") {
-      res.status(201).render("principalcliente-view");
+      res.render("principalcliente-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA "+nombreCliente +"", alertIcon: 'info', ruta: '/cliente' });
+    }
+
+    else if(comp && rol === "vendedor"){
+      if(records.length!==0){
+        res.render("principalempleado-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA VENDEDOR "+nombreEmpleado+", tienes apartados vencidos. BORRALOS.", alertIcon: 'info', ruta: '/vendedor' }); 
+      }else{
+        res.render("principalempleado-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA VENDEDOR "+nombreEmpleado+"", alertIcon: 'info', ruta: '/vendedor' });
+      }
+      
+
     }
 
     //Alerta inicio de sesión incorrecto:contraseña incorrecta
@@ -49,14 +96,12 @@ export async function findIniciarSesion(req: Request, res: Response) {
 
 
 export function indexViewEditarCliente(req: Request, res: Response) {
-  const data = { title: "Programacion Web" };
   return res.render("view-cliente");
 }
 
 export async function getTablaCliente(req: Request, res: Response) {
   const records = await UsuariosModel.findAll({ where: { idUsuario: idUsuario }, raw: true, include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "num_telefono"] }], attributes: ["usuario"] });
   res.status(200).json(records);
-
 }
 
 
@@ -93,6 +138,8 @@ export async function updateCliente(req: Request, res: Response) {
     res.render("view-cliente", { alert: true, alertTitle: 'Error', alertMessage: "La contraseña antigua ingresada es incorrecta", alertIcon: 'error' ,ruta:'/iniciosesion/vista/editarCliente'})
   }
 }
+
+
 
 
 

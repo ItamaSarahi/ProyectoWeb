@@ -7,6 +7,7 @@ dotenv.config();
 const app: Application = express();
 var methodOverride = require('method-override');
 
+
 import indexRouter from "./routes/vistas.route";
 import exampleRouter from "./routes/cliente.route";
 import iniciosesionRouter from "./routes/iniciosesion.route";
@@ -18,7 +19,6 @@ import ventasRouter from "./routes/ventas.route";
 import detalleVentasRouter from "./routes/detalleVentas.route";
 import comprasRouter from "./routes/compras.route";
 import productosClientes from "./routes/productos_clientes";
-
 
 
 //settings
@@ -33,6 +33,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, './public')))
+
 
 //routes
 app.use("/", indexRouter);

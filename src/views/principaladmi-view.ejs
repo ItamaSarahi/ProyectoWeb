@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <%- include("comunes/components/headers-component") -%>
+    <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 
 
@@ -9,11 +10,15 @@
 
     <%- include("status/components/form-principal-admi")  -%>
     <main>
-        <h4 style="padding-left: 28%; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" >¡BIENVENIDO ADMINISTRADOR!</h4>
-        </main>
+        <h4 style="padding-left: 28%; font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif">¡Te
+            damos la bienvenida a Creative Ideas!</h4>
+
+        <%- include("cards-view/cards-administrador.ejs") -%>
+
+    </main>
         <%- include("comunes/components/footer-component") -%>
+        
     
    
 </body>
 </html>
-

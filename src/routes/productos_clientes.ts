@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {getTermos,vistaTermo,vistaTupper,getTuppers, vistaBotellas, vistaCubiertos, vistaExtras, vistaLoncheras, getBotellasAgua, getCubiertos, getExtras, getLoncheras,getProductoById} from "../controllers/productos_clientes";
+import {getTermos,vistaTermo,vistaTupper,getTuppers, vistaBotellas, vistaCubiertos, vistaExtras, vistaLoncheras, getBotellasAgua, getCubiertos, getExtras, getLoncheras,getProductoById,guardarProductosTermosLocalStorage,recuperarDatos,vaciarCarrito,GenererTicket,guardarProductosCubiertosLocalStorage,guardarProductosTuppersLocalStorage,guardarProductosBotellasLocalStorage,guardarProductosLoncherasLocalStorage,guardarProductosExtrasLocalStorage} from "../controllers/productos_clientes";
 
 const productoRouter: Router = Router();
 
@@ -28,5 +28,15 @@ productoRouter.get("/mostrarCubiertos/:idProducto",getProductoById);
 productoRouter.get("/mostrarExtras/:idProducto",getProductoById);
 productoRouter.get("/mostrarLoncheras/:idProducto",getProductoById);
 
-export default productoRouter;
+productoRouter.get("/guardarDatosTermos/:idProducto/:cantidad",guardarProductosTermosLocalStorage);
+productoRouter.get("/guardarDatosCubiertos/:idProducto/:cantidad",guardarProductosCubiertosLocalStorage);
+productoRouter.get("/guardarDatosTuppers/:idProducto/:cantidad",guardarProductosTuppersLocalStorage);
+productoRouter.get("/guardarDatosBotellas/:idProducto/:cantidad",guardarProductosBotellasLocalStorage);
+productoRouter.get("/guardarDatosLoncheras/:idProducto/:cantidad",guardarProductosLoncherasLocalStorage);
+productoRouter.get("/guardarDatosExtras/:idProducto/:cantidad",guardarProductosExtrasLocalStorage);
 
+productoRouter.get("/recuperarDatos",recuperarDatos);
+productoRouter.get("/vaciarCarrito",vaciarCarrito);
+productoRouter.post("/generarTicket",GenererTicket);
+
+export default productoRouter;

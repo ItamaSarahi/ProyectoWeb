@@ -33,6 +33,7 @@ UsuariosModel.init(
       allowNull: false,
     }
     
+    
   },
   {
     sequelize,

@@ -4,14 +4,23 @@ import ComprasType from "../types/compra.type";
 import { Sequelize } from "sequelize";
 import { Detalle_CompraModel } from "./detalle_compra.model";
 
-export class ComprasModel extends Model<ComprasType> {}
+export class ComprasModel extends Model<ComprasType> {
+  cantidad: any;
+  id_producto: any;
+  id_compra: any;
+  empleado: any;
+  idProducto: any;
+  idCompra: any;
+  fechaCompra: any;
+  Detalle_CompraModels: any;
+}
 
 ComprasModel.init(
   {
-    idCompra:{
+    idCompra: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement:true,
+      autoIncrement: true,
       allowNull: false,
     },
 
@@ -19,13 +28,13 @@ ComprasModel.init(
       type: DataTypes.DATEONLY,
       allowNull: false,
       defaultValue: Sequelize.literal('CURRENT_DATE')
-        
+
     },
 
     empleado: {
       type: DataTypes.STRING(20),
       allowNull: false,
-      defaultValue:"Administrador"
+      defaultValue: "Administrador"
     },
   },
   {
@@ -34,7 +43,7 @@ ComprasModel.init(
     tableName: "compras",
   }
 );
-ComprasModel.hasMany(Detalle_CompraModel,{
-  foreignKey:"idCompra",
-  sourceKey:"idCompra"
+ComprasModel.hasMany(Detalle_CompraModel, {
+    foreignKey: "idCompra",
+  sourceKey: "idCompra"
 });

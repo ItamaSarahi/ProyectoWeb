@@ -6,6 +6,7 @@ import { Detalle_CompraModel } from "./detalle_compra.model";
 
 export class ProductosModel extends Model<ProductosType> {
   precio_Venta: any;
+  Detalle_CompraModels: any;
   url_imagen(url_imagen: any, arg1: number, arg2: number, arg3: { width: number; heigth: number; }) {
     throw new Error("Method not implemented.");
   }
@@ -66,8 +67,6 @@ ProductosModel.init(
 
   
 );
-//ProveedoresModel.hasMany(ProductosModel,{foreignKey:"id_Proveedor"});
-//ProductosModel.belongsTo(ProveedoresModel,{foreignKey:"id_Proveedor"});
 
 ProductosModel.hasMany(Detalle_VentaModel,{
   foreignKey:"idProducto",
@@ -75,6 +74,7 @@ ProductosModel.hasMany(Detalle_VentaModel,{
 });
 
 ProductosModel.hasMany(Detalle_CompraModel,{
-  foreignKey:"idProducto",
-  sourceKey:"idProducto"
-});
+  
+   foreignKey:"idProducto",
+   sourceKey:"idProducto"
+}); 

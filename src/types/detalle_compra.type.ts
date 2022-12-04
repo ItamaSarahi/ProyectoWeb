@@ -3,4 +3,5 @@ export default interface Detalle_CompraType {
     idCompra?: number;
     idProducto?: number;
     cantidad?: number;
+    fechaCompra?:Date
 }
