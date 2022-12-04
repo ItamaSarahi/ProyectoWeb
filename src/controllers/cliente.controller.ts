@@ -3,85 +3,93 @@ import { ClienteModel } from "../models/clientes.model";
 import { UsuariosModel } from "../models/usuarios.model";
 import encriptar from "../middlewares/encriptar.contrasenas";
 const PDF = require('pdfkit-construct');
-
 import * as authService from "../services/auth.service";
 import { StatusCodes } from "http-status-codes";
 
 
-//Creación del cliente:
+/**
+ * Funcion que permite la creción de clientes en la BD.
+ * @encriptar
+ * Encriptacion de contraseña
+ */
+
 export async function createCliente(req: Request, res: Response) {
-  
-  const { body } = req;
-  
-  const contraseniaUnhash = body["password"];
 
-  const { nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, usuario, password } = req.body;
-  //encriptación de contraseña:
-  const passwordHash = await encriptar(password);
-  let idUsuario, rol, comprobarUsuario, comprobarTelefono;
+  let idUsuario, rol, comprobarTelefono, comprobarEmail;
+  try {
+    const { nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, usuario, password } = req.body;
 
-  //asignación de rol
-  rol = "cliente";
 
-  await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
-    comprobarUsuario = result?.getDataValue('usuario'));
+    const passwordHash = await encriptar(password);
 
-  await ClienteModel.findOne({ where: { num_telefono: num_telefono } }).then(result =>
-    comprobarTelefono = result?.getDataValue('num_telefono'));
+    rol = "cliente";
 
-  //comprobar si el usuario y el telefono ya estan registrados
-  if (comprobarUsuario == null) {
+    await ClienteModel.findOne({ where: { email: email } }).then(result => comprobarEmail = result?.getDataValue('email'));
 
-    if (comprobarTelefono == null) {
-      await UsuariosModel.create({ usuario: usuario, password: passwordHash, rol: rol }).then(result =>
-        idUsuario = result.getDataValue('idUsuario'));
+    await ClienteModel.findOne({ where: { num_telefono: num_telefono } }).then(result => comprobarTelefono = result?.getDataValue('num_telefono'));
 
-     // await ClienteModel.create({ nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, idUsuario });
-      //alerta usuario creado con exito:
- 
-    const usuarioResponse = await ClienteModel.create(body, { raw: true });
-    
-    const emai = usuarioResponse.getDataValue("email");
+    //comprobar si el usuario y el telefono ya estan registrados
+    if (comprobarEmail == null) {
 
-    try {
-      await authService.sendUserCredentials({
-        emai,
-        data: { correo: emai, contrasenia: contraseniaUnhash },
-      });
-      res.status(201).render("registroclientes-view", { alert: true, alertTitle: 'Usuario creado con exito', alertMessage: "", alertIcon: 'success', ruta:'/registro'});
-    
-    } catch (e) {
-      const error = e as Error;
-      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ nameError: error.name, detail: error.message });
+      if (comprobarTelefono == null) {
+
+        await UsuariosModel.create({ usuario: usuario, password: passwordHash, rol: rol }).then(result => idUsuario = result.getDataValue('idUsuario'));
+
+        const usuarioResponse = await ClienteModel.create({ nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, idUsuario });
+
+        const emai = usuarioResponse.getDataValue("email");
+
+        try {
+          await authService.sendUserCredentials({
+            emai,
+            data: { correo: emai, contrasenia: password },
+          });
+          res.status(201).render("registroclientes-view", { alert: true, alertTitle: 'Usuario creado con exito', alertMessage: "", alertIcon: 'success', ruta: '/registro' });
+
+        } catch (e) {
+          const error = e as Error;
+          res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ nameError: error.name, detail: error.message });
+        }
+
+      }
+
+
+      //alterta numero ya registrado:
+      else {
+        res.render("registroclientes-view", { alert: true, alertTitle: 'Error', alertMessage: "Numero telefónico ya registrado", alertIcon: 'error', ruta: '/registro' })
+      };
     }
 
-    }
-
-
-    //alterta numero ya registrado:
     else {
-      res.render("registroclientes-view", { alert: true, alertTitle: 'Error', alertMessage: "Numero telefónico ya registrado", alertIcon: 'error',ruta:'/registro' })
-    };
-  }
-
-  else {
-    //alerta nombre de usuario ya registrado:
-    res.render("registroclientes-view", { alert: true, alertTitle: 'Error', alertMessage: "Nombre de usuario ya registrado", alertIcon: 'error',ruta:'/registro' });
+      //alerta nombre de usuario ya registrado:
+      res.render("registroclientes-view", { alert: true, alertTitle: 'Error', alertMessage: "Email ya registrado", alertIcon: 'error', ruta: '/registro' });
+    }
+  } catch (error) {
+    res.status(200);
   }
 }
 
+
+
+
+/**
+ * Funcion que obtiene los atributos del modelo Cliente
+ *@getClientes
+ */
 export async function getClientes(req: Request, res: Response) {
- const records = await UsuariosModel.findAll({where: { rol:"cliente" },raw:true,include:[{model:ClienteModel,attributes:["idCliente", "nombre_C","apellidoPC","apellidoMC","fechaNacimiento","email", "num_telefono"]}],attributes:["usuario"]});
+  const records = await UsuariosModel.findAll({ where: { rol: "cliente" }, raw: true, include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "apellidoPC", "apellidoMC", "fechaNacimiento", "email", "num_telefono"] }], attributes: ["usuario"] });
   res.status(200).json(records);
 }
- 
 
 
-
+/**
+ * Funcion que genera el PDF de los clientes registrados en el sistema
+ *@map
+ *Funcion que permite recorrer la tabla clientes
+ */
 export async function getPDFClientes(req: Request, res: Response) {
 
   const doc = new PDF({ bufferPages: true });
-
   const fileName = `Factura${Date.now()}.pdf`;
   const stream = res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-disposition': `attachment;filename=${fileName}` });
 
@@ -89,7 +97,7 @@ export async function getPDFClientes(req: Request, res: Response) {
   doc.on('end', () => { stream.end() });
 
 
-  const clientes = await ClienteModel.findAll({ raw: true, attributes: ["idCliente","nombre_C","apellidoPC","apellidoMC","fechaNacimiento","email","num_telefono","idUsuario"] });
+  const clientes = await ClienteModel.findAll({ raw: true, attributes: ["idCliente", "nombre_C", "apellidoPC", "apellidoMC", "fechaNacimiento", "email", "num_telefono", "idUsuario"] });
   const registros = clientes.map((cliente) => {
     const registro = {
       id: cliente.idCliente,
@@ -113,13 +121,11 @@ export async function getPDFClientes(req: Request, res: Response) {
       .fontSize(28)
       .text("CREATIVE IDEAS", doc.header.x + 180, doc.header.y + 20);
 
-    doc.fontSize(12).fill('#110000').text('Reporte de clientes', {
+    doc.fontSize(12).fill('#110000').text('Reporte de clientes registrados en el sistema', {
       width: 250,
       align: 'center',
-    }); 
+    });
   });
-
-
 
   doc.addTable([
     { key: 'id', label: '#', align: 'center' },

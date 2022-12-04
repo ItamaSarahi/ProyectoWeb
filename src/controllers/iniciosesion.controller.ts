@@ -10,12 +10,8 @@ import encriptar from "../middlewares/encriptar.contrasenas";
 import 'localstorage-polyfill';
 
 
-let contrasena: any, rol: any, idUsuario: any,nombreCliente:any,nombreEmpleado:any;
-
-
-
+let contrasena: any, rol: any, idUsuario: any,nombreCliente:any,nombreEmpleado:any, email:any;
     let date = new Date();
-    let busqueda=false;
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
@@ -27,6 +23,7 @@ let contrasena: any, rol: any, idUsuario: any,nombreCliente:any,nombreEmpleado:a
 
 //Inicio de sesión:
 export async function findIniciarSesion(req: Request, res: Response) {
+
   const { usuario, password } = req.body;
 
 
@@ -38,6 +35,8 @@ export async function findIniciarSesion(req: Request, res: Response) {
 
   await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
     idUsuario = result?.getDataValue('idUsuario'));
+    
+
 
     if(idUsuario!==undefined){
   await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
@@ -51,6 +50,7 @@ export async function findIniciarSesion(req: Request, res: Response) {
   await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result =>
         nombreEmpleado = result?.getDataValue('nombre_E'));
   }
+
 
   const records = await VentasModel.findAll({ raw: true, where: { fecha_Vencimiento: actual, status: "NO PAGADO" }});
   console.log(records);
@@ -118,7 +118,14 @@ export async function getDatosClienteEditar(req: Request, res: Response) {
   res.status(200).json(records);
 }
 
+
+/**
+ * @updateCliente
+ * Funcion que actualiza los datos del cliente: contraseña
+ *
+ */
 export async function updateCliente(req: Request, res: Response) {
+  
   const { usuario, password, password_new, password_new_c } = req.body;
 
   const contraseñaA = await comparar(password, contrasena);
