@@ -7,8 +7,7 @@ async function main() {
     .sync({ alter: true })
     .then(() => { })
     .catch((err) => console.log(err));
-
-
+  
   await app.listen(app.get("port"));
   console.log("Server running http://localhost:" + app.get("port"));
 }
