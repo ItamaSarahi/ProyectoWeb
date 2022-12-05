@@ -72,15 +72,26 @@
 
         <br><br>
 
-        <div class="container" style="width: 880px; padding: 18px; margin-left: 28%;">
-            <table class="striped">
+        <div class="container grey lighten-2" style="width: 880px; padding: 18px; margin-left: 28%; ">
+            <center><h5 style="font-style:italic">EMPLEADOS</h5></center>
+            <div class="input-field">
+                <!--Icóno-->
+                
+                
+                <!--Input de tipo texto-->
+                <i class="material-icons prefix">search</i>
+                <input type="text" name="buscar" id="buscar" maxlength=20 class="form-control pull-right">
+                <label for="buscar">BUSCAR EMPLEADO</label>
+            </div>
+            <table class="striped" id="datatable">
 
                 <thead>
                     <tr>
-                        <th>ID EMPLEADO</th>
+                        <th>#</th>
                         <th>NOMBRE</th>
                         <th>APELLIDO M</th>
                         <th>APELLIDO P</th>
+                        <th>EMAIL</th>
                         <th>ESTUDIOS</th>
 
                     </tr>

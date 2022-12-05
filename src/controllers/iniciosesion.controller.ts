@@ -25,60 +25,73 @@ else {
   actual = `${year}-${month}-${day}`;
 }
 
+export function logginView(req: Request, res: Response) {
+  const { error } = req.query;
+  res.render("iniciosesion-view", { error });
+}
+
+
 /**
  * Funcion que permite inciar sesión al usuario ingresar y dependiendo de su rol les asigna los permisos necesarios:
  * 
  */
 export async function findIniciarSesion(req: Request, res: Response) {
 
-  const { usuario, password } = req.body;
-  let idCliente;
+  try {
+    const { usuario, password } = req.body;
+    let idCliente;
 
-  await UsuariosModel.findOne({ where: { email: usuario } }).then(result => contrasena = result?.getDataValue('password'));
+    await UsuariosModel.findOne({ where: { email: usuario } }).then(result => contrasena = result?.getDataValue('password'));
 
-  await UsuariosModel.findOne({ where: { email: usuario } }).then(result => rol = result?.getDataValue('rol'));
+    await UsuariosModel.findOne({ where: { email: usuario } }).then(result => rol = result?.getDataValue('rol'));
 
-  await UsuariosModel.findOne({ where: { email: usuario } }).then(result => idUsuario = result?.getDataValue('idUsuario'));
-
-
-  if (idUsuario !== undefined) {
-    await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result => nombreCliente = result?.getDataValue('nombre_C'));
-
-    await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result => idCliente = result?.getDataValue('idCliente'));
-
-    localStorage.setItem('cliente', JSON.stringify(idCliente));
-
-    await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result => nombreEmpleado = result?.getDataValue('nombre_E'));
-  }
+    await UsuariosModel.findOne({ where: { email: usuario } }).then(result => idUsuario = result?.getDataValue('idUsuario'));
 
 
-  const records = await VentasModel.findAll({ raw: true, where: { fecha_Vencimiento: actual, status: "NO PAGADO" } });
+    if (idUsuario !== undefined) {
+      await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result => nombreCliente = result?.getDataValue('nombre_C'));
 
-  const usuarioResponse = await UsuariosModel.findOne({ attributes: ["idUsuario", "email", "password", "rol"], where: { email: usuario } });
+      await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result => idCliente = result?.getDataValue('idCliente'));
+
+      localStorage.setItem('cliente', JSON.stringify(idCliente));
+
+      await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result => nombreEmpleado = result?.getDataValue('nombre_E'));
+    }
 
 
-  if (contrasena != undefined || idUsuario != undefined) {
+    const records = await VentasModel.findAll({ raw: true, where: { fecha_Vencimiento: actual, status: "NO PAGADO" } });
 
-    const comp = await comparar(password, contrasena);
+    const usuarioResponse = await UsuariosModel.findOne({ attributes: ["idUsuario", "email", "password", "rol"], where: { email: usuario } });
 
-    if (comp && usuarioResponse !== null) {
 
-      const user = usuarioResponse.toJSON();
+    if (contrasena != undefined || idUsuario != undefined) {
 
-      req.session.user = user;
+      const comp = await comparar(password, contrasena);
 
-      return res.redirect("/permisos");
+      if (comp && usuarioResponse !== null) {
+
+        const user = usuarioResponse.toJSON();
+
+        //SE AGREGADO QUIEN SABE PA QUE SIRVE... ELIMINA? 
+        delete user.password;
+
+        req.session.user = user;
+
+        return res.redirect("/permisos");
+
+      }
+
+      else {
+        res.render("iniciosesion-view", { alert: true, alertTitle: 'Inicio de sesión incorrecto', alertMessage: "contraseña incorrecta", alertIcon: 'error', ruta: '' });
+      }
 
     }
 
     else {
-      res.render("iniciosesion-view", { alert: true, alertTitle: 'Inicio de sesión incorrecto', alertMessage: "contraseña incorrecta", alertIcon: 'error', ruta: '' });
+      res.render("iniciosesion-view", { alert: true, alertTitle: 'Error', alertMessage: "Email no dado de alta en el sistema", alertIcon: 'error', ruta: '' })
     }
-
-  }
-
-  else {
-    res.render("iniciosesion-view", { alert: true, alertTitle: 'Error', alertMessage: "Email no dado de alta en el sistema", alertIcon: 'error', ruta: '' })
+  } catch (error) {
+    res.send("error");
   }
 
 }
@@ -150,6 +163,14 @@ export async function updateCliente(req: Request, res: Response) {
 }
 
 
+export async function loggout(req: Request, res: Response) {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log("error al cerrar sesion");
+    }
+    res.redirect("/");
+  });
+}
 
 
 

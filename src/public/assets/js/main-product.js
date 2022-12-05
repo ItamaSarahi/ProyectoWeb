@@ -44,6 +44,8 @@ const mainProduct = (() => {
           $td.innerText = "SIN IMAGEN";
         } else {
           const $img = document.createElement("img");
+          $img.setAttribute("width",100);
+          $img.setAttribute("height",100);
           $img.setAttribute("src", `/api/imagen/file?filePath=${value}`);
           $img.classList.add("img-icon");
           $td.appendChild($img);

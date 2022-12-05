@@ -10,7 +10,10 @@ iniciosesionRouter.get("/datosCliente/:idCliente",getDatosClienteEditar);
 iniciosesionRouter.get("/vista/editarCliente",indexViewEditarCliente);
 
 //Ruta vendedor
-iniciosesionRouter.get("/datosEmpleado",getTablaEmpleado)
+iniciosesionRouter.get("/datosEmpleado",getTablaEmpleado);
+
+
+
 export default iniciosesionRouter;
   
  

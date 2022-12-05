@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
 
 export function vistaSesion(req: Request, res: Response) {
+  const {error} = req.query;
+  res.render("iniciosesion-view",{error});
+}
+
+export function indexResponse(req: Request, res: Response) {
   return res.render("iniciosesion-view");
 }
 

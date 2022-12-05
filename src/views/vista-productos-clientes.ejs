@@ -8,17 +8,28 @@
 <body class="cyan darken-1">
     
     <%- include("status/components/form-principal-vendedor.ejs")  -%>
-        
-        <div class="container " style="width: 1000px; padding: 18px; margin-left: 25%;">
+        <br>
+        <br>
+        <br>
+    <div id="containerTable" class="container #a7ffeb teal accent-1"
+    style="width: 1000px; padding: 18px; margin-left: 25%;">
             
             <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
-            <h5 style="text-align: center; font-style:italic; font-family:Helvetica Neue;" style="margin-left: 38%;">INVENTARIO</h5>
-            <table class="striped">
+            <center><h5 style="text-align: center; font-style:italic; font-family:Helvetica Neue;">INVENTARIO</h5></center>
+            <div class="input-field">
+                <!--Icóno-->
+                
+                
+                <!--Input de tipo texto-->
+                <i class="material-icons prefix">search</i>
+                <input type="text" name="buscar" id="buscar" maxlength=20 class="form-control pull-right">
+                <label for="buscar">BUSCAR PRODUCTO</label>
+            </div>
+            <table class="striped" id="datatable">
 
                     <tr>
                         <th>#</th>
                         <th><center>Nombre</center></th>
-                        <th><center>Descripcion</center></th>
                         <th><center>Existencia</center></th>
                         <th><center>Precio_compra</center></th>
                         <th><center>Precio_venta</center></th>

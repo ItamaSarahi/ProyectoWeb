@@ -20,6 +20,7 @@ import detalleVentasRouter from "./routes/detalleVentas.route";
 import comprasRouter from "./routes/compras.route";
 import productosClientes from "./routes/productos_clientes";
 import { sessionConfig, sessionMiddleware } from "./middlewares/express-session.middleware";
+import { createLogginMiddleware } from "./middlewares/loggin.middleware";
 
 
 //settings
@@ -40,18 +41,20 @@ app.use(sessionMiddleware);
 
 
 //routes
-app.use("/", indexRouter);
-app.use("/api/v1/example", exampleRouter);
-app.use("/modulo/producto",methodOverride('_method'),productoRouter);
-app.use("/iniciosesion",methodOverride('_method'), iniciosesionRouter);
-app.use("/catalogo/empleado",methodOverride('_method'), empleadoRouter);
-app.use("/catalogo/proveedor",methodOverride('_method'), proveedorRouter);
-app.use("/api/imagen/file",fileRoute);
-app.use("/modulo/ventas",methodOverride('_method'),ventasRouter);
-app.use("/modulo/detalleVentas",detalleVentasRouter);
-app.use("/modulo/compras",comprasRouter);
+const protegerRutaFuncion = createLogginMiddleware(["*"]);
 
-app.use("/productos",productosClientes)
+app.use("/",indexRouter);
+app.use("/api/v1/example",protegerRutaFuncion, exampleRouter);
+app.use("/modulo/producto",protegerRutaFuncion,methodOverride('_method'),productoRouter,);
+app.use("/iniciosesion",methodOverride('_method'), iniciosesionRouter);
+app.use("/catalogo/empleado",protegerRutaFuncion,methodOverride('_method'), empleadoRouter);
+app.use("/catalogo/proveedor",protegerRutaFuncion,methodOverride('_method'), proveedorRouter);
+app.use("/api/imagen/file",fileRoute);
+app.use("/modulo/ventas",protegerRutaFuncion,methodOverride('_method'),ventasRouter);
+app.use("/modulo/detalleVentas",protegerRutaFuncion,detalleVentasRouter);
+app.use("/modulo/compras",protegerRutaFuncion,comprasRouter);
+
+app.use("/productos",protegerRutaFuncion,productosClientes)
 
 
 
