@@ -2,20 +2,20 @@ import { Request, Response } from "express";
 import { EmpleadosModel } from "../models/empleados.model";
 import { UsuariosModel } from "../models/usuarios.model";
 import encriptar from "../middlewares/encriptar.contrasenas";
+import * as authService from "../services/auth.service";
+import { StatusCodes } from "http-status-codes";
 
 const PDF = require('pdfkit-construct');
 
 
 //Creación de empleado: 
 export async function createEmpleado(req: Request, res: Response) {
-  const { nombre_E, apellidoPE, apellidoME, nivelEstudio, usuario, password } = req.body;
+  const { nombre_E, apellidoPE, apellidoME, nivelEstudio, usuario, password,rol } = req.body;
 
   //encriptación de contraseña:
   const passwordHash = await encriptar(password);
-  let idUsuario, comprobarUsuario, rol;
+  let idUsuario, comprobarUsuario;
 
-  //asignación rol empleado:
-  rol = "vendedor"
 
   await UsuariosModel.findOne({ where: { email: usuario } }).then(result =>
     comprobarUsuario = result?.getDataValue('email'));
@@ -26,8 +26,22 @@ export async function createEmpleado(req: Request, res: Response) {
     //crear empleado
     await UsuariosModel.create({ email: usuario, password: passwordHash, rol: rol }).then(result =>
       idUsuario = result.getDataValue('idUsuario'));
+      let email:any;
+      await UsuariosModel.findOne({ where: { idUsuario: idUsuario } }).then(result => email = result?.getDataValue('email'));
     //crear usuario
     await EmpleadosModel.create({ nombre_E, apellidoPE, apellidoME, nivelEstudio, idUsuario });
+    let emai=email;
+    try {
+      await authService.sendUserCredentials({
+        emai,
+        data: { correo: usuario, contrasenia: password },
+      });
+      res.status(201).render("registroempleado-view", { alert: true, alertTitle: 'Empleado creado con exito', alertMessage: "", alertIcon: 'success', ruta: '/catalogo/empleado/viewRegistroEmpleado' });
+
+    } catch (e) {
+      const error = e as Error;
+      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ nameError: error.name, detail: error.message });
+    }
 
     res.status(201).render("registroempleado-view", { alert: true, alertTitle: 'Empleado creado con exito', alertMessage: "", alertIcon: 'success', ruta: '/catalogo/empleado/viewRegistroEmpleado' });
 

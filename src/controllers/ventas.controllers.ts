@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Detalle_VentaModel } from "../models/detalle_venta.model";
 import { VentasModel } from "../models/ventas.model";
+import 'localstorage-polyfill';
 
 
 
@@ -86,7 +87,8 @@ export async function updateVentaVendedor(req: Request, res: Response) {
     if (busquedaVenta == null) {
         res.render("confirmarVentas-vendedor", {alert: true,alertTitle: 'Error',alertMessage: "PRODUCTO NO EXISTE",alertIcon: 'error',ruta: '/vendedor/confirmarVentas'});
     } else {
-            const responde = await VentasModel.update({ status: "PAGADO" }, { where: { idVenta: venta } }).then(function (data) {
+            let id=JSON.parse(localStorage.empleado);
+            const responde = await VentasModel.update({ status: "PAGADO",idEmpleado:id }, { where: { idVenta: venta } }).then(function (data) {
             const res = { success: true, data: data, message: "updated successful" }
             return res;
         }).catch(error => {

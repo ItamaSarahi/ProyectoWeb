@@ -16,8 +16,9 @@ export function indexViewProveedores(req: Request, res: Response) {
 //Funcion para crear un proveedor en la base de datos
 
 export async function createProveedor(req: Request, res: Response) {
-  const { empresa, telefono } = req.body;
+  let { empresa, telefono } = req.body;
   let busqueda
+  empresa = String(empresa.trim());
 
   await ProveedoresModel.findOne({ where: { empresa: empresa } }).then(result => busqueda = result);
 

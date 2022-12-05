@@ -336,54 +336,56 @@ export function vaciarCarrito(req: Request, res: Response) {
 export async function GenererTicket(req: Request, res: Response) {
   try {
     var idCliente = parseInt((JSON.parse(localStorage.cliente)));
-    console.log("este es el id del cliente", idCliente);
-    var idVenta: any, existenciaActual: any, idEmpleado = 1;
+  console.log("este es el id del cliente", idCliente);
+  var idVenta: any, existenciaActual: any, idEmpleado = 1;
 
-    await VentasModel.create({ fecha_Inicial: actual, fecha_Vencimiento: fechaVencimiento, idEmpleado, idCliente: idCliente }).then(result =>
-      idVenta = result?.getDataValue('idVenta'));
-    console.log(idVenta);
-    for (let count = 0; count < idProductosArray.length; count++) {
-      await ProductosModel.findOne({ where: { idProducto: idProductosArray[count] } }).then(result => existenciaActual = result?.getDataValue("existencia"));
-      await Detalle_VentaModel.create({ idProducto: idProductosArray[count], cantidad: cantidadesArray[count], precio_Total: preciosTotalesArray[count], idVenta: idVenta });
-      await ProductosModel.update({ existencia: (parseInt(existenciaActual as string) - cantidadesArray[count]) }, { where: { idProducto: idProductosArray[count] } });
-    }
-    let precioTotal = 0;
-    for (let count = 0; count < preciosTotalesArray.length; count++) {
-      precioTotal = precioTotal + parseInt(preciosTotalesArray[count]);
-    }
-    console.log(precioTotal, "ES MI TOTAL");
+  await VentasModel.create({ fecha_Inicial: actual, fecha_Vencimiento: fechaVencimiento, idEmpleado, idCliente: idCliente }).then(result =>
+    idVenta = result?.getDataValue('idVenta'));
+  console.log(idVenta);
+  for (let count = 0; count < idProductosArray.length; count++) {
+    await ProductosModel.findOne({ where: { idProducto: idProductosArray[count] } }).then(result => existenciaActual = result?.getDataValue("existencia"));
+    await Detalle_VentaModel.create({ idProducto: idProductosArray[count], cantidad: cantidadesArray[count], precio_Total: preciosTotalesArray[count], idVenta: idVenta });
+    await ProductosModel.update({ existencia: (parseInt(existenciaActual as string) - cantidadesArray[count]) }, { where: { idProducto: idProductosArray[count] } });
+  }
+ let precioTotal=0;
+  for (let count = 0; count < preciosTotalesArray.length; count++) {
+    precioTotal=precioTotal+parseInt(preciosTotalesArray[count]);
+  }
+  console.log(precioTotal,"ES MI TOTAL");
 
-    let emai = JSON.parse(localStorage.email);
+ let emai="paulo.canser@gmail.com";
 
-    try {
-      await authService.enviarCorreo({
-        emai,
-        data: { idVenta: idVenta, fechaInical: actual, fechaVencimiento: fechaVencimiento, precioTotal: precioTotal },
-      });
-      limpiar();
-      res.render("productoCliente/vistaTermo", { alert: true, alertTitle: 'TICKET ENVIADO AL CORREO!', alertMessage: "¡PAGA EN TIENDA!", alertIcon: 'success', ruta: '/productos/vistaTermo' });
+ 
+  
 
-    } catch (e) {
-      const error = e as Error;
-      res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ nameError: error.name, detail: error.message });
-    }
-
-
-  } catch (error) {
+  try {
+    await authService.enviarCorreo({
+      emai,
+      data: { idVenta: idVenta, fechaInical:actual,fechaVencimiento: fechaVencimiento,precioTotal:precioTotal},
+    });
+    limpiar();
+    res.render("productoCliente/vistaTermo", { alert: true, alertTitle: 'TICKET ENVIADO AL CORREO!', alertMessage: "¡PAGA EN TIENDA!", alertIcon: 'success', ruta: '/productos/vistaTermo' });
+  
+  } catch (e) {
+    const error = e as Error;
+    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ nameError: error.name, detail: error.message });
+  }
+ 
+  
+} catch (error) {
     res.render("iniciosesion-view", { alert: true, alertTitle: 'ERROR', alertMessage: "Inicia sesion de nuvo", alertIcon: 'error', ruta: '' });
     limpiar();
     return res.status(200);
   }
-  return res.status(200);
+return res.status(200);
 
 }
 //Funcion para vaciar el local storage y los arrays
 function limpiar() {
-  localStorage.removeItem('producto');
+  localStorage.clear();
   productos = [];
   idProductosArray = [];
   cantidadesArray = [];
-  preciosTotalesArray = [];
 }
 //Funcion para llenar los arrays u el local storage
 function llenarArrayAndLocalStorage(cantidad: String, precioUnitario: String, nombre: String, idProducto: String, imagen: String) {
