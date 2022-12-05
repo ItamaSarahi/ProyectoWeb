@@ -86,7 +86,6 @@ export async function updateVentaVendedor(req: Request, res: Response) {
 
     if (busquedaVenta == null) {
         res.render("confirmarVentas-vendedor", {alert: true,alertTitle: 'Error',alertMessage: "PRODUCTO NO EXISTE",alertIcon: 'error',ruta: '/vendedor/confirmarVentas'});
-        
     } else {
             let id=JSON.parse(localStorage.empleado);
             const responde = await VentasModel.update({ status: "PAGADO",idEmpleado:id }, { where: { idVenta: venta } }).then(function (data) {
