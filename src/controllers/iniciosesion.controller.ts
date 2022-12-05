@@ -9,7 +9,7 @@ import encriptar from "../middlewares/encriptar.contrasenas";
 import 'localstorage-polyfill';
 
 
-let contrasena: any, rol: any, idUsuario: any, nombreCliente: any, nombreEmpleado: any, email: any;
+let contrasena: any, rol: any, idUsuario: any, idEmpleado: any, email: any;
 
 
 let date = new Date();
@@ -46,20 +46,19 @@ export async function findIniciarSesion(req: Request, res: Response) {
     await UsuariosModel.findOne({ where: { email: usuario } }).then(result => rol = result?.getDataValue('rol'));
 
     await UsuariosModel.findOne({ where: { email: usuario } }).then(result => idUsuario = result?.getDataValue('idUsuario'));
-
+    
 
     if (idUsuario !== undefined) {
-      await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result => nombreCliente = result?.getDataValue('nombre_C'));
 
       await ClienteModel.findOne({ where: { idUsuario: idUsuario } }).then(result => idCliente = result?.getDataValue('idCliente'));
 
       localStorage.setItem('cliente', JSON.stringify(idCliente));
 
-      await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result => nombreEmpleado = result?.getDataValue('nombre_E'));
+      await EmpleadosModel.findOne({ where: { idUsuario: idUsuario } }).then(result => idEmpleado = result?.getDataValue('idEmpleado'));
+      localStorage.setItem('empleado', JSON.stringify(idEmpleado));
+      console.log("este mi id empleado",idEmpleado);
     }
 
-
-    const records = await VentasModel.findAll({ raw: true, where: { fecha_Vencimiento: actual, status: "NO PAGADO" } });
 
     const usuarioResponse = await UsuariosModel.findOne({ attributes: ["idUsuario", "email", "password", "rol"], where: { email: usuario } });
 
@@ -69,7 +68,7 @@ export async function findIniciarSesion(req: Request, res: Response) {
       const comp = await comparar(password, contrasena);
 
       if (comp && usuarioResponse !== null) {
-
+        localStorage.setItem('email',JSON.stringify(usuario));
         const user = usuarioResponse.toJSON();
 
         //SE AGREGADO QUIEN SABE PA QUE SIRVE... ELIMINA? 

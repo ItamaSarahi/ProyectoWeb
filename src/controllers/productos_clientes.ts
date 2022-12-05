@@ -353,7 +353,7 @@ export async function GenererTicket(req: Request, res: Response) {
   }
   console.log(precioTotal,"ES MI TOTAL");
 
- let emai="paulo.canser@gmail.com";
+ let emai=JSON.parse(localStorage.email); 
 
  
   
@@ -382,10 +382,11 @@ return res.status(200);
 }
 //Funcion para vaciar el local storage y los arrays
 function limpiar() {
-  localStorage.clear();
+  localStorage.removeItem('producto');
   productos = [];
   idProductosArray = [];
   cantidadesArray = [];
+  preciosTotalesArray=[];
 }
 //Funcion para llenar los arrays u el local storage
 function llenarArrayAndLocalStorage(cantidad: String, precioUnitario: String, nombre: String, idProducto: String, imagen: String) {
