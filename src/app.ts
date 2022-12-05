@@ -1,8 +1,10 @@
 import express, { Application } from "express";
 import morgan from "morgan";
 import path from "path"
+/*
 import dotenv from "dotenv";
 dotenv.config();
+*/
 
 const app: Application = express();
 var methodOverride = require('method-override');
