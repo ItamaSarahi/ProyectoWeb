@@ -1,0 +1,24 @@
+
+
+<ul id="slide-out" class="sidenav sidenav-fixed" style="background:#4db6ac teal lighten-2">
+
+    <!--Permisos si el usuario es cliente-->
+    <% if(user.rol==="cliente" ){ %>
+        
+        <%- include("status/components/form-principal-cliente") -%>
+
+    <% } %>
+
+    <!--Permisos si el usuario es administrador-->
+    <% if(user.rol==="administrador" ){ %>
+
+         <%- include("status/components/form-principal-admi") -%>
+
+     <% } %>
+
+  <!--Permisos si el usuario es vendedor-->
+    <% if(user.rol==="vendedor" ){ %>
+
+              <%- include("status/components/form-principal-vendedor") -%>
+
+     <% } %>

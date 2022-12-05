@@ -19,6 +19,7 @@ import ventasRouter from "./routes/ventas.route";
 import detalleVentasRouter from "./routes/detalleVentas.route";
 import comprasRouter from "./routes/compras.route";
 import productosClientes from "./routes/productos_clientes";
+import { sessionConfig, sessionMiddleware } from "./middlewares/express-session.middleware";
 
 
 //settings
@@ -31,9 +32,11 @@ app.set('views', path.join(__dirname, './views'));
 //middlewares
 app.use(morgan("dev"));
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, './public')))
+
+app.use(sessionConfig);
+app.use(sessionMiddleware);
 
 
 //routes

@@ -15,7 +15,7 @@ export async function createEmpleado(req: Request, res: Response) {
   let idUsuario, comprobarUsuario, rol;
 
   //asignación rol empleado:
-  rol = "empleado"
+  rol = "vendedor"
 
   await UsuariosModel.findOne({ where: { email: usuario } }).then(result =>
     comprobarUsuario = result?.getDataValue('email'));
