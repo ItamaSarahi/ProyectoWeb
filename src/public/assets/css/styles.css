@@ -64,7 +64,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  box-shadow: 0 5px 10px #18ffff;
+  box-shadow: 0 5px 10px #1565c0;
 }
 
 .card .back .link {
