@@ -44,7 +44,7 @@ app.use(sessionMiddleware);
 const protegerRutaFuncion = createLogginMiddleware(["*"]);
 
 app.use("/",indexRouter);
-app.use("/api/v1/example",protegerRutaFuncion, exampleRouter);
+app.use("/api/v1/example",exampleRouter);
 app.use("/modulo/producto",protegerRutaFuncion,methodOverride('_method'),productoRouter,);
 app.use("/iniciosesion",methodOverride('_method'), iniciosesionRouter);
 app.use("/catalogo/empleado",protegerRutaFuncion,methodOverride('_method'), empleadoRouter);
