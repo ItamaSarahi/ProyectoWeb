@@ -29,13 +29,13 @@ export async function findIniciarSesion(req: Request, res: Response) {
   const { usuario, password } = req.body;
 
 
-  await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
+  await UsuariosModel.findOne({ where: { email: usuario } }).then(result =>
     contrasena = result?.getDataValue('password'));
 
-  await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
+  await UsuariosModel.findOne({ where: { email: usuario } }).then(result =>
     rol = result?.getDataValue('rol'));
 
-  await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
+  await UsuariosModel.findOne({ where: { email: usuario } }).then(result =>
     idUsuario = result?.getDataValue('idUsuario'));
 
 
@@ -75,7 +75,7 @@ export async function findIniciarSesion(req: Request, res: Response) {
       res.render("principalcliente-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA " + nombreCliente + "", alertIcon: 'info', ruta: '/cliente' });
     }
 
-    else if (comp && rol === "vendedor") {
+    else if (comp && rol === "empleado") {
       if (records.length !== 0) {
         res.render("principalempleado-view", { alert: true, alertTitle: 'BIENVENIDO A CREATIVE IDEAS', alertMessage: "BUEN DIA VENDEDOR " + nombreEmpleado + ", tienes apartados vencidos. BORRALOS.", alertIcon: 'info', ruta: '/vendedor' });
       } else {
@@ -91,7 +91,7 @@ export async function findIniciarSesion(req: Request, res: Response) {
     }
   }
   else {
-    res.render("iniciosesion-view", { alert: true, alertTitle: 'Error', alertMessage: "Usuario no registrado", alertIcon: 'error', ruta: '' })
+    res.render("iniciosesion-view", { alert: true, alertTitle: 'Error', alertMessage: "Email no dado de alta en el sistema", alertIcon: 'error', ruta: '' })
   }
 
 }
@@ -102,13 +102,13 @@ export function indexViewEditarCliente(req: Request, res: Response) {
 }
 
 export async function getTablaCliente(req: Request, res: Response) {
-  const records = await UsuariosModel.findAll({ where: { idUsuario: idUsuario }, raw: true, include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "num_telefono"] }], attributes: ["usuario"] });
+  const records = await UsuariosModel.findAll({ where: { idUsuario: idUsuario }, raw: true, include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "num_telefono"] }], attributes: ["email"] });
   res.status(200).json(records);
 }
 
 
 export async function getTablaEmpleado(req: Request, res: Response) {
-  const records = await UsuariosModel.findAll({ where: { idUsuario: idUsuario }, raw: true, attributes: ["usuario"], include: [{ model: EmpleadosModel, attributes: ["idEmpleado"], include: [{ model: VentasModel, attributes: ["fecha_Inicial"], include: [{ model: Detalle_VentaModel, attributes: ["cantidad", "precio_Total", "idProducto",] }] }] }] })
+  const records = await UsuariosModel.findAll({ where: { idUsuario: idUsuario }, raw: true, attributes: ["email"], include: [{ model: EmpleadosModel, attributes: ["idEmpleado"], include: [{ model: VentasModel, attributes: ["fecha_Inicial"], include: [{ model: Detalle_VentaModel, attributes: ["cantidad", "precio_Total", "idProducto",] }] }] }] })
   console.log(records)
   res.status(200).json(records);
 
@@ -138,7 +138,7 @@ export async function updateCliente(req: Request, res: Response) {
     }
     else {
       const passwordHash = await encriptar(password_new);
-      const response = await UsuariosModel.update({ usuario: usuario, password: passwordHash }, { where: { idUsuario } })
+      const response = await UsuariosModel.update({ email: usuario, password: passwordHash }, { where: { idUsuario } })
       res.render("view-cliente", { alert: true, alertTitle: "Nueva contraseña guardada", alertMessage: "", alertIcon: 'success', ruta: '/iniciosesion/vista/editarCliente' })
 
     }

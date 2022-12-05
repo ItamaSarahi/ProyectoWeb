@@ -4,7 +4,6 @@ export default interface EmpleadosType {
     nombre_E?: string;
     apellidoPE?: string;
     apellidoME?: string;
-    email?:string;
     nivelEstudio?:string;
 
   }

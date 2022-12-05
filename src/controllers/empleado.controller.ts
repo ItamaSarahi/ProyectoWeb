@@ -8,7 +8,7 @@ const PDF = require('pdfkit-construct');
 
 //Creación de empleado: 
 export async function createEmpleado(req: Request, res: Response) {
-  const { nombre_E, apellidoPE, apellidoME, email, nivelEstudio, usuario, password } = req.body;
+  const { nombre_E, apellidoPE, apellidoME, nivelEstudio, usuario, password } = req.body;
 
   //encriptación de contraseña:
   const passwordHash = await encriptar(password);
@@ -17,27 +17,32 @@ export async function createEmpleado(req: Request, res: Response) {
   //asignación rol empleado:
   rol = "empleado"
 
-  await UsuariosModel.findOne({ where: { usuario: usuario } }).then(result =>
-    comprobarUsuario = result?.getDataValue('usuario'));
+  await UsuariosModel.findOne({ where: { email: usuario } }).then(result =>
+    comprobarUsuario = result?.getDataValue('email'));
 
   //comprobar si el usuario ya existe:
   if (comprobarUsuario == null) {
 
-
     //crear empleado
-    await UsuariosModel.create({ usuario: usuario, password: passwordHash, rol: rol }).then(result =>
+    await UsuariosModel.create({ email: usuario, password: passwordHash, rol: rol }).then(result =>
       idUsuario = result.getDataValue('idUsuario'));
     //crear usuario
-    await EmpleadosModel.create({ nombre_E, apellidoPE, apellidoME, email, nivelEstudio, idUsuario });
-    res.status(201).render("registroempleado-view");
+    await EmpleadosModel.create({ nombre_E, apellidoPE, apellidoME, nivelEstudio, idUsuario });
+
+    res.status(201).render("registroempleado-view", { alert: true, alertTitle: 'Empleado creado con exito', alertMessage: "", alertIcon: 'success', ruta: '/catalogo/empleado/viewRegistroEmpleado' });
+
   }
 
+  
   //alerta de error: nombre ya registrado
   else {
     res.render("registroempleado-view", {
-      alert: true, alertTitle: 'Error', alertMessage: "Nombre de usuario ya registrado", alertIcon: 'error',
+      alert: true, alertTitle: 'Error', alertMessage: "Email ya dado de alta en el sistema", alertIcon: 'error',ruta:'/catalogo/empleado/viewRegistroEmpleado',
     })
   }
+
+
+
 }
 
 //vista ver tabla de empleados:
@@ -73,7 +78,7 @@ export async function updateEmpleado(req: Request, res: Response) {
 
     await EmpleadosModel.findOne({ where: { nombre_E: nombre_E } }).then(result => id = result?.getDataValue('idEmpleado'));
 
-    const response = await EmpleadosModel.update({ nombre_E: nombre_E, email: email, nivelEstudio: nivelEstudio }, { where: { idEmpleado: id } }).then(function (data) {
+    const response = await EmpleadosModel.update({ nombre_E: nombre_E, nivelEstudio: nivelEstudio }, { where: { idEmpleado: id } }).then(function (data) {
       const res = { success: true, data: data, message: "updated successful" }
       return res;
 
@@ -90,7 +95,7 @@ export async function updateEmpleado(req: Request, res: Response) {
 
 //Obtener datos de la tabla empleado:
 export async function getTablaEmpleado(req: Request, res: Response) {
-  const records = await EmpleadosModel.findAll({ raw: true, attributes: ["idEmpleado", "nombre_E", "apellidoPE", "apellidoME", "email", "nivelEstudio"] });
+  const records = await EmpleadosModel.findAll({ raw: true, attributes: ["idEmpleado", "nombre_E", "apellidoPE", "apellidoME",  "nivelEstudio"] });
   res.status(200).json(records);
 }
 
@@ -113,16 +118,16 @@ export async function getFactura(req: Request, res: Response) {
   doc.on('data', (data: any) => { stream.write(data) })
   doc.on('end', () => { stream.end() });
 
-
-  const empleados = await EmpleadosModel.findAll({ raw: true, attributes: ["idEmpleado", "nombre_E", "apellidoPE", "apellidoME", "email", "nivelEstudio"] });
-  const registros = empleados.map((empleado) => {
+  const usu = await UsuariosModel.findAll({ raw: true,nest:true, where:{rol:"empleado"},include:{model:EmpleadosModel, attributes:["idEmpleado", "nombre_E", "apellidoPE", "apellidoME", "nivelEstudio", "idUsuario"]} });
+  
+  const registros = usu.map((empleado) => {
     const registro = {
-      id: empleado.idEmpleado,
-      nombre: empleado.nombre_E,
-      apellidoM: empleado.apellidoPE,
-      apellidoP: empleado.apellidoME,
+      id: empleado.EmpleadosModel.idEmpleado,
+      nombre: empleado.EmpleadosModel.nombre_E,
+      apellidoM: empleado.EmpleadosModel.apellidoPE,
+      apellidoP: empleado.EmpleadosModel.apellidoME,
       email: empleado.email,
-      estudio: empleado.nivelEstudio,
+      estudio: empleado.EmpleadosModel.nivelEstudio,
     }
     return registro;
   });

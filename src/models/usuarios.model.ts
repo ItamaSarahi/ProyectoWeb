@@ -5,7 +5,14 @@ import { ClienteModel } from "./clientes.model";
 import { EmpleadosModel } from "./empleados.model";
 
 export class UsuariosModel extends Model<UsuariosType> {
-
+  email: any;
+  ClienteModel: any;
+  idEmpleado: any;
+  nombre_E: any;
+  apellidoPE: any;
+  apellidoME: any;
+  nivelEstudio: any;
+  EmpleadosModel: any;
 }
 
 UsuariosModel.init(
@@ -15,25 +22,33 @@ UsuariosModel.init(
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
-      
-    },
-    usuario: {
-      type: DataTypes.STRING(20),
-      allowNull: false,
-      unique:true
+
     },
 
-    password: { 
+    email: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      unique: { name: "uCorreoUsuario", msg: "Correo Anteriormente Registrado" },
+      validate: {
+        isEmail: {
+          msg: "no es un correo",
+        },
+      }
+
+    },
+
+
+    password: {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
 
-    rol:{
+    rol: {
       type: DataTypes.STRING(30),
       allowNull: false,
     }
-    
-    
+
+
   },
   {
     sequelize,
@@ -44,12 +59,12 @@ UsuariosModel.init(
 
 );
 
-UsuariosModel.hasOne(ClienteModel,{
-  foreignKey:"idUsuario",
-  sourceKey:"idUsuario"
+UsuariosModel.hasOne(ClienteModel, {
+  foreignKey: "idUsuario",
+  sourceKey: "idUsuario"
 });
 
-UsuariosModel.hasOne(EmpleadosModel,{
-  foreignKey:"idUsuario",
-  sourceKey:"idUsuario"
+UsuariosModel.hasOne(EmpleadosModel, {
+  foreignKey: "idUsuario",
+  sourceKey: "idUsuario"
 });

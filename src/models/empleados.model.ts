@@ -8,7 +8,6 @@ export class EmpleadosModel extends Model<EmpleadosType> {
   nombre_E: any;
   apellidoME: any;
   nivelEstudio: any;
-  email: any;
   apellidoPE: any;
 }
 
@@ -32,12 +31,7 @@ EmpleadosModel.init(
         type: DataTypes.STRING(30),
         allowNull: false,
       },
-    
-      email:{
-        type: DataTypes.STRING(30),
-        allowNull:false,
-      },
-
+  
       nivelEstudio:{
         type:DataTypes.STRING(30),
         allowNull:false
