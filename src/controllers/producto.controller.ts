@@ -39,8 +39,9 @@ export async function createProducto(req: Request, res: Response) {
 
 }
 
+
 export async function getProducto(req: Request, res: Response) {
-  const records = await ProductosModel.findAll({ raw: true, attributes: ["idProducto", "nombre", "descripcion", "existencia", "precio_Compra", "precio_Venta", "idProveedor", "categoria", "url_imagen"] });
+  const records = await ProductosModel.findAll({ raw: true, attributes: ["idProducto", "nombre", "existencia", "precio_Compra", "precio_Venta", "idProveedor", "categoria", "url_imagen"] });
   res.status(200).json(records);
 }
 

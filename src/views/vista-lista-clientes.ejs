@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%- include("comunes/components/headers-component") -%>
+    <%- include("../views/comunes/components/headers-component") -%>
 </head>
 <body class="cyan darken-1">
     <%- include("status/components/form-principal-admi")  -%>
@@ -9,19 +9,31 @@
 
 <br><br>
 
-<div class="container "  style="width: 950px; padding: 18px; margin-left: 25%;">
+<div id="containerTable" class="container #a7ffeb teal accent-1"
+    style="width: 1000px; padding: 18px; margin-left: 25%;">
+   
     <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
     <h5 style="text-align: center; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;" style="margin-left: 38%;">CLIENTES</h5>
-    <table class="striped" >
+    <div class="input-field">
+        <!--Icóno-->
+        
+        
+        <!--Input de tipo texto-->
+        <i class="material-icons prefix">search</i>
+        <input type="text" name="buscar" id="buscar" maxlength=20 class="form-control pull-right">
+        <label for="buscar">BUSCAR CLIENTE</label>
+    </div>
+    <table class="striped" id="datatable">
   
         <thead>
             <tr>
-                <th>EMAL</th>
-                <th>ID CLIENTE</th>
+                <th>USUARIO</th>
+                <th>#</th>
                 <th>NOMBRE</th>
                 <th>A_PATERNO</th>
                 <th>A_MATERNO</th>
                 <th>FECHA_NACIMIENTO</th>
+                <th>EMAIL</th> 
                 <th>TELEFONO</th>
                 
             </tr>
@@ -39,10 +51,9 @@
 
         </div>
     </form>
-</div> 
+</div>
 
 <%- include("status/components/footer-components-listaclientes.ejs") -%>
 <%- include("../views/comunes/components/footer-component") -%>
 </body>
 </html>
-

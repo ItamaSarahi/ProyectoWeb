@@ -2,7 +2,11 @@ import { Request, Response } from "express";
 import { ProductosModel } from "../models/productos.model";
 import { Detalle_VentaModel } from "../models/detalle_venta.model";
 import { VentasModel } from "../models/ventas.model";
+import { Sequelize } from "sequelize"
 import 'localstorage-polyfill';
+var today = new Date();
+import * as authService from "../services/auth.service";
+import { StatusCodes } from "http-status-codes";
 
 
 //Obtener tabla de productos dependiendo de su categoría
@@ -343,16 +347,37 @@ export async function GenererTicket(req: Request, res: Response) {
     await Detalle_VentaModel.create({ idProducto: idProductosArray[count], cantidad: cantidadesArray[count], precio_Total: preciosTotalesArray[count], idVenta: idVenta });
     await ProductosModel.update({ existencia: (parseInt(existenciaActual as string) - cantidadesArray[count]) }, { where: { idProducto: idProductosArray[count] } });
   }
-
-  limpiar();
-
-  res.render("productoCliente/vistaTermo", { alert: true, alertTitle: 'TICKET GENERADO!', alertMessage: "¡PAGA EN TIENDA!", alertIcon: 'success', ruta: '/productos/vistaTermo' });
-    
-  } catch (error) {
-    res.render("iniciosesion-view", { alert: true, alertTitle: 'ERROR', alertMessage: "Inicia sesion de neuvo", alertIcon: 'error', ruta: '' });
-    limpiar();
+ let precioTotal=0;
+  for (let count = 0; count < preciosTotalesArray.length; count++) {
+    precioTotal=precioTotal+parseInt(preciosTotalesArray[count]);
   }
+  console.log(precioTotal,"ES MI TOTAL");
 
+ let emai="paulo.canser@gmail.com";
+
+ 
+  
+
+  try {
+    await authService.enviarCorreo({
+      emai,
+      data: { idVenta: idVenta, fechaInical:actual,fechaVencimiento: fechaVencimiento,precioTotal:precioTotal},
+    });
+    limpiar();
+    res.render("productoCliente/vistaTermo", { alert: true, alertTitle: 'TICKET ENVIADO AL CORREO!', alertMessage: "¡PAGA EN TIENDA!", alertIcon: 'success', ruta: '/productos/vistaTermo' });
+  
+  } catch (e) {
+    const error = e as Error;
+    res.status(StatusCodes.UNPROCESSABLE_ENTITY).json({ nameError: error.name, detail: error.message });
+  }
+ 
+  
+} catch (error) {
+    res.render("iniciosesion-view", { alert: true, alertTitle: 'ERROR', alertMessage: "Inicia sesion de nuvo", alertIcon: 'error', ruta: '' });
+    limpiar();
+    return res.status(200);
+  }
+return res.status(200);
 
 }
 //Funcion para vaciar el local storage y los arrays
