@@ -1,52 +1,77 @@
-<ul id="slide-out" class="sidenav sidenav-fixed" style="background:#4db6ac teal lighten-2">
-    <li class="no-padding"  style="background:#e0f7fa"><a href="/vendedor">Principal <i class="material-icons">person</i></a></li>
+<ul id="slide-out" class="sidenav sidenav-fixed"
+    style="background:#4db6ac teal lighten-2;background-color:powderblue; ">
+    <li class="no-padding">
+        <div class="user-view">
+            <a href="">
+                <div class="background"><img src="/assets/img/fondo.jpg" alt="" width="auto" height="auto"></div>
+            </a>
+            <center>
+                <a href="">
+                    <img src="/assets/img/usuarios.png" alt="" class="circle" width="auto" height="auto" padding="0">
+                </a>
+                <div>
+                    <h6>¡Bienvenido!</h6>
+                    <p style="color: #020202;"><b>
+                            <%=(user.email) %>
+                        </b></p>
+                    <hr>
+                </div>
+
+            </center>
+    <li class="no-padding" style="background:#e0f7fa"><a href="/vendedor">Principal <i
+                class="material-icons">person</i></a></li>
 
     <li class="no-padding" style="background:#e0f2f1">
-        <ul class="collapsible collapsible-accordion">  
+        <ul class="collapsible collapsible-accordion">
             <li>
                 <a class="collapsible-header">Productos<i class="material-icons">view_quilt</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li style="background:#f9fbe7"><a href="/viewProductos/vendedor">Ver productos <i class="material-icons">more</i></a></li>
+                        <li style="background:#f9fbe7"><a href="/viewProductos/vendedor">Ver productos <i
+                                    class="material-icons">more</i></a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
 
-    <li class="no-padding"style="background:#e0f2f1">
+    <li class="no-padding" style="background:#e0f2f1">
         <ul class="collapsible collapsible-accordion">
             <li>
                 <a class="collapsible-header">Ventas<i class="material-icons">view_quilt</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li style="background:#f9fbe7"><a href="/vendedor/verVentas">Ver ventas <i class="material-icons">attach_money</i>  </a></li>
+                        <li style="background:#f9fbe7"><a href="/vendedor/verVentas">Ver ventas <i
+                                    class="material-icons">attach_money</i> </a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
 
-    <li class="no-padding"style="background:#e0f2f1">
+    <li class="no-padding" style="background:#e0f2f1">
         <ul class="collapsible collapsible-accordion">
             <li>
                 <a class="collapsible-header">Apartados<i class="material-icons">view_quilt</i></a>
                 <div class="collapsible-body">
                     <ul>
-                        <li style="background:#f9fbe7"><a href="/vendedor/confirmarVentas">Confirmar Apartados  <i class="material-icons">add</i> </a> </li>
-                        <li style="background:#f9fbe7"><a href="/vendedor/ApartadosVencidos">Eliminar apartados <i class="material-icons">delete</i></a></li>
+                        <li style="background:#f9fbe7"><a href="/vendedor/confirmarVentas">Confirmar Apartados <i
+                                    class="material-icons">add</i> </a> </li>
+                        <li style="background:#f9fbe7"><a href="/vendedor/ApartadosVencidos">Eliminar apartados <i
+                                    class="material-icons">delete</i></a></li>
                     </ul>
                 </div>
             </li>
         </ul>
     </li>
 
-    <li class="no-padding"style="background:#e0f2f1">
+    <li class="no-padding" style="background:#e0f2f1">
         <ul class="collapsible collapsible-accordion">
             <li>
-                <a class="collapsible-header"> <a href="/cerrarSesion">Cerrar sesión<i class="material-icons">exit_to_app</i></a>
+                <a class="collapsible-header"> <a href="/cerrarSesion">Cerrar sesión<i
+                            class="material-icons">exit_to_app</i></a>
             </li>
         </ul>
     </li>
-   
+
 </ul>

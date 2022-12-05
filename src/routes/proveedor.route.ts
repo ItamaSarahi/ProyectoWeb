@@ -13,5 +13,5 @@ proveedorRouter.delete("/prove/delete/:idProveedor",deleteId);
 
 proveedorRouter.post("/getPdf",getPDFProveedor);
 export default proveedorRouter; 
-
+ 
  

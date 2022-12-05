@@ -18,7 +18,7 @@ export async function createCliente(req: Request, res: Response) {
   let idUsuario, rol, comprobarTelefono, comprobarEmail, usuarioResponse;
 
   try {
-    const { nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, usuario, password } = req.body;
+    const { nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, password } = req.body;
 
     const passwordHash = await encriptar(password);
 

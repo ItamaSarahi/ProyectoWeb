@@ -4,6 +4,10 @@ export function vistaSesion(req: Request, res: Response) {
   return res.render("iniciosesion-view");
 }
 
+export function permisos(req: Request, res: Response) {
+  return res.render("permisos-view");
+}
+
 export function vistaRegistroClientes(req: Request, res: Response){
   return res.render("registroclientes-view")
 }

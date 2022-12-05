@@ -78,7 +78,7 @@ export async function updateProveedor(req: Request, res: Response) {
       return res;
     });
 
-    res.render("view-proveedor", { alert: true, alertTitle: 'Error', alertMessage: "proveedor actualizado con exito", alertIcon: 'sucess', ruta: '/viewProveedor' });
+    res.render("view-proveedor", { alert: true, alertTitle: 'Provedor actualizado con exito', alertMessage: "", alertIcon: 'success', ruta: '/viewProveedor' });
   }
 }
 
