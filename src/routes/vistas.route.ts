@@ -1,5 +1,5 @@
 import {Router} from "express";
-import { vistaSesion,vistaRegistroClientes,vistaAdministrador,vistaRegistroEmpleado, vistaRegistroProducto,vistaCliente,vistaPrincipal,vistaConfirmarVentas,vistaApartados,vistaVentas, vistaRegistroCompras, vistaCompras,vistaRegistroProveedor,vistaProveedor,vistaListaClientes,vista_Confirmar_Ventas_Vendedor,vista_Eliminar_Apartados_Administrador,vista_Eliminar_Apartados_Vendedor,vista_Lista_productos_Vendedor,vista_Ver_Ventas, vista_carrito} from "../controllers/vistas.controller";
+import { vistaSesion,vistaRegistroClientes,vistaAdministrador,vistaRegistroEmpleado, vistaRegistroProducto,vistaCliente,vistaPrincipal,vistaConfirmarVentas,vistaApartados,vistaVentas, vistaRegistroCompras, vistaCompras,vistaRegistroProveedor,vistaProveedor,vistaListaClientes,vista_Confirmar_Ventas_Vendedor,vista_Eliminar_Apartados_Administrador,vista_Eliminar_Apartados_Vendedor,vista_Lista_productos_Vendedor,vista_Ver_Ventas, vista_carrito, vista_Principal_Vendedor} from "../controllers/vistas.controller";
 
 const indexRouter: Router = Router();
 
@@ -33,6 +33,8 @@ indexRouter.get("/vendedor/verVentas",vista_Ver_Ventas);
 //Vista carrito
 indexRouter.get("/carrito",vista_carrito);
 
+
+indexRouter.get("/vendedor",vista_Principal_Vendedor);
 
 export default indexRouter;
 

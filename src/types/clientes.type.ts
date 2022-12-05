@@ -5,7 +5,5 @@ export default interface ClientesType {
     apellidoPC?:string;
     apellidoMC?:string;
     fechaNacimiento?:Date;
-    email?:string;
     num_telefono?:string;
-    role?:string;
   }

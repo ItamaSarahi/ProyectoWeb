@@ -15,16 +15,16 @@ import { StatusCodes } from "http-status-codes";
 
 export async function createCliente(req: Request, res: Response) {
 
-  let idUsuario, rol, comprobarTelefono, comprobarEmail;
+  let idUsuario, rol, comprobarTelefono, comprobarEmail, usuarioResponse;
+
   try {
     const { nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, usuario, password } = req.body;
-
 
     const passwordHash = await encriptar(password);
 
     rol = "cliente";
 
-    await ClienteModel.findOne({ where: { email: email } }).then(result => comprobarEmail = result?.getDataValue('email'));
+    await UsuariosModel.findOne({ where: { email: email } }).then(result => comprobarEmail = result?.getDataValue('email'));
 
     await ClienteModel.findOne({ where: { num_telefono: num_telefono } }).then(result => comprobarTelefono = result?.getDataValue('num_telefono'));
 
@@ -33,11 +33,14 @@ export async function createCliente(req: Request, res: Response) {
 
       if (comprobarTelefono == null) {
 
-        await UsuariosModel.create({ usuario: usuario, password: passwordHash, rol: rol }).then(result => idUsuario = result.getDataValue('idUsuario'));
+        await UsuariosModel.create({ email: email, password: passwordHash, rol: rol }).then(result => idUsuario = result.getDataValue('idUsuario'));
 
-        const usuarioResponse = await ClienteModel.create({ nombre_C, apellidoPC, apellidoMC, fechaNacimiento, email, num_telefono, idUsuario });
+        await ClienteModel.create({ nombre_C, apellidoPC, apellidoMC, fechaNacimiento, num_telefono, idUsuario });
 
-        const emai = usuarioResponse.getDataValue("email");
+        await UsuariosModel.findOne({ where: { email: email } }).then(result => usuarioResponse = result?.getDataValue('email'));
+
+
+        const emai = usuarioResponse;
 
         try {
           await authService.sendUserCredentials({
@@ -77,7 +80,7 @@ export async function createCliente(req: Request, res: Response) {
  *@getClientes
  */
 export async function getClientes(req: Request, res: Response) {
-  const records = await UsuariosModel.findAll({ where: { rol: "cliente" }, raw: true, include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "apellidoPC", "apellidoMC", "fechaNacimiento", "email", "num_telefono"] }], attributes: ["usuario"] });
+  const records = await UsuariosModel.findAll({ where: { rol: "cliente" }, raw: true, include: [{ model: ClienteModel, attributes: ["idCliente", "nombre_C", "apellidoPC", "apellidoMC", "fechaNacimiento", "num_telefono"] }], attributes: ["email"] });
   res.status(200).json(records);
 }
 
@@ -96,19 +99,21 @@ export async function getPDFClientes(req: Request, res: Response) {
   doc.on('data', (data: any) => { stream.write(data) })
   doc.on('end', () => { stream.end() });
 
-
-  const clientes = await ClienteModel.findAll({ raw: true, attributes: ["idCliente", "nombre_C", "apellidoPC", "apellidoMC", "fechaNacimiento", "email", "num_telefono", "idUsuario"] });
+  const clientes = await UsuariosModel.findAll({ raw: true,nest:true, where:{rol:"cliente"},include:{model:ClienteModel, attributes:["idCliente", "nombre_C", "apellidoPC", "apellidoMC", "fechaNacimiento", "num_telefono", "idUsuario"]} });
+  
   const registros = clientes.map((cliente) => {
     const registro = {
-      id: cliente.idCliente,
-      nombre: cliente.nombre_C,
-      apellidoM: cliente.apellidoPC,
-      apellidoP: cliente.apellidoPC,
-      fechaNacimiento: cliente.fechaNacimiento,
+      id: cliente.ClienteModel.idCliente,
+      nombre: cliente.ClienteModel.nombre_C,
+      apellidoM: cliente.ClienteModel.apellidoPC,
+      apellidoP: cliente.ClienteModel.apellidoPC,
+      fechaNacimiento: cliente.ClienteModel.fechaNacimiento,
       email: cliente.email,
-      num_telefono: cliente.num_telefono,
-      idUsu: cliente.idUsuario,
+      num_telefono: cliente.ClienteModel.num_telefono,
+      idUsu: cliente.ClienteModel.idUsuario,
     }
+
+    console.log(registro);
     return registro;
   });
 

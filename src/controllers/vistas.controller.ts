@@ -84,3 +84,7 @@ export function vista_Ver_Ventas(req: Request, res: Response) {
 export function vista_carrito(req: Request, res: Response) {
   return res.render("vista-carrito");
  }
+
+ export function vista_Principal_Vendedor(req: Request, res: Response) {
+  return res.render("principalempleado-view");
+}

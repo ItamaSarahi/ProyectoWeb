@@ -13,7 +13,7 @@ export class ClienteModel extends Model<ClientesType> {
 }
 
 
-ClienteModel.init(
+ClienteModel.init( 
   {
     idCliente: {
       type: DataTypes.INTEGER,
@@ -39,18 +39,6 @@ ClienteModel.init(
       allowNull: true,
     },
 
-    email : {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      unique: { name: "uCorreoUsuario", msg: "Correo Anteriormente Registrado" },
-      validate: {
-        isEmail: {
-          msg: "no es un correo",
-        },
-        }
-  
-    },
-    
     num_telefono: {
       type: DataTypes.STRING(12),
       allowNull: false,
@@ -64,9 +52,9 @@ ClienteModel.init(
   },
 );
 
-ClienteModel.hasMany(VentasModel,{
-  foreignKey:"idCliente",
-  sourceKey:"idCliente"
+ClienteModel.hasMany(VentasModel, {
+  foreignKey: "idCliente",
+  sourceKey: "idCliente"
 });
 
 
