@@ -2,7 +2,7 @@
 
 const mainNoVentas = (() => {
     const $bodyTable = document.getElementById("data");
-    const BASE_URL = "http://localhost:4000/modulo/ventas/getApartados";
+    const BASE_URL = "https://creativeideas-d.onrender.com/modulo/ventas/getApartados";
 
     const _getData = async () => {
         //debugger;

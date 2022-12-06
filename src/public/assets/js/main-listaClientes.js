@@ -1,6 +1,6 @@
 const mainListaClientes = (() => {
     const $bodyTable = document.getElementById("data");
-    const BASE_URL = "http://localhost:4000/api/v1/example/getClientes";
+    const BASE_URL = "https://creativeideas-d.onrender.com/api/v1/example/getClientes";
 
     const _getData = async () => {
 

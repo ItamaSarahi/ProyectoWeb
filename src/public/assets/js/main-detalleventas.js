@@ -1,6 +1,6 @@
 const mainDetalleVentas = (() => {
     const $bodyTable = document.getElementById("data");
-    const BASE_URL = "http://localhost:4000/modulo/detalleVentas/getDetalleVentas";
+    const BASE_URL = "https://creativeideas-d.onrender.com/modulo/detalleVentas/getDetalleVentas";
 
     const _getData = async () => {
 

@@ -1,6 +1,6 @@
 const mainProduct = (() => {
   const $bodyTable = document.getElementById("data");
-  const BASE_URL = "http://localhost:4000/productos/mostrarBotellas";
+  const BASE_URL = "https://creativeideas-d.onrender.com/productos/mostrarBotellas";
   let contador = 0;
   let index = 0;
 
@@ -23,7 +23,7 @@ const mainProduct = (() => {
     }else{
     cantidad=cant.value;}
     
-    window.location=`http://localhost:4000/productos/guardarDatosBotellas/${idProducto}/${cantidad}`;
+    window.location=`https://creativeideas-d.onrender.com/productos/guardarDatosBotellas/${idProducto}/${cantidad}`;
     
   };
 

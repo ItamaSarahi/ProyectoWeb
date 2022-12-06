@@ -1,6 +1,6 @@
 const mainApartados = (() => {
   const $bodyTable = document.getElementById("data");
-  const BASE_URL = "http://localhost:4000/iniciosesion/datosEmpleado";
+  const BASE_URL = "https://creativeideas-d.onrender.com/iniciosesion/datosEmpleado";
 
 
   const _getData = async () => {

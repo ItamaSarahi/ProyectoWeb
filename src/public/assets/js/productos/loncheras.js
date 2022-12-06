@@ -1,6 +1,6 @@
 const mainProduct = (() => {
   const $bodyTable = document.getElementById("data");
-  const BASE_URL = "http://localhost:4000/productos/mostrarLoncheras";
+  const BASE_URL = "https://creativeideas-d.onrender.com/productos/mostrarLoncheras";
   let contador = 0;
   let index = 0;
 
@@ -23,7 +23,7 @@ const mainProduct = (() => {
     }else{
     cantidad=cant.value;}
     
-    window.location=`http://localhost:4000/productos/guardarDatosLoncheras/${idProducto}/${cantidad}`;
+    window.location=`https://creativeideas-d.onrender.com/productos/guardarDatosLoncheras/${idProducto}/${cantidad}`;
   
   };
 

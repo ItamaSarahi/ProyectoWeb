@@ -1,6 +1,6 @@
 const mainProduct = (() => {
   const $bodyTable = document.getElementById("data");
-  const BASE_URL = "http://localhost:4000/productos/mostrarCubiertos";
+  const BASE_URL = "https://creativeideas-d.onrender.com/productos/mostrarCubiertos";
   let contador = 0;
   let index = 0;
 
@@ -25,7 +25,7 @@ const mainProduct = (() => {
     }else{
     cantidad=cant.value;}
     
-    window.location=`http://localhost:4000/productos/guardarDatosCubiertos/${idProducto}/${cantidad}`;
+    window.location=`https://creativeideas-d.onrender.com/productos/guardarDatosCubiertos/${idProducto}/${cantidad}`;
     
   };
 

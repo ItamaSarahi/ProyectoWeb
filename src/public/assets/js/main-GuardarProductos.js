@@ -1,6 +1,6 @@
 const mainProduct = (() => {
     const $bodyTable = document.getElementById("data");
-    const BASE_URL = "http://localhost:4000/productos/recuperarDatos";
+    const BASE_URL = "https://creativeideas-d.onrender.com/productos/recuperarDatos";
   
     const _getData = async () => {
       try {
@@ -63,7 +63,7 @@ const mainProduct = (() => {
         }
         $bodyTable.appendChild(_createTOTAL("TU TOTAL A PAGAR ES = $"+calculo+"."));
       } catch (error) {
-        window.location='http://localhost:4000/productos/recuperarDatos';
+        window.location='https://creativeideas-d.onrender.com/productos/recuperarDatos';
   
       }
       console.log("Termino el ciclo");
