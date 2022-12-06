@@ -3,15 +3,15 @@
 
 <head>
     <%- include("../views/comunes/components/headers-component") -%>
-    
 
-   
+
+
 </head>
 
 <body class="blue darken-3">
-    <%- include("status/components/form-principal-admi")  -%>
+    <%- include("status/components/form-principal-admi") -%>
         <main>
-            
+
 
             <form id="formProveedor" class="col s12" action="/catalogo/proveedor/update?_method=PUT" method="post">
 
@@ -20,7 +20,7 @@
 
                 <div class="container grey lighten-2" style="width: 650px; padding: 18px; margin-left: 35%; ">
 
-                    <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
+                    <center><img src="/assets/img/Logo.png" width="100" height="auto"></center>
                     <h5 style="text-align: center; font-style:italic">EDITAR PROVEEDORES</h5>
 
                     <br>
@@ -48,10 +48,11 @@
                     <!--Este es el botón-->
                     <div class="input-field">
                         <center>
-                        <button type="submit" class="btn waves-effect blue darken-3" >
-                            <!--Este es el icono del boton (o sea, la flechita)-->
-                            <i class="material-icons right">send</i>GUARDAR CAMBIOS
-                        </button></center>
+                            <button type="submit" class="btn waves-effect blue darken-3">
+                                <!--Este es el icono del boton (o sea, la flechita)-->
+                                <i class="material-icons right">send</i>GUARDAR CAMBIOS
+                            </button>
+                        </center>
 
                     </div>
 
@@ -61,19 +62,19 @@
 
         <br><br>
 
-        <div id="containerTable" class="container #a7ffeb teal accent-1"
+        <div id="containerTable" class="container #e1f5fe light-blue lighten-5"
             style="width: 650px; padding: 18px; margin-left: 35%;">
             <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">PROVEEDORES</h5>
             <div class="input-field">
                 <!--Icóno-->
-                
-                
+
+
                 <!--Input de tipo texto-->
                 <i class="material-icons prefix">search</i>
                 <input type="text" name="buscar" id="buscar" maxlength=20 class="form-control pull-right">
                 <label for="buscar">BUSCAR PROVEEDOR</label>
             </div>
-            
+
             <table class="striped" id="datatable">
 
                 <thead>
@@ -89,10 +90,11 @@
             </table>
         </div>
         <%- include("status/components/footer-componente-proveedor") -%>
-        <%- include("../views/comunes/components/footer-component") -%>
-        
+            <%- include("../views/comunes/components/footer-component") -%>
 
-        <script src="/assets/js/validaciones/validacionproveedor.js"></script>
-        
+
+                <script src="/assets/js/validaciones/validacionproveedor.js"></script>
+
 </body>
+
 </html>
