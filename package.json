@@ -2,7 +2,7 @@
     "name": "basic-ts",
     "version": "1.0.0",
     "description": "tec",
-    "main": "index.js",
+    "main": "index.ts",
     "repository": {
         "type": "git",
         "url": ""
