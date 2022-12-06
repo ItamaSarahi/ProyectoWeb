@@ -8,10 +8,6 @@ export function createLogginMiddleware(rolUser:string[]){
         if (!req.session.user) {
             return res.redirect("/");
         }
-
-        
-        
-        
         
         next(); 
     }
