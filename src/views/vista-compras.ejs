@@ -1,70 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <%- include("comunes/components/headers-component") -%>
 </head>
+
 <body class="blue darken-3">
-    <%- include("status/components/form-principal-admi")  -%>
-    
+    <%- include("status/components/form-principal-admi") -%>
 
-<br><br>
 
-    <div class="container #e1f5fe light-blue lighten-5"  style="width: 650px; padding: 18px; margin-left: 37%;">
-    
-    <center><img src="/assets/img/Logo.png" width="100" height="auto" ></center>
-    <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">COMPRAS</h5>
-    <div class="input-field">
-        <!--Icóno-->
-        
-        
-        <!--Input de tipo texto-->
-        <i class="material-icons prefix">search</i>
-        <input type="text" name="buscar" id="buscar" maxlength=20 class="form-control pull-right">
-        <label for="buscar">BUSCAR VENTA</label>
-    </div>
-    <table class="table table-bordered" id="datatable">
-  
-        <thead>
-            <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Status</th>
-            </tr>
-        </thead>
-        <tbody id="data" ></tbody>
-    
-    </table>
+        <br><br>
 
-    <form id="formStatus" action="/modulo/compras/getPDFPro" method="post" >
-        <div class="input-field">
-            <center><button type="submit" class="btn-large waves-effect waves-light blue darken-3">
-                    <i class="material-icons right">picture_as_pdf</i>GENERAR PDF
-                </button></center>
-    
-                <select name="select" style="padding: 18px;">
-                    <option value="Enero"> Enero</option>
-                    <option value="Febrero">Febrero</option>
-                    <option value="Marzo">Marzo</option>
-                    <option value="Abril">Abril</option>
-                    <option value="Mayo">Mayo</option>            
-                    <option value="Junio">Junio</option>               
-                    <option value="Julio">Julio</option>
-                    <option value="Agosto">Agosto</option>
-                    <option value="Septiembre">Septiembre</option>
-                    <option value="Octubre">Octubre</option>
-                    <option value="Noviembre">Noviembre</option>
-                    <option value="Diciembre">Diciembre</option>
-                  </select>
-    
+        <div class="container #e1f5fe light-blue lighten-5" style="width: 650px; padding: 18px; margin-left: 37%;">
+
+            <center><img src="/assets/img/Logo.png" width="100" height="auto"></center>
+            <h5 style="text-align: center; font-style:italic" style="margin-left: 38%;">COMPRAS</h5>
+            <div class="input-field">
+                <!--Icóno-->
+
+
+                <!--Input de tipo texto-->
+                <i class="material-icons prefix">search</i>
+                <input type="text" name="buscar" id="buscar" maxlength=20 class="form-control pull-right">
+                <label for="buscar">BUSCAR COMPRA</label>
+            </div>
+            <table class="table table-bordered" id="datatable">
+
+                <thead>
+                    <tr>
+                        <th>Producto</th>
+                        <th>Cantidad</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="data"></tbody>
+
+                
+        </table>
+
+
+                <form id="formStatus" action="/modulo/compras/getPDFPro" method="post">
+
+                    <div class="input-field">
+                        <input class="datepicker" type="text" name="ini" id="ini" , placeholder="FECHA INICIAL" required
+                            style="color:black;">
+                    </div>
+
+                    <div>
+                        <input class="datepicker" type="text" name="fin" id="fin" , placeholder="FECHA FINAL" required
+                            style="color:black">
+                    </div>
+
+                    <center><button type="submit" class="btn-large waves-effect waves-light blue darken-3">
+                            <i class="material-icons right">picture_as_pdf</i>GENERAR REPORTE
+                        </button></center>
+                </form>
         </div>
+
+
+
+
+
         </form>
-</div>
-
-    
 
 
 
-<%- include("status/components/footer-components-compras.ejs") -%>
-<%- include("../views/comunes/components/footer-component") -%>
+
+
+        <%- include("status/components/footer-components-compras.ejs") -%>
+            <%- include("../views/comunes/components/footer-component") -%>
 </body>
+
 </html>

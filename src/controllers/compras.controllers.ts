@@ -4,7 +4,7 @@ import { Detalle_CompraModel } from "../models/detalle_compra.model";
 import { ProductosModel } from "../models/productos.model";
 import { ProveedoresModel } from "../models/proveedores.model";
 
-import { Sequelize } from "sequelize";
+import { Op, Sequelize } from "sequelize";
 const PDF = require('pdfkit-construct');
 let numero = 0;
 var today = new Date();
@@ -73,35 +73,10 @@ export async function getCompras(req: Request, res: Response) {
 export async function getPDFCompras(req: Request, res: Response) {
 
   const doc = new PDF({ bufferPage: true });
+  const { ini, fin } = req.body;
+  let startedDate = new Date(ini);
+  let endDate = new Date(fin);
 
-
-  let { select } = req.body;
-  switch (select) {
-    case 'Enero': numero = 1
-      break;
-    case 'Febrero': numero = 2
-      break;
-    case 'Marzo': numero = 3
-      break;
-    case 'Abril': numero = 4
-      break;
-    case 'Mayo': numero = 5
-      break;
-    case 'Junio': numero = 6
-      break;
-    case 'Julio': numero = 7
-      break;
-    case 'Agosto': numero = 8
-      break;
-    case 'Septiembre': numero = 9
-      break;
-    case 'Octubre': numero = 10
-      break;
-    case 'Noviembre': numero = 11
-      break;
-    case 'Diciembre': numero = 12
-      break;
-  }
 
   const fileName = `Reporte compras${Date.now()}.pdf`;
   const stream = res.writeHead(200, { 'Content-Type': 'application/pdf', 'Content-disposition': `attachment;filename=${fileName}` });
@@ -110,7 +85,20 @@ export async function getPDFCompras(req: Request, res: Response) {
   doc.on('end', () => { stream.end() });
 
 
-  const records = await ProductosModel.findAll({ raw: true, nest: true, include: [{ model: Detalle_CompraModel, where: Sequelize.where(Sequelize.fn('date_part', 'month', Sequelize.col('fechaCompra')), '=', numero), attributes: ["fechaCompra", "cantidad"] }], attributes: ["nombre", "categoria", "precio_Compra"] });
+  const records = await ProductosModel.findAll({
+    raw: true, nest: true, include: [{
+      model: Detalle_CompraModel, attributes: ["fechaCompra", "cantidad"], where: {
+        fechaCompra: { [Op.between]: [startedDate, endDate] },
+      }
+    }], attributes: ["nombre", "categoria", "precio_Compra"],
+
+
+  });
+
+  var total = 0;
+  var product: any;
+  let productomasVendido='';
+
 
 
 
@@ -121,16 +109,30 @@ export async function getPDFCompras(req: Request, res: Response) {
       nombre: producto.nombre,
       cantidad: producto.Detalle_CompraModels.cantidad,
       precioC: producto.precio_Compra,
-      precioT: producto.Detalle_CompraModels.cantidad * producto.precio_Compra
+      precioT: producto.Detalle_CompraModels.cantidad * producto.precio_Compra,
     }
+
+    total = total+ registro.precioT;
+
+    if(productomasVendido< producto.Detalle_CompraModels.cantidad){
+      productomasVendido=producto.Detalle_CompraModels.cantidad
+    }
+    if (registro.cantidad === productomasVendido) {
+      product = registro.nombre;
+    }
+
+
     return registro;
+
 
   });
 
 
 
 
-  doc.setDocumentHeader({ heigth: '10%' }, () => {
+
+  doc.setDocumentHeader({ heigth: '20%' }, () => {
+
 
     doc.image("src/public/assets/img/Logo.png", 50, 15, { width: 60, heigth: 60 });
 
@@ -145,16 +147,22 @@ export async function getPDFCompras(req: Request, res: Response) {
 
 
 
-    doc.fontSize(12).fill('#110000').text('Reporte compra de productos del mes de ' + select, doc.header.x + 50, doc.header.y + 55, {
+    doc.fontSize(8).fill('#110000').text('Reporte compra de productos de la fecha ' + ini + ' a ' + fin, doc.header.x + 50, doc.header.y + 55, {
+
       width: 500,
       align: 'center',
 
 
-
     })
+ 
+
+ 
+   
+
   });
 
-
+  // Add some text with annotations
+ 
   try {
     doc.addTable([
       { key: 'fecha_Compra', label: 'Fecha compra', align: 'center' },
@@ -170,16 +178,24 @@ export async function getPDFCompras(req: Request, res: Response) {
       stripedColors: ["#FFFFFF", "#FFFFFF"],
       cellsPadding: 10,
       headAlign: 'center',
-      headFont: "Helvetica-Bold"
+      headFont: "Helvetica-Bold",
+
+    });
+    doc.setDocumentFooter({ height: '25%' }, () => {
+      doc.fontSize(10).text(
+        'El total de la compra es: '+total,doc.footer.x+20,doc.footer.y);
+        doc.fontSize(10).text(
+          'Tu producto más demandado es ' + product+' se recomienda que compres en cantidades más grandes para realizar menos movimientos',doc.footer.x+20,doc.footer.y+20)
 
     });
 
-    doc.setDocumentFooter({ height: '10%' }, () => { });
+    
+
 
     doc.render();
     doc.end();
-  } catch (error) {
 
+  } catch (error) {
 
 
     doc.setDocumentHeader({ heigth: '10%' }, () => {
@@ -190,16 +206,24 @@ export async function getPDFCompras(req: Request, res: Response) {
         .fontSize(28)
         .text("CREATIVE IDEAS", doc.header.x + 180, doc.header.y + 20);
 
-      doc.fontSize(12).fill('#110000').text('Durante el mes de ' + select + ' no se han registrado compras', doc.header.x + 50, doc.header.y + 300, {
+      doc.fontSize(12).fill('#110000').text('Durante el rango de fechas seleccionado no se registraron compras', doc.header.x + 50, doc.header.y + 300, {
         width: 500,
         align: 'center',
 
 
 
       })
-      
+
+
     });
+
+
+    doc.setDocumentFooter({ height: '10%' }, () => {
+    });
+
+
     doc.render();
     doc.end();
   }
 }
+
