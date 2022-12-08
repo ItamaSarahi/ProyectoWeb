@@ -45,7 +45,8 @@ const mainProduct = (() => {
   const _createBtnAction = (itemId = 0, labelBtn = "", _actionFuntion = () => { }) => {
     const $btn = document.createElement("button");
     $btn.innerText = labelBtn;
-    $btn.className += "btn btn btn-outline-info";
+    
+    $btn.className += "btn btn blue darken-3";
     
     
     if(labelBtn=="Editar"){

@@ -38,7 +38,7 @@ const mainApartados = (() => {
       //debugger;
       const $btn = document.createElement("button");
       $btn.innerText = labelBtn;
-      $btn.className += "waves-effect waves-light btn blue";
+      $btn.className += "btn btn blue darken-3";
       $btn.setAttribute("item-id", itemId);
       $btn.addEventListener("click", _actionFuntion);
       return $btn;
