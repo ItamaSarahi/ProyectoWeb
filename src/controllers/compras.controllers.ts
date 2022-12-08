@@ -181,7 +181,7 @@ export async function getPDFCompras(req: Request, res: Response) {
       headFont: "Helvetica-Bold",
 
     });
-    doc.setDocumentFooter({ height: '25%' }, () => {
+    doc.setDocumentFooter({ height: '20%' }, () => {
       doc.fontSize(10).text(
         'El total de la compra es: '+total,doc.footer.x+20,doc.footer.y);
         doc.fontSize(10).text(
